@@ -1,0 +1,85 @@
+@import (reference) "./variables.less";
+
+// generate background-color classes from all the colors defined in variables.less
+// exemple : .background-dark-blue
+.background-color-template(@name, @color) {
+	.background-color-@{name} {
+		background-color: @color;
+	}
+}
+
+.make-background-color() {
+	.-(length(@palette_couleurs));
+	.-(@i) when (@i > 0) {
+		.-((@i - 1));
+		@value: extract(@palette_couleurs, @i);
+		@name:  e(extract(@value, 1));
+		@color: extract(@value, 2);
+		.background-color-template(@name, @color);
+	}
+}
+
+.make-background-color();
+
+// generate background-color:hover classes from all the colors defined in variables.less
+// exemple : .background-dark-blue
+.background-color-hover-template(@name, @color) {
+	.background-color-hover-@{name}:hover {
+		background-color: @color;
+	}
+}
+
+.make-background-color-hover() {
+	.-(length(@palette_couleurs));
+	.-(@i) when (@i > 0) {
+		.-((@i - 1));
+		@value: extract(@palette_couleurs, @i);
+		@name:  e(extract(@value, 1));
+		@color: extract(@value, 2);
+		.background-color-hover-template(@name, @color);
+	}
+}
+
+.make-background-color-hover();
+
+// generate border-color classes from all the colors defined in variables.less
+// exemple : .border-color-dark-blue
+.border-color-template(@name, @color) {
+	.border-color-@{name} {
+		border-color: @color !important;
+	}
+}
+
+.make-border-color() {
+	.-(length(@palette_couleurs));
+	.-(@i) when (@i > 0) {
+		.-((@i - 1));
+		@value: extract(@palette_couleurs, @i);
+		@name:  e(extract(@value, 1));
+		@color: extract(@value, 2);
+		.border-color-template(@name, @color);
+	}
+}
+
+.make-border-color();
+
+// generate color classes from all the colors defined in variables.less
+// exemple : .color-dark-blue
+.color-template(@name, @color) {
+	.color-@{name} {
+		color: @color !important;
+	}
+}
+
+.make-color() {
+	.-(length(@palette_couleurs));
+	.-(@i) when (@i > 0) {
+		.-((@i - 1));
+		@value: extract(@palette_couleurs, @i);
+		@name:  e(extract(@value, 1));
+		@color: extract(@value, 2);
+		.color-template(@name, @color);
+	}
+}
+
+.make-color();

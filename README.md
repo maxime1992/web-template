@@ -1,10 +1,10 @@
 WebTemplate
 ===================
 
-# <i class="icon-rocket"></i> Why ?
+# Why ?
 If you often create new web projects, you know how long it can be to start from scratch.
 
-# <i class="icon-magic"></i> What's in the magic box ?
+# What's in the magic box ?
 Here, i propose my basic configuration for a website with :
 * Bootstrap
 * Less
@@ -25,7 +25,7 @@ I used npm for project dependencies :
 	* grunt-text-replace
 	* time-grunt
 
-# <i class="icon-cog"></i> How to start ?
+# How to start ?
 When you start a new project from this archetype :
 
 - *[optional]* Run "**npm update -g**"
@@ -46,9 +46,11 @@ When you start a new project from this archetype :
 - [optional] Run "**npm install -g bower**"
   If you don't have bower installed, this is going to install it globally.
 
+# Quick custom
+Before you really start your own projet, i recommend you to search for "CUSTOM" occurrences in the project.
+Everything with CUSTOM is something you may want to change (except into "bower_components" folder).
 
-
-# <i class="icon-pencil"></i> Contribution
+# Contribution
 I think the project has a nice & clean structure.
 If you have better ideas i would be glad to hear from you and why not propose a pull request ... ;)
 (Tho, it's only my second public repo on github i have no idea how pull request works, be kind and comprehensive if i make some mistakes).

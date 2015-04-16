@@ -16,8 +16,7 @@ grunt.initConfig({
 			dev_to_prod: {
 				files: [
 					// includes files within path
-     				{expand: true, cwd: 'site_dev/', src: ['*.html'], dest: 'dist/'},
-					{expand: true, cwd: 'site_dev/', src: ['assets/app_components/img/**'], dest: 'dist/'}
+     				{expand: true, cwd: 'site_dev/', src: ['*.html'], dest: 'dist/'}
 				],
 			},
 			bower_libraries: {
@@ -143,6 +142,21 @@ grunt.initConfig({
 			}
 		},
 
+		imagemin: {
+			dynamic: {
+				options: {
+					optimizationLevel: 3,
+					cache: true
+				},
+				files: [{
+					expand: true,
+					cwd: 'site_dev/assets/app_components/img/',
+					src: ['**/*.{png,jpg,gif}'],
+					dest: 'dist/assets/app_components/img/'
+				}]
+			}
+		},
+
 		preprocess : {
 			html : {
 				src : ['dist/*.html'],
@@ -164,6 +178,7 @@ grunt.initConfig({
 	grunt.loadNpmTasks('grunt-preprocess');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-imagemin');
 
 	// Default task(s).
 	grunt.registerTask('default',
@@ -183,6 +198,7 @@ grunt.initConfig({
 			'replace:less_in_html',
 			'replace:js_min',
 			'replace:css_min',
+			'imagemin',
 			'preprocess:html'
 			// 'cssmin'
 		]

@@ -17,7 +17,7 @@ grunt.initConfig({
 				files: [
 					// includes files within path
      				{expand: true, cwd: 'site_dev/', src: ['*.html'], dest: 'dist/'},
-					{expand: true, cwd: 'site_dev/', src: ['assets/app_components/app/**', 'assets/app_components/img/**'], dest: 'dist/'}
+					{expand: true, cwd: 'site_dev/', src: ['assets/app_components/img/**'], dest: 'dist/'}
 				],
 			},
 			bower_libraries: {
@@ -33,19 +33,19 @@ grunt.initConfig({
 				expand: true,
 				cwd: 'site_dev/assets/bower_components/font-awesome/fonts/',
 				src: '**/*',
-				dest: 'dist/assets/bower_components/font-awesome/fonts'
+				dest: 'dist/assets/app_components/fonts/'
 			},
 			keep_dist_fonts_bootstrap: {
 				expand: true,
 				cwd: 'site_dev/assets/bower_components/bootstrap/dist/fonts',
 				src: '**/*',
-				dest: 'dist/assets/bower_components/bootstrap/dist/fonts'
+				dest: 'dist/assets/app_components/fonts/'
 			},
 			keep_dist_img_bootstrap: {
 				expand: true,
 				cwd: 'site_dev/assets/bower_components/bootstrap/dist/img',
 				src: '**/*',
-				dest: 'site_dev/dist/assets/bower_components/bootstrap/dist/img'
+				dest: 'dist/assets/app_components/img/'
 			}
 		},
 
@@ -71,19 +71,76 @@ grunt.initConfig({
 						to: 'stylesheet'
 					}
 				]
+			},
+			js_min: {
+				src: ['dist/*.html'],
+				dest: 'dist/',
+				replacements: [
+					{
+						from: '<!-- JS_MIN -->',
+						to: '<script src="assets/app_components/app/app.js"></script>'
+					}
+				]
+			},
+			css_min: {
+				src: ['dist/*.html'],
+				dest: 'dist/',
+				replacements: [
+					{
+						from: '<!-- CSS_MIN -->',
+						to: '<link href="assets/app_components/css/default_css.css" rel="stylesheet">'
+					}
+				]
 			}
 		},
 
 		cssmin: {
 			target: {
 				files: {
-					'dist/assets/app_components/css/presentation.css': 'dist/assets/app_components/css/presentation.css',
+					'dist/assets/app_components/css/default_css.css': [
+						//libs
+						'dist/assets/bower_components/bootstrap/dist/css/bootstrap.min.css',
+						'dist/assets/bower_components/font-awesome/css/font-awesome.min.css',
+						
+						// app
+						'dist/assets/app_components/css/default_css.css',
+					]
 				}
 			}
 		},
 
 		jshint: {
-			files: ['Gruntfile.js', 'dist/assets/app_components/app/**/*.js']
+			files: ['Gruntfile.js', 'site_dev/assets/app_components/app/**/*.js']
+		},
+
+		concat: {
+			options: {
+				separator: ';'
+			},
+			js: {
+				src: [
+						// libs
+						'site_dev/assets/bower_components/angular/angular.js',
+						'site_dev/assets/bower_components/angular-route/angular-route.js',
+						'site_dev/assets/bower_components/angular-animate/angular-animate.js',
+
+						// app
+						'site_dev/assets/app_components/app/app.js',
+						'site_dev/assets/app_components/app/controllers/generalController.js'
+					 ],
+				dest: 'dist/assets/app_components/app/app.js'
+			}
+		},
+
+		uglify: {
+			js: {
+				files: {
+					'dist/assets/app_components/app/app.js': [ 'dist/assets/app_components/app/app.js' ]
+				},
+				options: {
+					mangle: true
+				}
+			}
 		},
 
 		preprocess : {
@@ -103,22 +160,30 @@ grunt.initConfig({
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-text-replace');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-preprocess');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 
 	// Default task(s).
 	grunt.registerTask('default',
 		[
+			// first check to know if JS is ok
+			'jshint',
 			'clean:site_prod',
 			'copy:dev_to_prod',
 			'copy:bower_libraries',
 			'copy:keep_fonts_font_awesome',
 			'copy:keep_dist_fonts_bootstrap',
 			'copy:keep_dist_img_bootstrap',
+			'concat:js',
+			'uglify:js',
 			'less:less_to_css_prod',
+			'cssmin',
 			'replace:less_in_html',
-			'preprocess:html',
-			'jshint'
+			'replace:js_min',
+			'replace:css_min',
+			'preprocess:html'
 			// 'cssmin'
 		]
 	);

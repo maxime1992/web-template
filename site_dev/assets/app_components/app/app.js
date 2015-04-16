@@ -1,3 +1,4 @@
+
 var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngRoute', 'ngAnimate']);
 
 // routes configuration

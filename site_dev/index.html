@@ -7,11 +7,18 @@
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 	<title>CUSTOM PAGE TITLE</title>
 
-	<!-- CSS -->
-	<link href="assets/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="assets/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
- 	<link rel="stylesheet/less" type="text/css" href="assets/app_components/css/default_css.less" />
+
+	<!-- CSS_MIN -->
+	<!-- @ifdef DEBUG -->
+		<!-- libraries -->
+		<link href="assets/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="assets/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		
+		<!-- app -->
+ 		<link rel="stylesheet/less" type="text/css" href="assets/app_components/css/default_css.less" />
+	<!-- @endif -->
+
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -23,24 +30,25 @@
 <body ng-controller="generalController">
 	<h1 id="CUSTOM_CSS_NAME">{{welcome}} <i class="fa fa-coffee"></i></h1>
 
-	<!-- load scripts at the bottom of the page (for speed concern) -->
-
-	<!-- libraries -->
-
+	<!-- JS_MIN -->
 	<!-- @ifdef DEBUG -->
+		<!-- load scripts at the bottom of the page (for speed concern) -->
+
+		<!-- libraries -->
+
 		<!-- everything between ifdev & endif will be removed by grunt in dist folder -->
 		<script src="assets/bower_components/less/dist/less.min.js"></script>
+
+		<!-- angular : libraries -->
+		<script src="assets/bower_components/angular/angular.js"></script>
+		<script src="assets/bower_components/angular-route/angular-route.js"></script>
+		<script src="assets/bower_components/angular-animate/angular-animate.js"></script>
+
+		<!-- angular : app -->
+		<script src="assets/app_components/app/app.js"></script>
+
+		<!-- angular : controllers -->
+		<script src="assets/app_components/app/controllers/generalController.js"></script>
 	<!-- @endif -->
-
-	<!-- angular : libraries -->
-	<script src="assets/bower_components/angular/angular.js"></script>
-	<script src="assets/bower_components/angular-route/angular-route.js"></script>
-	<script src="assets/bower_components/angular-animate/angular-animate.js"></script>
-
-	<!-- angular : app -->
-	<script src="assets/app_components/app/app.js"></script>
-
-	<!-- angular : controllers -->
-	<script src="assets/app_components/app/controllers/generalController.js"></script>
 </body>
 </html>

@@ -26,7 +26,11 @@
 	<!-- load scripts at the bottom of the page (for speed concern) -->
 
 	<!-- libraries -->
-	<script src="assets/bower_components/less/dist/less.min.js"></script>
+
+	<!-- @ifdef DEBUG -->
+		<!-- everything between ifdev & endif will be removed by grunt in dist folder -->
+		<script src="assets/bower_components/less/dist/less.min.js"></script>
+	<!-- @endif -->
 
 	<!-- angular : libraries -->
 	<script src="assets/bower_components/angular/angular.js"></script>

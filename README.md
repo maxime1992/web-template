@@ -3,6 +3,7 @@ WebTemplate
 
 # Why ?
 If you often create new web projects, you know how long it can be to start from scratch.
+You just need to kick start your project ? This repo has been made for you !
 
 # What's in the magic box ?
 Here, i propose my basic configuration for a website with :
@@ -45,6 +46,12 @@ When you start a new project from this archetype :
 
 - [optional] Run "**npm install -g bower**"
   If you don't have bower installed, this is going to install it globally.
+
+# Dev is done and you're moving to prod env ? Sure !
+A Grunt file has been prepared for you !
+No need to worry about concating css, compiling js, optimizing your pics, ...
+Just run "**grunt**" with your favourite terminal from the root of the project.
+A "dist" folder will be created. You're ready !
 
 # Quick custom
 Before you really start your own projet, i recommend you to search for "CUSTOM" occurrences in the project.

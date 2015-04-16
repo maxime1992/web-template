@@ -82,6 +82,10 @@ grunt.initConfig({
 			}
 		},
 
+		jshint: {
+			files: ['Gruntfile.js', 'dist/assets/app_components/app/**/*.js']
+		},
+
 		preprocess : {
 			html : {
 				src : ['dist/*.html'],
@@ -100,6 +104,7 @@ grunt.initConfig({
 	grunt.loadNpmTasks('grunt-text-replace');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-preprocess');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
 
 	// Default task(s).
 	grunt.registerTask('default',
@@ -112,7 +117,8 @@ grunt.initConfig({
 			'copy:keep_dist_img_bootstrap',
 			'less:less_to_css_prod',
 			'replace:less_in_html',
-			'preprocess:html'
+			'preprocess:html',
+			'jshint'
 			// 'cssmin'
 		]
 	);

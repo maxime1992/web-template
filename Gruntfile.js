@@ -91,6 +91,16 @@ grunt.initConfig({
 						to: '<link href="assets/app_components/css/default_css.css" rel="stylesheet">'
 					}
 				]
+			},
+			remove_mock_angular: {
+				src: ['dist/assets/app_components/app/app.js'],
+				dest: 'dist/assets/app_components/app/app.js',
+				replacements: [
+					{
+						from: '\'ngMockE2E\',',
+						to: ''
+					}
+				]
 			}
 		},
 
@@ -195,6 +205,7 @@ grunt.initConfig({
 			'copy:keep_dist_fonts_bootstrap',
 			'copy:keep_dist_img_bootstrap',
 			'concat:js',
+			'replace:remove_mock_angular',
 			'uglify:js',
 			'less:less_to_css_prod',
 			'cssmin',

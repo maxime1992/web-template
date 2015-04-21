@@ -7,8 +7,6 @@
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 	<title>CUSTOM PAGE TITLE</title>
 
-
-
 	<!-- CSS_MIN -->
 	<!-- @ifdef DEBUG -->
 		<!-- libraries -->
@@ -19,7 +17,6 @@
  		<link rel="stylesheet/less" type="text/css" href="assets/app_components/css/default_css.less" />
 	<!-- @endif -->
 
-
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -27,6 +24,7 @@
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 </head>
+
 <body ng-controller="generalController">
 	<h1 id="CUSTOM_CSS_NAME">{{welcome}} <i class="fa fa-coffee"></i></h1>
 
@@ -43,12 +41,17 @@
 		<script src="assets/bower_components/angular/angular.js"></script>
 		<script src="assets/bower_components/angular-route/angular-route.js"></script>
 		<script src="assets/bower_components/angular-animate/angular-animate.js"></script>
+		<script src="assets/bower_components/angular-mocks/angular-mocks.js"></script>
 
 		<!-- angular : app -->
 		<script src="assets/app_components/app/app.js"></script>
+
+		<!-- angular : mock -->
+		<script src="assets/app_components/app/mock/mock.js"></script>
 
 		<!-- angular : controllers -->
 		<script src="assets/app_components/app/controllers/generalController.js"></script>
 	<!-- @endif -->
 </body>
+
 </html>

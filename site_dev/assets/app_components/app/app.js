@@ -2,7 +2,7 @@
 var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngRoute', 'ngAnimate']);
 
 // routes configuration
-// app.config(function($routeProvider) {
+// app.config(['$routeProvider', function($routeProvider) {
 //     $routeProvider
 
 //         .when('/CUSTOM_URL', {
@@ -14,4 +14,4 @@ var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngRoute', 'ngAnimate']);
 // 			redirectTo: '/CUSTOM_DEFAULT_URL'
 // 		});
 		
-// });
+// }]);

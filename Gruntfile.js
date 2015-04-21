@@ -16,7 +16,8 @@ grunt.initConfig({
 			dev_to_prod: {
 				files: [
 					// includes files within path
-     				{expand: true, cwd: 'site_dev/', src: ['*.html'], dest: 'dist/'}
+     				{expand: true, cwd: 'site_dev/', src: ['*.html'], dest: 'dist/'},
+     				{expand: true, cwd: 'site_dev/assets/app_components/app/views/', src: ['*.html'], dest: 'dist/assets/app_components/app/views/'}
 				],
 			},
 			bower_libraries: {
@@ -125,6 +126,8 @@ grunt.initConfig({
 
 						// app
 						'site_dev/assets/app_components/app/app.js',
+
+						// controllers
 						'site_dev/assets/app_components/app/controllers/generalController.js'
 					 ],
 				dest: 'dist/assets/app_components/app/app.js'
@@ -151,7 +154,7 @@ grunt.initConfig({
 				files: [{
 					expand: true,
 					cwd: 'site_dev/assets/app_components/img/',
-					src: ['**/*.{png,jpg,gif}'],
+					src: ['**/*.{png,jpg,gif,PNG,JPG,GIF}'],
 					dest: 'dist/assets/app_components/img/'
 				}]
 			}
@@ -200,7 +203,6 @@ grunt.initConfig({
 			'replace:css_min',
 			'imagemin',
 			'preprocess:html'
-			// 'cssmin'
 		]
 	);
 

@@ -2,16 +2,20 @@
 var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ngRoute', 'ngAnimate']);
 
 // routes configuration
-// app.config(['$routeProvider', function($routeProvider) {
-//     $routeProvider
+// app.config(['$httpProvider', '$routeProvider', function($httpProvider, $routeProvider) {
 
-//         .when('/CUSTOM_URL', {
-//             templateUrl : 'assets/app_components/app/views/CUSTOM_PAGE.html'
-//         })
+// 	// enable http caching
+// 	$httpProvider.defaults.cache = true;
 
-//         // default redirection
+// 	$routeProvider
+
+// 		.when('/CUSTOM_URL', {
+// 			templateUrl : 'assets/app_components/app/views/CUSTOM_PAGE.html'
+// 		})
+
+// 		// default redirection
 // 		.otherwise({
 // 			redirectTo: '/CUSTOM_DEFAULT_URL'
 // 		});
-		
+
 // }]);

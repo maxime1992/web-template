@@ -137,6 +137,9 @@ grunt.initConfig({
 						// app
 						'site_dev/assets/app_components/app/app.js',
 
+						// directives
+						'site_dev/assets/app_components/app/directives/CUSTOMDirective.js',
+
 						// controllers
 						'site_dev/assets/app_components/app/controllers/generalController.js'
 					 ],

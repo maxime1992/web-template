@@ -27,7 +27,8 @@
 
 <body ng-controller="generalController">
 	<h1 id="CUSTOM_CSS_NAME">{{welcome}} <i class="fa fa-coffee"></i></h1>
-
+	<div my-custom-directive="" arg-one="1" arg-two="2" arg-three="3">test</div>
+	
 	<!-- JS_MIN -->
 	<!-- @ifdef DEBUG -->
 		<!-- load scripts at the bottom of the page (for speed concern) -->
@@ -48,6 +49,9 @@
 
 		<!-- angular : mock -->
 		<script src="assets/app_components/app/mock/mock.js"></script>
+
+		<!-- angular : directives -->
+		<script src="assets/app_components/app/directives/CUSTOMDirective.js"></script>
 
 		<!-- angular : controllers -->
 		<script src="assets/app_components/app/controllers/generalController.js"></script>

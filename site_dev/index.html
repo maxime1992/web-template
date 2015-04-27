@@ -7,14 +7,14 @@
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 	<title>CUSTOM PAGE TITLE</title>
 
-	<!-- CSS_MIN -->
+	<!-- build:css assets/app_components/css/default_css.css -->
+		<link rel="stylesheet" href="assets/bower_components/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<!-- endbuild -->
+
 	<!-- @ifdef DEBUG -->
-		<!-- libraries -->
-		<link href="assets/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-		<link href="assets/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-		
 		<!-- app -->
- 		<link rel="stylesheet/less" type="text/css" href="assets/app_components/css/default_css.less" />
+		<link rel="stylesheet/less" type="text/css" href="assets/app_components/css/default_css.less" />
 	<!-- @endif -->
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -26,17 +26,18 @@
 </head>
 
 <body ng-controller="generalController">
-	<h1 id="CUSTOM_CSS_NAME">{{welcome}} <i class="fa fa-coffee"></i></h1>
+	<h1 id="CUSTOM_CSS_NAME">{{welcome}} <i class="fa fa-coffee"></i> <span class="glyphicon glyphicon-plus"></span></h1>
 	<div my-custom-directive="" arg-one="1" arg-two="2" arg-three="3">test</div>
 	
-	<!-- JS_MIN -->
-	<!-- @ifdef DEBUG -->
+	<!-- build:js assets/app_components/app/app.js -->
 		<!-- load scripts at the bottom of the page (for speed concern) -->
 
 		<!-- libraries -->
 
 		<!-- everything between ifdev & endif will be removed by grunt in dist folder -->
-		<script src="assets/bower_components/less/dist/less.min.js"></script>
+		<!-- @ifdef DEBUG -->
+			<script src="assets/bower_components/less/dist/less.min.js"></script>
+		<!-- @endif -->
 
 		<!-- angular : libraries -->
 		<script src="assets/bower_components/angular/angular.js"></script>
@@ -48,14 +49,16 @@
 		<script src="assets/app_components/app/app.js"></script>
 
 		<!-- angular : mock -->
-		<script src="assets/app_components/app/mock/mock.js"></script>
-
+		<!-- @ifdef DEBUG -->
+			<script src="assets/app_components/app/mock/mock.js"></script>
+		<!-- @endif -->
+		
 		<!-- angular : directives -->
 		<script src="assets/app_components/app/directives/CUSTOMDirective.js"></script>
 
 		<!-- angular : controllers -->
 		<script src="assets/app_components/app/controllers/generalController.js"></script>
-	<!-- @endif -->
+	<!-- endbuild -->
 </body>
 
 </html>

@@ -1,3 +1,4 @@
 node_modules/*
 dist/*
 .tmp/*
+site_dev/assets/bower_components/*

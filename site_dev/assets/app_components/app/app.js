@@ -1,5 +1,5 @@
 
-var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ngRoute', 'ngAnimate']);
+var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ngRoute', 'ngAnimate', 'ui.bootstrap']);
 
 // routes configuration
 // app.config(['$httpProvider', '$routeProvider', function($httpProvider, $routeProvider) {

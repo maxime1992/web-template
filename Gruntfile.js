@@ -70,6 +70,10 @@ grunt.initConfig({
 					{
 						from: '\'ngMockE2E\',',
 						to: ''
+					},
+					{
+						from: '"ngMockE2E",',
+						to: ''
 					}
 				]
 			}
@@ -151,7 +155,6 @@ grunt.initConfig({
 			'copy:keep_dist_fonts_bootstrap',
 			'copy:keep_dist_img_bootstrap',
 			'replace:less_in_html',
-			'replace:remove_mock_angular',
 			'less:less_to_css_prod',
 			'preprocess:html',
 			'useminPrepare',
@@ -159,6 +162,7 @@ grunt.initConfig({
 			'concat:app',
 			'uglify:generated',
 			'cssmin:generated',
+			'replace:remove_mock_angular',
 			'imagemin',
 			'usemin'
 		]

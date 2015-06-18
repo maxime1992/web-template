@@ -76,6 +76,16 @@ grunt.initConfig({
 						to: ''
 					}
 				]
+			},
+			remove_css_important_comments: {
+				src: ['.tmp/concat/assets/app_components/css/default_css.css'],
+				dest: '.tmp/concat/assets/app_components/css/default_css.css',
+				replacements: [
+					{
+						from: '/*!',
+						to: '/*'
+					}
+				]
 			}
 		},
 
@@ -85,7 +95,7 @@ grunt.initConfig({
 
 		concat: {
 			options: {
-				separator: ';',
+				separator: '',
 			},
 			app: {
 				src: ['.tmp/concat/assets/app_components/css/default_css.css', 'dist/assets/app_components/css/default_css.css'],
@@ -127,6 +137,15 @@ grunt.initConfig({
 
 		usemin: {
 			html: 'dist/index.html'
+		},
+
+		purifycss: {
+			options: {},
+			target: {
+				src: ['site_dev/index.html', 'site_dev/assets/app_components/app/views/*.html', 'site_dev/assets/app_components/app/app.js'],
+				css: ['.tmp/concat/assets/app_components/css/default_css.css'],
+				dest: '.tmp/concat/assets/app_components/css/default_css.css'
+			}
 		}
 
 	});
@@ -143,6 +162,7 @@ grunt.initConfig({
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
+	grunt.loadNpmTasks('grunt-purifycss');
 
 	// Default task(s).
 	grunt.registerTask('default',
@@ -160,6 +180,8 @@ grunt.initConfig({
 			'useminPrepare',
 			'concat:generated',
 			'concat:app',
+			'replace:remove_css_important_comments',
+			'purifycss',
 			'uglify:generated',
 			'cssmin:generated',
 			'replace:remove_mock_angular',

@@ -139,6 +139,32 @@ grunt.initConfig({
 			html: 'dist/index.html'
 		},
 
+		htmlmin: {
+			index: {
+				options: {
+					removeComments: true,
+					collapseWhitespace: true
+				},
+				files: {
+					'dist/index.html': 'dist/index.html'
+				}
+			},
+			views: {
+				options: {
+					removeComments: true,
+					collapseWhitespace: true
+				},
+				files: [
+					{
+						expand: true,
+						cwd: 'dist/assets/app_components/app/views/', // Src matches are relative to this path.
+						src: ['**/*.html'], // Actual pattern(s) to match.
+						dest: 'dist/assets/app_components/app/views/',   // Destination path prefix.
+					}
+				]
+			}
+		},
+
 		purifycss: {
 			options: {},
 			target: {
@@ -163,6 +189,7 @@ grunt.initConfig({
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-purifycss');
+	grunt.loadNpmTasks('grunt-contrib-htmlmin');
 
 	// Default task(s).
 	grunt.registerTask('default',
@@ -186,7 +213,9 @@ grunt.initConfig({
 			'cssmin:generated',
 			'replace:remove_mock_angular',
 			'imagemin',
-			'usemin'
+			'usemin',
+			'htmlmin:index',
+			'htmlmin:views',
 		]
 	);
 

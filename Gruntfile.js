@@ -177,19 +177,7 @@ grunt.initConfig({
 	});
 	 
 	// Load plugins
-	grunt.loadNpmTasks('grunt-usemin');
-	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-contrib-less');
-	grunt.loadNpmTasks('grunt-text-replace');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-preprocess');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-imagemin');
-	grunt.loadNpmTasks('grunt-purifycss');
-	grunt.loadNpmTasks('grunt-contrib-htmlmin');
+	require('load-grunt-tasks')(grunt);
 
 	// Default task(s).
 	grunt.registerTask('default',

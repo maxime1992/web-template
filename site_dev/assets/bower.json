@@ -1,8 +1,8 @@
 {
-  "name": "bower",
+  "name": "webTemplate",
   "version": "0.0.0",
   "authors": [
-    "Maxime ROBERT <mdrobert@airfrance.fr>"
+    "Maxime ROBERT <maxime.robert1992@gmail.com>"
   ],
   "license": "copyright",
   "ignore": [

@@ -86,7 +86,17 @@ grunt.initConfig({
 						to: '/*'
 					}
 				]
-			}
+			},
+			disableDebug: {
+				src: ['.tmp/concat/assets/app_components/app/app.js'],
+				dest: '.tmp/concat/assets/app_components/app/app.js',
+				replacements: [
+					{
+						from: 'debugInfoEnabled(true)',
+						to: 'debugInfoEnabled(false)'
+					}
+				]
+			},
 		},
 
 		jshint: {
@@ -197,6 +207,7 @@ grunt.initConfig({
 			'concat:app',
 			'replace:remove_css_important_comments',
 			'purifycss',
+			'replace:disableDebug',
 			'uglify:generated',
 			'cssmin:generated',
 			'replace:remove_mock_angular',

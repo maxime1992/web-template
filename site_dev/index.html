@@ -28,6 +28,15 @@
 <body ng-controller="generalController">
 	<h1 id="CUSTOM_CSS_NAME">{{welcome}} <i class="fa fa-coffee"></i> <span class="glyphicon glyphicon-plus"></span></h1>
 	<div my-custom-directive="" arg-one="1" arg-two="2" arg-three="3">test</div>
+
+	<br />
+
+	<button ng-click="toggleLang()">Toggle language</button>
+
+	<br />
+
+	<h1>{{ 'TITLE' | translate }}</h1>
+	<p>{{ 'FOO' | translate }}</p>
 	
 	<!-- build:js assets/app_components/app/app.js -->
 		<!-- load scripts at the bottom of the page (for speed concern) -->
@@ -44,6 +53,7 @@
 		<script src="assets/bower_components/angular-route/angular-route.js"></script>
 		<script src="assets/bower_components/angular-animate/angular-animate.js"></script>
 		<script src="assets/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+		<script src="assets/bower_components/angular-translate/angular-translate.min.js"></script>
 		<!-- @ifdef DEBUG -->
 			<script src="assets/bower_components/angular-mocks/angular-mocks.js"></script>
 		<!-- @endif -->

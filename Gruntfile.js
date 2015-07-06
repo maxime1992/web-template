@@ -9,7 +9,7 @@ grunt.initConfig({
 	 	// Tasks
 
 		clean: {
-			site_prod: ['dist'],
+			site_prod: ['dist']
 		},
 
 	 	copy: {
@@ -63,6 +63,30 @@ grunt.initConfig({
 					}
 				]
 			},
+			add_compiled_template: {
+				src: ['dist/*.html'],
+				dest: 'dist/',
+				replacements: [
+					{
+						from: '<!-- task : include_compiled_template_before_production -->',
+						to: '<script src="\.\.\/\.tmp\/templates\.js"><\/script>'
+					}
+				]
+			},
+			change_app_name_compiled_template: {
+				src: ['.tmp/templates.js'],
+				dest: '.tmp/templates.js',
+				replacements: [
+					{
+						from: 'angular\.module\(\'app\'\)',
+						to: 'app'
+					},
+					{
+						from: 'site_dev\/',
+						to: ''
+					}
+				]
+			},
 			remove_mock_angular: {
 				src: ['dist/assets/app_components/app/app.js'],
 				dest: 'dist/assets/app_components/app/app.js',
@@ -101,6 +125,13 @@ grunt.initConfig({
 
 		jshint: {
 			files: ['Gruntfile.js', 'site_dev/assets/app_components/app/**/*.js']
+		},
+
+		ngtemplates: {
+			app: {
+				src: 'site_dev/assets/app_components/app/directives/views/*.html',
+				dest: '.tmp/templates.js'
+			}
 		},
 
 		concat: {
@@ -201,6 +232,9 @@ grunt.initConfig({
 			'copy:keep_dist_img_bootstrap',
 			'replace:less_in_html',
 			'less:less_to_css_prod',
+			'replace:add_compiled_template',
+			'ngtemplates:app',
+			'replace:change_app_name_compiled_template',
 			'preprocess:html',
 			'useminPrepare',
 			'concat:generated',

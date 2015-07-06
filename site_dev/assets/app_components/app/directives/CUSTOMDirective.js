@@ -15,6 +15,6 @@ app.directive("myCustomDirective", function(){
 					argTwo: '@argTwo',
 					argThree: '@argThree'
 				},
-		template: '<div>CUSTOM : directive argument {{argOne}}, directive argument {{argTwo}}, directive argument {{argThree}}</div>'
+		templateUrl: 'assets/app_components/app/directives/views/CUSTOMDirective.html'
 	};
 });

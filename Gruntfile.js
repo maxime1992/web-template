@@ -213,6 +213,20 @@ grunt.initConfig({
 				css: ['.tmp/concat/assets/app_components/css/default_css.css'],
 				dest: '.tmp/concat/assets/app_components/css/default_css.css'
 			}
+		},
+
+		karma: {  
+			unit: {
+				options: {
+					frameworks: ['jasmine'],
+					singleRun: true,
+					browsers: ['PhantomJS'],
+					files: [
+						'dist/assets/app_components/app/app.js',
+						'site_dev/assets/app_components/app/tests/*.js'
+					]
+				}
+			}
 		}
 
 	});
@@ -249,6 +263,13 @@ grunt.initConfig({
 			'usemin',
 			'htmlmin:index',
 			'htmlmin:views',
+		]
+	);
+
+
+	grunt.registerTask('test', [
+			'default',
+			'karma:unit'
 		]
 	);
 

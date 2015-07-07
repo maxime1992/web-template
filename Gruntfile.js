@@ -1,11 +1,13 @@
 module.exports = function(grunt) {
 
 require('time-grunt')(grunt);
+
+var grunt_arg = process.argv[2];
  
 // project configuration
 grunt.initConfig({
 
-	 pkg: grunt.file.readJSON('package.json'),
+		pkg: grunt.file.readJSON('package.json'),
 	 	// Tasks
 
 		clean: {
@@ -144,6 +146,17 @@ grunt.initConfig({
 			}
 		},
 
+		ngAnnotate: {
+			options: {
+				singleQuotes: true
+			},
+			app: {
+				files: {
+					'.tmp/concat/assets/app_components/app/app.js': ['.tmp/concat/assets/app_components/app/app.js']
+				}
+			}
+		},
+
 		useminPrepare: {
 			html: 'dist/index.html',
 			options: {
@@ -171,7 +184,10 @@ grunt.initConfig({
 			html : {
 				src : ['dist/*.html'],
 				options: {
-					inline : true
+					inline : true,
+					context : {
+						TEST: grunt_arg==='test'
+					}
 				}
 			}
 		},
@@ -256,20 +272,21 @@ grunt.initConfig({
 			'replace:remove_css_important_comments',
 			'purifycss',
 			'replace:disableDebug',
+			'ngAnnotate:app',
 			'uglify:generated',
 			'cssmin:generated',
 			'replace:remove_mock_angular',
 			'imagemin',
 			'usemin',
 			'htmlmin:index',
-			'htmlmin:views',
+			'htmlmin:views'
 		]
 	);
 
 
 	grunt.registerTask('test', [
 			'default',
-			'karma:unit'
+			'karma'
 		]
 	);
 

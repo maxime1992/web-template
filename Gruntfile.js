@@ -125,6 +125,15 @@ grunt.initConfig({
 			},
 		},
 
+		if: {
+			testing: {
+				options: {
+					test: function(){ return grunt_arg==='test'; }
+				},
+				ifFalse: [ 'replace:remove_mock_angular' ]
+			}
+		},
+
 		jshint: {
 			files: ['Gruntfile.js', 'site_dev/assets/app_components/app/**/*.js']
 		},
@@ -275,7 +284,7 @@ grunt.initConfig({
 			'ngAnnotate:app',
 			'uglify:generated',
 			'cssmin:generated',
-			'replace:remove_mock_angular',
+			'if:testing',
 			'imagemin',
 			'usemin',
 			'htmlmin:index',

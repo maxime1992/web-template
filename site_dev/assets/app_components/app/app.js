@@ -1,5 +1,5 @@
 
-var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ngRoute', 'ngAnimate', 'ui.bootstrap', 'pascalprecht.translate']);
+var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ngRoute', 'ngAnimate', 'ui.bootstrap', 'ngSanitize', 'pascalprecht.translate']);
 
 // routes configuration
 app.config(['$compileProvider', '$httpProvider', '$routeProvider', '$translateProvider', function($compileProvider, $httpProvider, $routeProvider, $translateProvider) {
@@ -31,6 +31,7 @@ app.config(['$compileProvider', '$httpProvider', '$routeProvider', '$translatePr
 		FOO: 'Ceci est un paragraphe'
 	});
 
+	$translateProvider.useSanitizeValueStrategy('sanitize');
 	$translateProvider.preferredLanguage('en');
 
 }]);

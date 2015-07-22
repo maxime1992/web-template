@@ -7,14 +7,14 @@
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 	<title>CUSTOM PAGE TITLE</title>
 
-	<!-- build:css assets/app_components/css/default_css.css -->
-		<link rel="stylesheet" href="assets/bower_components/font-awesome/css/font-awesome.min.css">
+	<!-- build:css assets/app_components/css/defaultCss.css -->
 		<link rel="stylesheet" href="assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="assets/bower_components/font-awesome/css/font-awesome.min.css">
 	<!-- endbuild -->
 
 	<!-- @ifdef DEBUG -->
 		<!-- app -->
-		<link rel="stylesheet/less" type="text/css" href="assets/app_components/css/default_css.less" />
+		<link rel="stylesheet/less" type="text/css" href="assets/app_components/css/defaultCss.less" />
 	<!-- @endif -->
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -26,17 +26,59 @@
 </head>
 
 <body ng-controller="generalController">
-	<h1 id="CUSTOM_CSS_NAME">{{welcome}} <i class="fa fa-coffee"></i> <span class="glyphicon glyphicon-plus"></span></h1>
-	<div my-custom-directive="" arg-one="1" arg-two="2" arg-three="3">test</div>
+	
+	<!-- HEADER START -->
+	<header>
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
 
-	<br />
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="navbar-collapse" collapse="isCollapsed">
+					<ul class="nav navbar-nav">
+						<li ng-class="{ active: isActive('/home')}" ng-click="isCollapsed=true"><a ui-sref="home"><i class="fa fa-home"></i></a></li>
+						<li ng-class="{ active: isActive('/page1')}" ng-click="isCollapsed=true"><a ui-sref="page1">Page 1</a></li>
+						<li ng-class="{ active: isActive('/page2')}" ng-click="isCollapsed=true"><a ui-sref="page2">Page 2</a></li>
+						<li ng-class="{ active: isActive('/page3')}" ng-click="isCollapsed=true"><a ui-sref="page3">Page 3</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right lang">
+						<li class="lang"><a href="" ng-click="changeLanguageTo('fr')" ng-class="{ selected: getLanguage()=='fr'}">FR</a><!--<a href="" ng-click="changeLanguageTo('fr')" ng-class="{ active: getLanguage()=='fr'}" class="item">FR</a> / <a href="" ng-click="changeLanguageTo('en')" ng-class="{ active: getLanguage()=='en'}" class="item">EN</a>--></li>
+						<li><a href="" ng-click="changeLanguageTo('en')" ng-class="{ selected: getLanguage()=='en'}">EN</a></li>
+					</ul>
+					
+				</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+	</header>
+	<!-- HEADER END -->
 
-	<button ng-click="toggleLang()">Toggle language</button>
+	<!-- CONTENT START -->
+	<section id="content">
 
-	<br />
+		<div class="container">
+			<div class="row">
+				<!-- CONTENT -->
+				<div class="col-xs-12 col-sm-8 col-md-9">
+					<div ui-view="mainView"></div>
+				</div>
 
-	<h1>{{ 'TITLE' | translate }}</h1>
-	<p>{{ 'FOO' | translate }}</p>
+				<!-- RIGHT MENU -->
+				<div class="col-xs-12 col-sm-4 col-md-3 right-menu">
+					<div ui-view="rightMenuView"></div>
+				</div>
+			</div>
+		</div>
+		
+	</section>
+	<!-- CONTENT END -->
 	
 	<!-- build:js assets/app_components/app/app.js -->
 		<!-- load scripts at the bottom of the page (for speed concern) -->
@@ -50,8 +92,8 @@
 
 		<!-- angular : libraries -->
 		<script src="assets/bower_components/angular/angular.js"></script>
-		<script src="assets/bower_components/angular-route/angular-route.js"></script>
-		<script src="assets/bower_components/angular-animate/angular-animate.js"></script>
+		<script src="assets/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+		<!--<script src="assets/bower_components/angular-animate/angular-animate.js"></script>-->
 		<script src="assets/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 		<script src="assets/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 		<script src="assets/bower_components/angular-translate/angular-translate.min.js"></script>
@@ -70,7 +112,10 @@
 		<!-- @endif -->
 		
 		<!-- angular : directives -->
-		<script src="assets/app_components/app/directives/CUSTOMDirective.js"></script>
+		<script src="assets/app_components/app/directives/completeBlockDirective.js"></script>
+
+		<!-- angular : factories -->
+		<script src="assets/app_components/app/factories/langFactory.js"></script>
 
 		<!-- angular : controllers -->
 		<script src="assets/app_components/app/controllers/generalController.js"></script>

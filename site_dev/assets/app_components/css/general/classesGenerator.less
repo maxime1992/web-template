@@ -9,10 +9,10 @@
 }
 
 .make-background-color() {
-	.-(length(@palette_couleurs));
+	.-(length(@color_palette));
 	.-(@i) when (@i > 0) {
 		.-((@i - 1));
-		@value: extract(@palette_couleurs, @i);
+		@value: extract(@color_palette, @i);
 		@name:  e(extract(@value, 1));
 		@color: extract(@value, 2);
 		.background-color-template(@name, @color);
@@ -30,10 +30,10 @@
 }
 
 .make-background-color-hover() {
-	.-(length(@palette_couleurs));
+	.-(length(@color_palette));
 	.-(@i) when (@i > 0) {
 		.-((@i - 1));
-		@value: extract(@palette_couleurs, @i);
+		@value: extract(@color_palette, @i);
 		@name:  e(extract(@value, 1));
 		@color: extract(@value, 2);
 		.background-color-hover-template(@name, @color);
@@ -51,10 +51,10 @@
 }
 
 .make-border-color() {
-	.-(length(@palette_couleurs));
+	.-(length(@color_palette));
 	.-(@i) when (@i > 0) {
 		.-((@i - 1));
-		@value: extract(@palette_couleurs, @i);
+		@value: extract(@color_palette, @i);
 		@name:  e(extract(@value, 1));
 		@color: extract(@value, 2);
 		.border-color-template(@name, @color);
@@ -72,10 +72,10 @@
 }
 
 .make-color() {
-	.-(length(@palette_couleurs));
+	.-(length(@color_palette));
 	.-(@i) when (@i > 0) {
 		.-((@i - 1));
-		@value: extract(@palette_couleurs, @i);
+		@value: extract(@color_palette, @i);
 		@name:  e(extract(@value, 1));
 		@color: extract(@value, 2);
 		.color-template(@name, @color);

@@ -45,7 +45,7 @@ grunt.initConfig({
 		less: {
 			less_to_css_prod: {
 				files: {
-					'dist/assets/app_components/css/default_css.css': 'site_dev/assets/app_components/css/default_css.less'
+					'dist/assets/app_components/css/defaultCss.css': 'site_dev/assets/app_components/css/defaultCss.less'
 				}
 			}
 		},
@@ -104,8 +104,8 @@ grunt.initConfig({
 				]
 			},
 			remove_css_important_comments: {
-				src: ['.tmp/concat/assets/app_components/css/default_css.css'],
-				dest: '.tmp/concat/assets/app_components/css/default_css.css',
+				src: ['.tmp/concat/assets/app_components/css/defaultCss.css'],
+				dest: '.tmp/concat/assets/app_components/css/defaultCss.css',
 				replacements: [
 					{
 						from: '/*!',
@@ -150,8 +150,8 @@ grunt.initConfig({
 				separator: '',
 			},
 			app: {
-				src: ['.tmp/concat/assets/app_components/css/default_css.css', 'dist/assets/app_components/css/default_css.css'],
-				dest: '.tmp/concat/assets/app_components/css/default_css.css'
+				src: ['.tmp/concat/assets/app_components/css/defaultCss.css', 'dist/assets/app_components/css/defaultCss.css'],
+				dest: '.tmp/concat/assets/app_components/css/defaultCss.css'
 			}
 		},
 
@@ -234,9 +234,9 @@ grunt.initConfig({
 		purifycss: {
 			options: {},
 			target: {
-				src: ['site_dev/index.html', 'site_dev/assets/app_components/app/views/*.html', 'site_dev/assets/app_components/app/app.js'],
-				css: ['.tmp/concat/assets/app_components/css/default_css.css'],
-				dest: '.tmp/concat/assets/app_components/css/default_css.css'
+				src: ['site_dev/index.html', 'site_dev/assets/app_components/app/views/*.html', 'site_dev/assets/app_components/app/directives/views/*.html', 'site_dev/assets/app_components/app/app.js'],
+				css: ['.tmp/concat/assets/app_components/css/defaultCss.css'],
+				dest: '.tmp/concat/assets/app_components/css/defaultCss.css'
 			}
 		},
 

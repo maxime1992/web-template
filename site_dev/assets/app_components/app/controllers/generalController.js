@@ -1,11 +1,38 @@
 
-app.controller('generalController', ['$scope', '$translate', function($scope, $translate) {
+app.controller('generalController', ['$scope', '$location', '$state', '$translate', 'langFactory', function($scope, $location, $state, $translate, langFactory) {
 	
-	$scope.welcome = 'Welcome !';
+	// change language when url parameter 'lang' changes
+	$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+		// change lang on the whole app
+		$translate.use(toParams.lang);
 
-	$scope.toggleLang = function () {
+		// save lang in factory
+		langFactory.setLang(toParams.lang);
+	});
+
+	// is menu collapsed ?
+	$scope.isCollapsed = true;
+
+	// which item is selected in menu ?
+	// return true if viewLocation is equal to url
+	$scope.isActive = function (viewLocation) {
+		return $location.path().indexOf(viewLocation) > -1;
+	};
+
+	$scope.changeLanguageTo = function (lang) {
 		/*jshint -W030*/
-		$translate.use() == 'en' ? $translate.use('fr') : $translate.use('en');
+		$translate.use(lang); // change lang on the whole app
+
+		// save lang in factory
+		langFactory.setLang(lang);
+
+		// change the url to match the actual lang
+		$location.path('/'+lang+$location.path().substring(3));
+	};
+
+	$scope.getLanguage = function () {
+		/*jshint -W030*/
+		return $translate.use();
 	};
 
 }]);

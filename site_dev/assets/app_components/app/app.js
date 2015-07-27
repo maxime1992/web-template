@@ -1,5 +1,5 @@
 
-var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ui.router', 'ui.bootstrap', 'ngSanitize', 'pascalprecht.translate', 'angular-loading-bar']);
+var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ui.router', 'ui.bootstrap', 'ngSanitize', 'pascalprecht.translate', 'angular-loading-bar', 'afkl.lazyImage']);
 
 // routes configuration
 app.config(['$compileProvider', '$httpProvider', '$locationProvider', '$stateProvider', '$provide', '$urlRouterProvider', '$translateProvider', function($compileProvider, $httpProvider, $locationProvider, $stateProvider, $provide, $urlRouterProvider, $translateProvider) {

@@ -22,7 +22,8 @@
     "angular-sanitize": "~1.4.2",
     "angular-ui-router": "~0.2.15",
     "angular-translate-loader-static-files": "~2.7.2",
-    "angular-loading-bar": "~0.8.0"
+    "angular-loading-bar": "~0.8.0",
+    "afkl-lazy-image": "~0.1.4"
   },
   "resolutions": {
     "angular": "1.4.3"

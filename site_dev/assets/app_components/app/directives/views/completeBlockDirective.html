@@ -1,6 +1,6 @@
 <div ng-class="(headerPicto != null && headerPicto.length != 0) || (headerTitle != null && headerTitle.length != 0) ? 'complete-block' : 'complete-block-no-header'">
 	<div ng-if="headerImg != null && img.length != 0" class="wrapper-header-img">
-		<img ng-src="{{headerImg}}" class="full-width" />
+		<div afkl-lazy-image="//{{headerImg}}" class="afkl-lazy-wrapper"></div>
 	</div>
 
 	<div ng-if="headerPicto != null && headerPicto.length != 0" class="header {{headerBackgroundColor}} {{headerColor}}">

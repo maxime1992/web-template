@@ -19,7 +19,8 @@ grunt.initConfig({
 				files: [
 					// includes files within path
      				{expand: true, cwd: 'site_dev/', src: ['*.html'], dest: 'dist/'},
-     				{expand: true, cwd: 'site_dev/assets/app_components/app/views/', src: ['*.html'], dest: 'dist/assets/app_components/app/views/'}
+     				{expand: true, cwd: 'site_dev/assets/app_components/app/views/', src: ['*'], dest: 'dist/assets/app_components/app/views/'},
+     				{expand: true, cwd: 'site_dev/assets/app_components/app/languages/', src: ['*'], dest: 'dist/assets/app_components/app/languages/'}
 				],
 			},
 			keep_fonts_font_awesome: {

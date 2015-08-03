@@ -5,10 +5,32 @@
   "main": "Gruntfile.js",
   "dependencies": {
     "connect": "^3.3.5",
-    "serve-static": "^1.9.3"
+    "serve-static": "^1.9.3",
+    "xo": "^0.5.0"
+  },
+  "xo": {
+    "globals": [
+      "angular",
+      "app",
+      "describe",
+      "beforeEach",
+      "inject",
+      "it",
+      "expect",
+      "module",
+      "require"
+    ],
+    "rules": {
+      "linebreak-style": [
+        0
+      ],
+      "no-invalid-this": 0,
+      "strict": [2, "function"]
+    },
+    "ignores": [".tmp/**", ".git/**", "dist/**", "**/bower_components/**"]
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "xo"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

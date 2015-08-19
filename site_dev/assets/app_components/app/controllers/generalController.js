@@ -22,18 +22,16 @@
 
 		$scope.changeLanguageTo = function (lang) {
 			// change lang on the whole app
-			/* jshint -W030 */
 			$translate.use(lang);
 
 			// save lang in factory
 			langFactory.setLang(lang);
 
-			// change the url to match the actual lang
-			$location.path('/' + lang + $location.path().substring(3));
+			// change state to update the lang into URL
+			$state.go($state.current.name);
 		};
 
 		$scope.getLanguage = function () {
-			/* jshint -W030 */
 			return $translate.use();
 		};
 	}]);

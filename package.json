@@ -25,7 +25,8 @@
         0
       ],
       "no-invalid-this": 0,
-      "strict": [2, "function"]
+      "strict": [2, "function"],
+      "brace-style": [2, "stroustrup", {"allowSingleLine": false}]
     },
     "ignores": [".tmp/**", ".git/**", "dist/**", "**/bower_components/**"]
   },

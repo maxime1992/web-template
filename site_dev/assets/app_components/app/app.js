@@ -1,4 +1,5 @@
 var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ui.router', 'ui.bootstrap', 'ngSanitize', 'pascalprecht.translate', 'angular-loading-bar', 'afkl.lazyImage']);
+var languages = ['en', 'fr'];
 
 (function () {
 	'use strict';
@@ -11,20 +12,16 @@ var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ui.router', 'u
 		// enable http caching
 		$httpProvider.defaults.cache = true;
 
-		// define default language code
-		var defaultLang = 'fr';
-
-		// default redirection
-		$urlRouterProvider.otherwise('/' + defaultLang + '/home');
-
+		// default redirection :
+		// redirect to 'default' state to keep user language
+		// and redirect to :lang/home
 		$stateProvider
 		.state('home', {
 			url: '/:lang/home',
 			views: {
 				mainView: {templateUrl: 'assets/app_components/app/views/home.html'},
 				rightMenuView: {templateUrl: 'assets/app_components/app/views/rightMenu.html'}
-			},
-			params: {lang: defaultLang}
+			}
 		})
 
 		.state('page1', {
@@ -32,8 +29,7 @@ var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ui.router', 'u
 			views: {
 				mainView: {templateUrl: 'assets/app_components/app/views/page1.html'},
 				rightMenuView: {templateUrl: 'assets/app_components/app/views/rightMenu.html'}
-			},
-			params: {lang: defaultLang}
+			}
 		})
 
 		.state('page2', {
@@ -41,8 +37,7 @@ var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ui.router', 'u
 			views: {
 				mainView: {templateUrl: 'assets/app_components/app/views/page2.html'},
 				rightMenuView: {templateUrl: 'assets/app_components/app/views/rightMenu.html'}
-			},
-			params: {lang: defaultLang}
+			}
 		})
 
 		.state('page3', {
@@ -50,8 +45,20 @@ var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ui.router', 'u
 			views: {
 				mainView: {templateUrl: 'assets/app_components/app/views/page3.html'},
 				rightMenuView: {templateUrl: 'assets/app_components/app/views/rightMenu.html'}
-			},
-			params: {lang: defaultLang}
+			}
+		})
+
+		// default redirection :
+		// redirect to home with the current language
+		.state('default', {
+			url: '/default',
+			controllerProvider: ['$rootScope', '$state', '$translate', '$location', 'langFactory', function ($rootScope, $state, $translate, $location, langFactory) {
+				// save lang in factory
+				langFactory.setLang($translate.preferredLanguage());
+
+				// go to default state --> 'home'
+				$state.go('home');
+			}]
 		});
 
 		// in order to avoid passing 'lang' parameter to each ui-sref
@@ -87,8 +94,61 @@ var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ui.router', 'u
 			suffix: '.json'
 		});
 
+		// handle multiple locales for one language
+		$translateProvider.registerAvailableLanguageKeys(languages, {
+			'en_*': 'en',
+			'fr_*': 'fr'
+		});
+
 		// define sanitize strategy and prefered language
 		$translateProvider.useSanitizeValueStrategy('escape');
-		$translateProvider.preferredLanguage(defaultLang);
+
+		// $translateProvider.preferredLanguage(defaultLang);
+		$translateProvider.determinePreferredLanguage();
+	}]);
+
+	// run
+	app.run(['$rootScope', '$location', '$state', '$translate', 'langFactory', function ($rootScope, $location, $state, $translate, langFactory) {
+		// in order to avoid basic redirection if URL does not exists
+		// and to set language based on browser lang if lang is not set in
+		// the URL, let's handle redirections here
+		$rootScope.$watch(function () {
+			return $location.path();
+		},
+		function () {
+			var fullUrl = $location.path().substring(1).split('/') || [];
+			var lang = fullUrl.shift() || '';
+			var url = fullUrl.join('/') || '';
+
+			// if lang URL is not null
+			// and is not available
+			if (lang !== '' && languages.indexOf(lang) === -1) {
+				// save default lang in factory
+				langFactory.setLang($translate.preferredLanguage());
+
+				// go to current URL (lang has been set, so it will be current URL prefixed by lang)
+				// if url empty because it is in lang and lang is not available
+				if (url === '') {
+					$state.go(lang);
+				}
+
+				// else go to complete url
+				else {
+					$state.go(lang + '/' + url);
+				}
+			}
+
+			// if lang is set and is available
+			// BUT URL is not correct --> Disabled because i don't know how to check if URL is valid (?)
+			// and without this condition it's impossible to switch languages
+			// else if (lang !== '' && languages.indexOf(lang) === 1) {
+			// 	$state.go('default');
+			// }
+
+			// if empty URL, redirect to default state
+			else if (lang === '') {
+				$state.go('default');
+			}
+		});
 	}]);
 })();

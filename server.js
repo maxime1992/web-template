@@ -1,9 +1,9 @@
 (function () {
-	'use strict';
-
 	var connect = require('connect');
 	var serveStatic = require('serve-static');
-	connect().use(serveStatic(__dirname)).listen(8080);
+	var path = require('path');
 
-	console.log('Server launched at http://localhost:8080');
+	connect().use(serveStatic(path.join(__dirname, process.env.NODE_ENV === 'DEV' ? 'site_dev' : 'dist'))).listen(8080);
+
+	console.log('Server launched at http://localhost:8080 based on ' + (process.env.NODE_ENV === 'DEV' ? 'site_dev' : 'dist') + ' folder');
 })();

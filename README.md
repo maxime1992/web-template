@@ -26,16 +26,13 @@ I propose a configuration but of course, you can customize it.
 # How to start ?
 :video_game: When you start a new project from this archetype :  
 
-- Run "**npm install**" (*at the root of the project*)  
-  This will install all the required dependencies to manage the project.
+- Run "**npm start**" (*at the root of the project*)  
+  This will install all the required dependencies (npm + bower) to manage the project.
 
-- Run "**bower install**" (*at /site_dev/assets*)  
-  This will install all the required dependencies needed by the app.
-
-- Run "**node server.js**" (*at the root of the project*)  
+- Run "**npm run dev**" or "**npm run prod**" (*at the root of the project*)  
   To run the server, as simple as that.
 
-  If you don't have bower installed, this is going to install it globally.
+  If you don't have bower installed, run "**npm install -g bower**"
 
 :heavy_plus_sign: Optionnaly, you can :  
 
@@ -55,13 +52,13 @@ Just run "**grunt**" with your favourite terminal from the root of the project.
 A "dist" folder will be created. You're ready to deploy !
 
 # Quick custom
-Before you really start your own projet, i recommend you to search for "CUSTOM" occurrences in the project.  
+Before you really start your own projet, I recommend you to search for "CUSTOM" occurrences in the project.  
 Everything with CUSTOM is something you may want to change (except into "bower_components" folder).
 
 # Contribution
 I think the project has a nice & clean structure.  
-If you have better ideas i would be glad to hear from you and why not propose a pull request ... :wink:  
-(Tho, it's only my second public repo on github i have no idea how pull request works, be kind and comprehensive if i make some mistakes).  
+If you have better ideas I would be glad to hear from you and why not propose a pull request ... :wink:  
+(Tho, it's only my second public repo on github I have no idea how pull request works, be kind and comprehensive if I make some mistakes).  
 
 In order to contribute, please run "**npm test**" and check you don't have any JSHint error :tada:.  
 

@@ -31,6 +31,9 @@
     "ignores": [".tmp/**", ".git/**", "dist/**", "**/bower_components/**"]
   },
   "scripts": {
+    "start": "npm install && bower install",
+    "dev": "NODE_ENV='DEV' node server.js",
+    "prod": "NODE_ENV='PROD' node server.js",
     "test": "xo"
   },
   "devDependencies": {

@@ -1,6 +1,4 @@
 (function () {
-	'use strict';
-
 	app.controller('generalController', ['$scope', '$location', '$state', '$translate', 'langFactory', function ($scope, $location, $state, $translate, langFactory) {
 		// change language when url parameter 'lang' changes
 		$scope.$on('$stateChangeStart', function (event, toState, toParams) {

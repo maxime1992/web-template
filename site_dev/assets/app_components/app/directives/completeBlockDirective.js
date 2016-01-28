@@ -1,6 +1,4 @@
 (function () {
-	'use strict';
-
 	/*
 	 * Create a 'complete-block'
 	 * 5 differents types :

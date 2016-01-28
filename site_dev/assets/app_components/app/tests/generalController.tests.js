@@ -1,6 +1,4 @@
 (function () {
-	'use strict';
-
 	describe('generalController', function () {
 		beforeEach(module('CUSTOM_NAME_OF_THE_APP'));
 

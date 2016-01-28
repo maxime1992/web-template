@@ -1,6 +1,4 @@
 (function () {
-	'use strict';
-
 	/*
 	 * Create a directive
 	 *

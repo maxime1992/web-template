@@ -1,6 +1,4 @@
 (function () {
-	'use strict';
-
 	// this application is to mock out the backend.
 	app.run(function ($httpBackend) {
 		// you'll need one line per url

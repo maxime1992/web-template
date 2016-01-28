@@ -1,6 +1,4 @@
 (function () {
-	'use strict';
-
 	// factory to set/get actual language
 	app.factory('langFactory', function () {
 		return {

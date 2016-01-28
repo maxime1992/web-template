@@ -2,8 +2,6 @@ var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ngAnimate', 'u
 var languages = ['en', 'fr'];
 
 (function () {
-	'use strict';
-
 	// routes configuration
 	app.config(['$compileProvider', '$httpProvider', '$locationProvider', '$stateProvider', '$provide', '$urlRouterProvider', '$translateProvider', function ($compileProvider, $httpProvider, $locationProvider, $stateProvider, $provide, $urlRouterProvider, $translateProvider) {
 		// enable debug for dev, changed to false by grunt when going on production

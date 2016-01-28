@@ -11,9 +11,6 @@
 			langFactory.setLang(toParams.lang);
 		});
 
-		// is menu collapsed ?
-		$scope.isCollapsed = true;
-
 		// which item is selected in menu ?
 		// return true if viewLocation is equal to url
 		$scope.isActive = function (viewLocation) {
@@ -29,6 +26,9 @@
 
 			// change state to update the lang into URL
 			$state.go($state.current.name);
+
+			// hide menu when clicking on item menu
+			$scope.navCollapsed = !$scope.navCollapsed;
 		};
 
 		$scope.getLanguage = function () {

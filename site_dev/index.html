@@ -28,14 +28,14 @@
 </head>
 
 <body ng-controller="generalController">
-	
+
 	<!-- HEADER START -->
 	<header>
 		<nav class="navbar navbar-inverse" role="navigation">
 			<div class="container">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed" data-target="#bs-example-navbar-collapse-1">
+					<button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -45,18 +45,18 @@
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="navbar-collapse" collapse="isCollapsed">
+				<div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
 					<ul class="nav navbar-nav">
-						<li ng-class="{ active: isActive('/home')}" ng-click="isCollapsed=true"><a ui-sref="home"><i class="fa fa-home"></i></a></li>
-						<li ng-class="{ active: isActive('/page1')}" ng-click="isCollapsed=true"><a ui-sref="page1">Page 1</a></li>
-						<li ng-class="{ active: isActive('/page2')}" ng-click="isCollapsed=true"><a ui-sref="page2">Page 2</a></li>
-						<li ng-class="{ active: isActive('/page3')}" ng-click="isCollapsed=true"><a ui-sref="page3">Page 3</a></li>
+						<li ng-class="{ active: isActive('/home')}" ng-click="navCollapsed=true"><a ui-sref="home"><i class="fa fa-home"></i></a></li>
+						<li ng-class="{ active: isActive('/page1')}" ng-click="navCollapsed=true"><a ui-sref="page1">Page 1</a></li>
+						<li ng-class="{ active: isActive('/page2')}" ng-click="navCollapsed=true"><a ui-sref="page2">Page 2</a></li>
+						<li ng-class="{ active: isActive('/page3')}" ng-click="navCollapsed=true"><a ui-sref="page3">Page 3</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right lang">
 						<li class="lang"><a href="" ng-click="changeLanguageTo('fr')" ng-class="{ selected: getLanguage()=='fr'}">FR</a><!--<a href="" ng-click="changeLanguageTo('fr')" ng-class="{ active: getLanguage()=='fr'}" class="item">FR</a> / <a href="" ng-click="changeLanguageTo('en')" ng-class="{ active: getLanguage()=='en'}" class="item">EN</a>--></li>
 						<li><a href="" ng-click="changeLanguageTo('en')" ng-class="{ selected: getLanguage()=='en'}">EN</a></li>
 					</ul>
-					
+
 				</div><!-- /.navbar-collapse -->
 			</div><!-- /.container-fluid -->
 		</nav>
@@ -79,10 +79,10 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</section>
 	<!-- CONTENT END -->
-	
+
 	<!-- build:js assets/app_components/app/app.js -->
 		<!-- load scripts at the bottom of the page (for speed concern) -->
 
@@ -115,7 +115,7 @@
 		<!-- @if TEST=true -->
 			<script src="assets/app_components/app/mock/mock.js"></script>
 		<!-- @endif -->
-		
+
 		<!-- angular : directives -->
 		<script src="assets/app_components/app/directives/completeBlockDirective.js"></script>
 

@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="assets/bower_components/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="assets/bower_components/angular-loading-bar/build/loading-bar.min.css">
 		<link rel="stylesheet" href="assets/bower_components/afkl-lazy-image/release/lazy-image-style.min.css">
+		<link rel="stylesheet" href="assets/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css">
 	<!-- endbuild -->
 
 	<!-- @ifdef DEBUG -->
@@ -70,7 +71,7 @@
 			<div class="row">
 				<!-- CONTENT -->
 				<div class="col-xs-12 col-sm-8 col-md-9">
-					<div ui-view="mainView"></div>
+					<div ui-view="mainView" class="anim-in-out anim-slide-below-fade" data-anim-speed="300"></div>
 				</div>
 
 				<!-- RIGHT MENU -->
@@ -102,6 +103,9 @@
 		<script src="assets/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
 		<script src="assets/bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
 		<script src="assets/bower_components/afkl-lazy-image/release/lazy-image.min.js"></script>
+		<script src="assets/bower_components/angular-animate/angular-animate.min.js"></script>
+		<script src="assets/bower_components/angular-ui-router-anim-in-out/anim-in-out.js"></script>
+
 		<!-- @if TEST=true -->
 			<script src="assets/bower_components/angular-mocks/angular-mocks.js"></script>
 		<!-- @endif -->

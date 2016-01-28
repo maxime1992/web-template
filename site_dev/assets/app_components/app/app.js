@@ -1,4 +1,4 @@
-var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ui.router', 'ui.bootstrap', 'ngSanitize', 'pascalprecht.translate', 'angular-loading-bar', 'afkl.lazyImage']);
+var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ngAnimate', 'ui.router', 'anim-in-out', 'ui.bootstrap', 'ngSanitize', 'pascalprecht.translate', 'angular-loading-bar', 'afkl.lazyImage']);
 var languages = ['en', 'fr'];
 
 (function () {

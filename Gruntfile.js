@@ -291,7 +291,7 @@
 				'concat:generated',
 				'concat:app',
 				'replace:removeCssImportantComments',
-				'purifycss',
+				// 'purifycss',
 				'replace:disableDebug',
 				'ngAnnotate:app',
 				'uglify:generated',

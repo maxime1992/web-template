@@ -24,9 +24,9 @@
 	}
 
 	.wrapper-body {
-		border-left: 1px solid @color_black;
-		border-bottom: 1px solid @color_black;
-		border-right: 1px solid @color_black;
+		border-left: 1px solid $color_black;
+		border-bottom: 1px solid $color_black;
+		border-right: 1px solid $color_black;
 		min-height: 160px;
 		width: 100%;
 		padding-top: 10px;
@@ -48,7 +48,7 @@
 .complete-block-no-header {
 
 	.wrapper-body {
-		border: 1px solid @color_black;
+		border: 1px solid $color_black;
 	}
 
 }

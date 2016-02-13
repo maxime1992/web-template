@@ -24,7 +24,7 @@ var env = {
 
 gulp.task('build', gulp.series(
 	clean,
-	lessToCss,
+	sassToCss,
 	libs,
 	assets,
 	index,
@@ -49,11 +49,11 @@ function clean() {
 	return del(['build']);
 }
 
-function lessToCss() {
-	return gulp.src('src/assets/app_components/css/defaultCss.less')
+function sassToCss() {
+	return gulp.src('src/assets/app_components/css/defaultCss.scss')
 		.pipe(plugins.if(env.isDev, plugins.sourcemaps.init()))
-		.pipe(plugins.less())
-		.pipe(plugins.size({ title: 'compile less' }))
+		.pipe(plugins.sass())
+		.pipe(plugins.size({ title: 'compile SASS' }))
 		.pipe(plugins.if(env.isProd, plugins.minifyCss()))
 		.pipe(gulp.dest('build/css/'))
 		.pipe(plugins.if(env.isDev, plugins.sourcemaps.write()))
@@ -166,7 +166,7 @@ function delete_folder(){
 
 function watch() {
 	gulp.watch('src/assets/app_components/**/*.{js,png,jpg,html}', assets);
-	gulp.watch('src/assets/app_components/css/**/*.{less}', lessToCss);
+	gulp.watch('src/assets/app_components/css/**/*.{scss}', sassToCss);
 	gulp.watch('src/index.html', index);
 }
 

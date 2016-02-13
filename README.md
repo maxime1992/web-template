@@ -11,7 +11,7 @@ I propose a configuration but of course, you can customize it.
 :punch: To manage the project :
 - Npm
 - Gulp (Karma & LiveReload)
-- Less
+- Sass
 
 :thumbsup: Librairies into the project :
 - Bootstrap

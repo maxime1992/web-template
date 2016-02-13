@@ -1,5 +1,5 @@
 (function () {
-	app.controller('generalController', ['$scope', '$location', '$state', '$translate', 'langFactory', function ($scope, $location, $state, $translate, langFactory) {
+	app.controller('generalController', function ($scope, $location, $state, $translate, langFactory) {
 		// change language when url parameter 'lang' changes
 		$scope.$on('$stateChangeStart', function (event, toState, toParams) {
 			// change lang on the whole app
@@ -32,5 +32,5 @@
 		$scope.getLanguage = function () {
 			return $translate.use();
 		};
-	}]);
+	});
 })();

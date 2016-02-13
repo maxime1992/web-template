@@ -15,7 +15,7 @@
 				argTwo: '@argTwo',
 				argThree: '@argThree'
 			},
-			templateUrl: 'assets/app_components/app/directives/views/CUSTOMDirective.html'
+			templateUrl: '/directives/views/CUSTOMDirective.html'
 		};
 	});
 })();

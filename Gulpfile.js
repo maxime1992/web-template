@@ -6,7 +6,9 @@ var del = require('del'),
     merge = require('merge-stream'),
     paths = require('./gulpfile.paths.js'),
     recess = require('recess'),
-    Server = require('karma').Server;
+    Server = require('karma').Server,
+    pngquant = require('imagemin-pngquant'),
+    replace = require('gulp-replace');
 
 process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
 process.env.PORT = process.env.PORT ? process.env.PORT : '8080';
@@ -63,6 +65,7 @@ function lessToCss() {
 function libs() {
 	var libsjsNoBabel = gulp.src([...env.paths.libs.js], { base: '.' })
 		.pipe(plugins.if(env.isProd, plugins.concat('libs.js')))
+		.pipe(plugins.if(env.isProd, replace('\'ngMockE2E\',','')))
 		.pipe(plugins.ngAnnotate())
 		.pipe(plugins.if(env.isProd, plugins.uglify()))
 		.pipe(plugins.size({ title: 'libsjsNoBabel' }))
@@ -91,8 +94,17 @@ function assets() {
 	 	.pipe(gulp.dest('build/views/'))
 	 	.pipe(plugins.connect.reload());
 
-	 var directives = gulp.src('src/assets/app_components/app/directives/views/*')
+	var directives = gulp.src('src/assets/app_components/app/directives/views/*')
 	 	.pipe(gulp.dest('build/directives/views'))
+	 	.pipe(plugins.connect.reload());
+
+	var images = gulp.src('src/assets/app_components/img/**/*')
+		.pipe(plugins.imagemin({
+			progressive: true,
+			svgoPlugins: [{removeViewBox: false}],
+			use: [pngquant()]
+		}))
+	 	.pipe(gulp.dest('build/img'))
 	 	.pipe(plugins.connect.reload());
 
  	var tests = gulp.src('src/assets/app_components/app/tests/**/*')
@@ -115,7 +127,7 @@ function assets() {
 		.pipe(gulp.dest('build/libs/node_modules/bootstrap/dist/img'))
 		.pipe(plugins.connect.reload());
 
-	return merge(views, directives, languages, fontAwesome, fontBootstrap, imgBoostrap);
+	return merge(views, directives, images, languages, fontAwesome, fontBootstrap, imgBoostrap);
 }
 
 function index() {

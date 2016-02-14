@@ -25,10 +25,9 @@ var env = {
 gulp.task('build', gulp.series(
 	clean,
 	sassToCss,
-	libs,
 	assets,
-	index,
-	delete_folder_build_src
+	libs,
+	index
 ));
 
 gulp.task('tests', function(done) {
@@ -42,6 +41,11 @@ gulp.task('serve', gulp.series(
 	gulp.parallel(watch, livereload)
 ));
 
+gulp.task('xo', function () {
+	return gulp.src('src/assets/app_components/**/*.js')
+		.pipe(plugins.xo({quiet:true}));
+});
+
 process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
 process.env.PORT = process.env.PORT ? process.env.PORT : '8080';
 
@@ -51,65 +55,83 @@ function clean() {
 
 function sassToCss() {
 	return gulp.src('src/assets/app_components/css/defaultCss.scss')
+		.pipe(plugins.sassLint({ config: '.sass-lint.yml' }))
+    	.pipe(plugins.sassLint.format())
+    	.pipe(plugins.sassLint.failOnError())
+		.pipe(plugins.rename({ dirname: '' }))
+		.pipe(plugins.size({ title: 'Lint SASS' }))
 		.pipe(plugins.if(env.isDev, plugins.sourcemaps.init()))
 		.pipe(plugins.sass())
-		.pipe(plugins.size({ title: 'compile SASS' }))
+		.pipe(plugins.size({ title: 'Compile SASS' }))
 		.pipe(plugins.if(env.isProd, plugins.minifyCss()))
 		.pipe(gulp.dest('build/css/'))
 		.pipe(plugins.if(env.isDev, plugins.sourcemaps.write()))
-		.pipe(plugins.size({ title: 'minify CSS' }))
+		.pipe(plugins.size({ title: 'Mimify CSS' }))
 		.pipe(gulp.dest('build/css/'))
 		.pipe(plugins.connect.reload());
 }
 
 function libs() {
-	var libsjsNoBabel = gulp.src([...env.paths.libs.js], { base: '.' })
-		.pipe(plugins.if(env.isProd, plugins.concat('libs.js')))
+	var libsjs = gulp.src(env.paths.libs.js, { base: '.' })
+		.pipe(plugins.if(env.isProd, plugins.concat('prod.js')))
 		.pipe(plugins.if(env.isProd, replace('\'ngMockE2E\',','')))
 		.pipe(plugins.ngAnnotate())
 		.pipe(plugins.if(env.isProd, plugins.uglify()))
-		.pipe(plugins.size({ title: 'libsjsNoBabel' }))
+		.pipe(plugins.size({ title: 'libsjsDev' }))
 		.pipe(gulp.dest('build/libs'));
-
-
-	var libsjsBabels = gulp.src([...env.paths.libs.js,'!node_modules/**'], { base: '.' })
-		.pipe(plugins.babel())
-		.pipe(plugins.size({ title: 'libsjsBabel' }))
-		.pipe(gulp.dest('build/libs'));
-
 
 	var libscss = gulp.src(env.paths.libs.css, { base: '.' })
-		.pipe(plugins.if(env.isProd, plugins.concat('libs.css')))
+		.pipe(plugins.if(env.isProd, plugins.concat('prod.css')))
 		.pipe(plugins.if(env.isProd, plugins.minifyCss()))
 		.pipe(plugins.size({ title: 'libs css' }))
 		.pipe(gulp.dest('build/libs'));
 
-	return merge(libsjsNoBabel, libsjsBabels, libscss);
+	return merge(libsjs, libscss);
 }
 
 function assets() {
 
-	var views = gulp.src('src/assets/app_components/app/views/*')
+	var views = gulp.src('src/assets/app_components/app/views/**/*.html')
 		.pipe(plugins.if(env.isProd, plugins.htmlmin({collapseWhitespace: true})))
-	 	.pipe(gulp.dest('build/views/'))
+	 	.pipe(gulp.dest('build/html/views/'))
 	 	.pipe(plugins.connect.reload());
 
-	var directives = gulp.src('src/assets/app_components/app/directives/views/*')
-	 	.pipe(gulp.dest('build/directives/views'))
+	var controllers = gulp.src('src/assets/app_components/app/controllers/**/*.js')
+	 	.pipe(gulp.dest('build/js/controllers/'))
 	 	.pipe(plugins.connect.reload());
+
+	var directives = gulp.src('src/assets/app_components/app/directives/*.js')
+	 	.pipe(gulp.dest('build/js/directives/'))
+	 	.pipe(plugins.connect.reload());
+
+	var directivesViews = gulp.src('src/assets/app_components/app/directives/views/**/*.html')
+	 	.pipe(gulp.dest('build/html/directives/views'))
+	 	.pipe(plugins.connect.reload());
+
+	var factories = gulp.src('src/assets/app_components/app/factories/**/*.js')
+	 	.pipe(gulp.dest('build/js/factories'))
+	 	.pipe(plugins.connect.reload());
+
+	var mocks = gulp.src('src/assets/app_components/app/mock/**/*.js')
+	 	.pipe(gulp.dest('build/js/mocks'))
+	 	.pipe(plugins.connect.reload());
+
+ 	var tests = gulp.src('src/assets/app_components/app/tests/**/*.js')
+	 	 .pipe(gulp.dest('build/js/tests/'))
+	 	 .pipe(plugins.connect.reload());
+
+	var app = gulp.src('src/assets/app_components/app/app.js')
+	 	 .pipe(gulp.dest('build/js/'))
+	 	 .pipe(plugins.connect.reload());
 
 	var images = gulp.src('src/assets/app_components/img/**/*')
-		.pipe(plugins.imagemin({
+		.pipe(plugins.if(env.isProd,plugins.imagemin({
 			progressive: true,
 			svgoPlugins: [{removeViewBox: false}],
 			use: [pngquant()]
-		}))
+		})))
 	 	.pipe(gulp.dest('build/img'))
 	 	.pipe(plugins.connect.reload());
-
- 	var tests = gulp.src('src/assets/app_components/app/tests/**/*')
-	 	 .pipe(gulp.dest('build/tests/'))
-	 	 .pipe(plugins.connect.reload());
 
 	var languages = gulp.src('src/assets/app_components/app/languages/*')
 		.pipe(gulp.dest('build/languages/'))
@@ -127,20 +149,23 @@ function assets() {
 		.pipe(gulp.dest('build/libs/node_modules/bootstrap/dist/img'))
 		.pipe(plugins.connect.reload());
 
-	return merge(views, directives, images, languages, fontAwesome, fontBootstrap, imgBoostrap);
+	return merge(views, controllers, directives, directivesViews, factories, mocks, tests, app, images, languages, fontAwesome, fontBootstrap, imgBoostrap);
 }
 
 function index() {
-	var css = ['build/css/defaultCss.css'];
-	var libsjs = ['build/libs/libs.js'];
-	var libscss = ['build/libs/libs.css'];
 
 	if (env.isDev) {
-		libsjs = env.paths.libs.js.map(libjs => path.join('build/libs/', libjs))
-		libscss = env.paths.libs.css.map(libcss => path.join('build/libs/', libcss))
+		libsjsModules = env.paths.libs.js.map(libsjsModules => path.join('build/libs/', libsjsModules))
+		libsjsApp = env.paths.app.js.map(libsjsApp => path.join('build/', libsjsApp))
+		libscssModules = env.paths.libs.css.map(libscssModules => path.join('build/libs/', libscssModules))
+		libscssApp = env.paths.app.css.map(libscssApp => path.join('build/', libscssApp))
+
+		var source = gulp.src([...libsjsModules, ...libsjsApp, ...libscssModules, ...libscssApp], { read: false });
+	}else{
+		var source = gulp.src(['build/libs/prod.js','build/libs/prod.css','build/css/defaultCss.css'], { read: false });
 	}
 	
-	var source = gulp.src([...css, ...libsjs, ...libscss], { read: false });
+	
 	return gulp.src('src/index.html')
 		.pipe(plugins.inject(source, { ignorePath: 'build' }))
 		.pipe(plugins.preprocess({ context: env }))
@@ -149,20 +174,11 @@ function index() {
 		.pipe(plugins.connect.reload());
 }
 
-function delete_folder_build_src(){
-	if (env.isProd) {
-		return del(['build/libs/src']);
-	}
-	
-	// change to say , return nothing in this case
-	if (env.isDev) {
-		return del(['nothing']);
-	}
+function xo(){
+	return gulp.src('src/assets/app_components/**/*.js')
+		.pipe(xo())
 }
 
-function delete_folder(){
-	return del(['build/libs/build']);
-}
 
 function watch() {
 	gulp.watch('src/assets/app_components/**/*.{js,png,jpg,html}', assets);

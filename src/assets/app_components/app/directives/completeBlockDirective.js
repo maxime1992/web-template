@@ -22,7 +22,7 @@
 				bodyTitle: '@bodyTitle',
 				bodyText: '@bodyText'
 			},
-			templateUrl: '/directives/views/completeBlockDirective.html'
+			templateUrl: '/html/directives/views/completeBlockDirective.html'
 		};
 	});
 })();

@@ -17,34 +17,34 @@ var languages = ['en', 'fr'];
 		.state('home', {
 			url: '/home',
 			views: {
-				mainView: {templateUrl: '/views/home.html'},
-				rightMenuView: {templateUrl: '/views/rightMenu.html'}
+				mainView: {templateUrl: '/html/views/home.html'},
+				rightMenuView: {templateUrl: '/html/views/rightMenu.html'}
 			}
 		})
 
 		.state('page1', {
 			url: '/page1',
 			views: {
-				mainView: {templateUrl: '/views/page1.html'},
-				rightMenuView: {templateUrl: '/views/rightMenu.html'}
+				mainView: {templateUrl: '/html/views/page1.html'},
+				rightMenuView: {templateUrl: '/html/views/rightMenu.html'}
 			}
 		})
 
 		.state('page2', {
 			url: '/page2',
 			views: {
-				mainView: {templateUrl: '/views/page2.html'},
-				rightMenuView: {templateUrl: '/views/rightMenu.html'}
+				mainView: {templateUrl: '/html/views/page2.html'},
+				rightMenuView: {templateUrl: '/html/views/rightMenu.html'}
 			}
 		})
 
 		.state('page3', {
 			url: '/page3',
 			views: {
-				mainView: {templateUrl: '/views/page3.html'},
-				rightMenuView: {templateUrl: '/views/rightMenu.html'}
+				mainView: {templateUrl: '/html/views/page3.html'},
+				rightMenuView: {templateUrl: '/html/views/rightMenu.html'}
 			}
-		})
+		});
 
 		$urlRouterProvider.otherwise('/home');
 

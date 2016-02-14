@@ -25,14 +25,22 @@ module.exports = {
 			js: [
 				...baseLibsJs,
 				'node_modules/angular-mocks/angular-mocks.js',
-				'src/assets/app_components/app/app.js',
-				'src/assets/app_components/app/factories/langFactory.js',
-				'src/assets/app_components/app/mock/mock.js',
-				'src/assets/app_components/app/directives/completeBlockDirective.js',
-				'src/assets/app_components/app/controllers/generalController.js'
 			],
 			css: [
 				...baseLibsCss
+				// Add dev only libs here - eg 'node_modules/analytics-lib/index.css'
+			]
+		},
+		app: {
+			js: [
+				'js/app.js',
+				'js/factories/langFactory.js',
+				'js/mocks/mock.js',
+				'js/directives/completeBlockDirective.js',
+				'js/controllers/generalController.js'
+			],
+			css: [
+				'css/defaultCss.css'
 				// Add dev only libs here - eg 'node_modules/analytics-lib/index.css'
 			]
 		}
@@ -42,14 +50,13 @@ module.exports = {
 		libs: {
 			js: [
 				...baseLibsJs,
-				'src/assets/app_components/app/app.js',
-				'src/assets/app_components/app/factories/langFactory.js',
-				'src/assets/app_components/app/directives/completeBlockDirective.js',
-				'src/assets/app_components/app/controllers/generalController.js'
+				'build/js/app.js',
+				'build/js/factories/langFactory.js',
+				'build/js/directives/completeBlockDirective.js',
+				'build/js/controllers/generalController.js'
 			],
 			css: [
 				...baseLibsCss
-				// Add prod only libs here - eg 'node_modules/analytics-lib/index.css'
 			]
 		}
 	}

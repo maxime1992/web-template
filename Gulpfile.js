@@ -9,7 +9,10 @@ var del = require('del'),
     Server = require('karma').Server,
     pngquant = require('imagemin-pngquant'),
     replace = require('gulp-replace'),
-    documentation = require('gulp-documentation');
+    documentation = require('gulp-documentation'),
+    embedTemplates = require('gulp-angular-embed-templates');
+    strip = require('gulp-strip-comments');
+    flatten = require('gulp-flatten');
 
 
 process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
@@ -26,7 +29,7 @@ var env = {
 
 
 gulp.task('documentation', function () {
-  return gulp.src('src/assets/app_components/app/**/*.js')
+  return gulp.src('src/app/**/*.js')
     .pipe(documentation({ format: 'html' }))
     .pipe(gulp.dest('html-documentation'));
 });
@@ -52,7 +55,7 @@ gulp.task('serve', gulp.series(
 ));
 
 gulp.task('xo', function () {
-	return gulp.src('src/assets/app_components/**/*.js')
+	return gulp.src('src/**/*.js')
 		.pipe(plugins.xo({quiet:true}));
 });
 
@@ -64,7 +67,7 @@ function clean() {
 }
 
 function sassToCss() {
-	return gulp.src('src/assets/app_components/css/defaultCss.scss')
+	return gulp.src('src/css/defaultCss.scss')
 		.pipe(plugins.sassLint({ config: '.sass-lint.yml' }))
     	.pipe(plugins.sassLint.format())
     	.pipe(plugins.sassLint.failOnError())
@@ -93,51 +96,41 @@ function libs() {
 
 function assets() {
 
-	var views = gulp.src('src/assets/app_components/app/views/**/*.html')
+	var views = gulp.src('src/app/views/**/*.html')
 		.pipe(plugins.if(env.isProd, plugins.htmlmin({collapseWhitespace: true})))
 	 	.pipe(gulp.dest('build/html/views/'))
-	 	.pipe(plugins.connect.reload());
 
-	var controllers = gulp.src('src/assets/app_components/app/controllers/**/*.js')
+	var controllers = gulp.src('src/app/controllers/**/*.js')
 	 	.pipe(gulp.dest('build/js/controllers/'))
-	 	.pipe(plugins.connect.reload());
 
-	var directives = gulp.src('src/assets/app_components/app/directives/*.js')
+	var directives = gulp.src('src/app/directives/**/*.js')
+		.pipe(strip())
+		.pipe(embedTemplates())
+		.pipe(flatten())
 	 	.pipe(gulp.dest('build/js/directives/'))
-	 	.pipe(plugins.connect.reload());
 
-	var directivesViews = gulp.src('src/assets/app_components/app/directives/views/**/*.html')
-	 	.pipe(gulp.dest('build/html/directives/views'))
-	 	.pipe(plugins.connect.reload());
-
-	var factories = gulp.src('src/assets/app_components/app/factories/**/*.js')
+	var factories = gulp.src('src/app/factories/**/*.js')
 	 	.pipe(gulp.dest('build/js/factories'))
-	 	.pipe(plugins.connect.reload());
 
-	var mocks = gulp.src('src/assets/app_components/app/mock/**/*.js')
+	var mocks = gulp.src('src/app/mock/**/*.js')
 	 	.pipe(gulp.dest('build/js/mocks'))
-	 	.pipe(plugins.connect.reload());
 
- 	var tests = gulp.src('src/assets/app_components/app/tests/**/*.js')
+ 	var tests = gulp.src('src/app/tests/**/*.js')
 	 	 .pipe(gulp.dest('build/js/tests/'))
-	 	 .pipe(plugins.connect.reload());
 
-	var app = gulp.src('src/assets/app_components/app/app.js')
+	var app = gulp.src('src/app/app.js')
 	 	 .pipe(gulp.dest('build/js/'))
-	 	 .pipe(plugins.connect.reload());
 
-	var images = gulp.src('src/assets/app_components/img/**/*')
+	var images = gulp.src('src/img/**/*')
 		.pipe(plugins.if(env.isProd,plugins.imagemin({
 			progressive: true,
 			svgoPlugins: [{removeViewBox: false}],
 			use: [pngquant()]
 		})))
 	 	.pipe(gulp.dest('build/img'))
-	 	.pipe(plugins.connect.reload());
 
-	var languages = gulp.src('src/assets/app_components/app/languages/*')
+	var languages = gulp.src('src/app/languages/*')
 		.pipe(gulp.dest('build/languages/'))
-		.pipe(plugins.connect.reload());
 
 	var fontAwesome = gulp.src('node_modules/font-awesome/fonts/**/*')
 		.pipe(plugins.if(env.isProd, gulp.dest('build/fonts')))
@@ -147,11 +140,11 @@ function assets() {
 		.pipe(plugins.if(env.isProd, gulp.dest('build/fonts')))
 		.pipe(plugins.if(env.isDev, gulp.dest('build/fonts')));
 
-	var imgBoostrap = gulp.src('src/node_modules/bootstrap/dist/img/**/*')
+	var imgBoostrap = gulp.src('node_modules/bootstrap/dist/img/**/*')
 		.pipe(gulp.dest('build/libs/node_modules/bootstrap/dist/img'))
 		.pipe(plugins.connect.reload());
 
-	return merge(views, controllers, directives, directivesViews, factories, mocks, tests, app, images, languages, fontAwesome, fontBootstrap, imgBoostrap);
+	return merge(views, controllers, directives, factories, mocks, tests, app, images, languages, fontAwesome, fontBootstrap, imgBoostrap);
 }
 
 function index() {
@@ -181,8 +174,8 @@ function xo(){
 
 
 function watch() {
-	gulp.watch('src/assets/app_components/**/*.{js,png,jpg,html}', assets);
-	gulp.watch('src/assets/app_components/css/**/*.{scss}', sassToCss);
+	gulp.watch('src/**/*.{js,png,jpg,html}', assets);
+	gulp.watch('src/css/**/*.{scss}', sassToCss);
 	gulp.watch('src/index.html', index);
 }
 

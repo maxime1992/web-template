@@ -47,7 +47,7 @@
 				bodyTitle: '@bodyTitle',
 				bodyText: '@bodyText'
 			},
-			templateUrl: '/html/directives/views/completeBlockDirective.html'
+			templateUrl: 'completeBlockDirective.html'
 		};
 	});
 })();

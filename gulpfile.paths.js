@@ -9,7 +9,11 @@ let baseLibsJs = [
 	'node_modules/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
 	'node_modules/angular-loading-bar/build/loading-bar.min.js',
 	'node_modules/angular-animate/angular-animate.min.js',
-	'node_modules/angular-ui-router-anim-in-out/anim-in-out.js'
+	'node_modules/angular-ui-router-anim-in-out/anim-in-out.js',
+	'js/app.js',
+	'js/factories/langFactory.js',
+	'js/directives/completeBlockDirective.js',
+	'js/controllers/generalController.js'
 ];
 
 let baseLibsCss = [
@@ -19,11 +23,17 @@ let baseLibsCss = [
 	'node_modules/angular-ui-router-anim-in-out/css/anim-in-out.css'
 ];
 
+let baseLibsJsNodeModules = baseLibsJs.filter((path) => { return path.startsWith('node_modules'); });
+
+let baseLibsJsNotNodeModules = baseLibsJs.filter((path) => { return !path.startsWith('node_modules'); });
+
+let baseLibsJsApp = baseLibsJsNotNodeModules.map((path) => { return `build/${path}` });
+
 module.exports = {
 	dev: {
 		libs: {
 			js: [
-				...baseLibsJs,
+				...baseLibsJsNodeModules,
 				'node_modules/angular-mocks/angular-mocks.js',
 			],
 			css: [
@@ -33,11 +43,8 @@ module.exports = {
 		},
 		app: {
 			js: [
-				'js/app.js',
-				'js/factories/langFactory.js',
-				'js/mocks/mock.js',
-				'js/directives/completeBlockDirective.js',
-				'js/controllers/generalController.js'
+				...baseLibsJsNotNodeModules,
+				'js/mocks/mock.js'
 			],
 			css: [
 				'css/defaultCss.css'
@@ -49,11 +56,8 @@ module.exports = {
 	prod: {
 		libs: {
 			js: [
-				...baseLibsJs,
-				'build/js/app.js',
-				'build/js/factories/langFactory.js',
-				'build/js/directives/completeBlockDirective.js',
-				'build/js/controllers/generalController.js'
+				...baseLibsJsNodeModules,
+				...baseLibsJsApp
 			],
 			css: [
 				...baseLibsCss

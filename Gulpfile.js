@@ -8,7 +8,9 @@ var del = require('del'),
     recess = require('recess'),
     Server = require('karma').Server,
     pngquant = require('imagemin-pngquant'),
-    replace = require('gulp-replace');
+    replace = require('gulp-replace'),
+    documentation = require('gulp-documentation');
+
 
 process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
 process.env.PORT = process.env.PORT ? process.env.PORT : '8080';
@@ -21,6 +23,14 @@ var env = {
 	get isProd() { return this.NODE_ENV === 'production'; },
 	get paths() { return this.isDev ? paths.dev : paths.prod; }
 };
+
+
+gulp.task('documentation', function () {
+  return gulp.src('src/assets/app_components/app/**/*.js')
+    .pipe(documentation({ format: 'html' }))
+    .pipe(gulp.dest('html-documentation'));
+});
+
 
 gulp.task('build', gulp.series(
 	clean,

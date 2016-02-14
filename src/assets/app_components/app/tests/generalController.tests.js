@@ -1,6 +1,9 @@
 (function () {
 	describe('generalController', function () {
-		beforeEach(module('CUSTOM_NAME_OF_THE_APP'));
+		//beforeEach(module('CUSTOM_NAME_OF_THE_APP'));
+		beforeEach(function(){
+		    module('CUSTOM_NAME_OF_THE_APP');
+		});
 
 		// get the var to inject into the controller
 		var $scope;

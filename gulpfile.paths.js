@@ -16,13 +16,6 @@ let baseLibsJs = [
 	'js/controllers/generalController.js'
 ];
 
-let baseLibsCss = [
-	'node_modules/bootstrap/dist/css/bootstrap.min.css',
-	'node_modules/font-awesome/css/font-awesome.min.css',
-	'node_modules/angular-loading-bar/build/loading-bar.min.css',
-	'node_modules/angular-ui-router-anim-in-out/css/anim-in-out.css'
-];
-
 let baseLibsJsNodeModules = baseLibsJs.filter((path) => { return path.startsWith('node_modules'); });
 
 let baseLibsJsNotNodeModules = baseLibsJs.filter((path) => { return !path.startsWith('node_modules'); });
@@ -35,20 +28,12 @@ module.exports = {
 			js: [
 				...baseLibsJsNodeModules,
 				'node_modules/angular-mocks/angular-mocks.js',
-			],
-			css: [
-				...baseLibsCss
-				// Add dev only libs here - eg 'node_modules/analytics-lib/index.css'
 			]
 		},
 		app: {
 			js: [
 				...baseLibsJsNotNodeModules,
 				'js/mocks/mock.js'
-			],
-			css: [
-				'css/defaultCss.css'
-				// Add dev only libs here - eg 'node_modules/analytics-lib/index.css'
 			]
 		}
 	},
@@ -58,9 +43,6 @@ module.exports = {
 			js: [
 				...baseLibsJsNodeModules,
 				...baseLibsJsApp
-			],
-			css: [
-				...baseLibsCss
 			]
 		}
 	}

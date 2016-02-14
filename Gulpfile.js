@@ -82,21 +82,13 @@ function sassToCss() {
 }
 
 function libs() {
-	var libsjs = gulp.src(env.paths.libs.js, { base: '.' })
+	return gulp.src(env.paths.libs.js, { base: '.' })
 		.pipe(plugins.if(env.isProd, plugins.concat('prod.js')))
 		.pipe(plugins.if(env.isProd, replace('\'ngMockE2E\',','')))
 		.pipe(plugins.ngAnnotate())
 		.pipe(plugins.if(env.isProd, plugins.uglify()))
 		.pipe(plugins.size({ title: 'libsjsDev' }))
 		.pipe(gulp.dest('build/libs'));
-
-	var libscss = gulp.src(env.paths.libs.css, { base: '.' })
-		.pipe(plugins.if(env.isProd, plugins.concat('prod.css')))
-		.pipe(plugins.if(env.isProd, plugins.minifyCss()))
-		.pipe(plugins.size({ title: 'libs css' }))
-		.pipe(gulp.dest('build/libs'));
-
-	return merge(libsjs, libscss);
 }
 
 function assets() {
@@ -149,11 +141,11 @@ function assets() {
 
 	var fontAwesome = gulp.src('node_modules/font-awesome/fonts/**/*')
 		.pipe(plugins.if(env.isProd, gulp.dest('build/fonts')))
-		.pipe(plugins.if(env.isDev, gulp.dest('build/libs/node_modules/font-awesome/fonts')))
+		.pipe(plugins.if(env.isDev, gulp.dest('build/fonts')))
 
 	var fontBootstrap = gulp.src('node_modules/bootstrap/dist/fonts/**/*')
 		.pipe(plugins.if(env.isProd, gulp.dest('build/fonts')))
-		.pipe(plugins.if(env.isDev, gulp.dest('build/libs/node_modules/bootstrap/dist/fonts')));
+		.pipe(plugins.if(env.isDev, gulp.dest('build/fonts')));
 
 	var imgBoostrap = gulp.src('src/node_modules/bootstrap/dist/img/**/*')
 		.pipe(gulp.dest('build/libs/node_modules/bootstrap/dist/img'))
@@ -167,12 +159,10 @@ function index() {
 	if (env.isDev) {
 		libsjsModules = env.paths.libs.js.map(libsjsModules => path.join('build/libs/', libsjsModules))
 		libsjsApp = env.paths.app.js.map(libsjsApp => path.join('build/', libsjsApp))
-		libscssModules = env.paths.libs.css.map(libscssModules => path.join('build/libs/', libscssModules))
-		libscssApp = env.paths.app.css.map(libscssApp => path.join('build/', libscssApp))
 
-		var source = gulp.src([...libsjsModules, ...libsjsApp, ...libscssModules, ...libscssApp], { read: false });
+		var source = gulp.src([...libsjsModules, ...libsjsApp,'build/css/defaultCss.css'], { read: false });
 	}else{
-		var source = gulp.src(['build/libs/prod.js','build/libs/prod.css','build/css/defaultCss.css'], { read: false });
+		var source = gulp.src(['build/libs/prod.js','build/css/defaultCss.css'], { read: false });
 	}
 	
 	

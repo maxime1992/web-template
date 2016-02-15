@@ -10,7 +10,7 @@
 	* @param {String} headerPicto path of the font awesome picto
 	* @param {String} headerColor color choosed to be show
 	* @param {String} headerBackgroundColor background color choosed to be show
-	* @param {String} bodyTitle the title of the body 
+	* @param {String} bodyTitle the title of the body
 	* @param {String} bodyText the content of the body
 	* @example headerPicto => icon-af icon-af-B-digital-avionenvol font-size-x3
 	* @example bodyBackgroundColor => background-color-soft-grey

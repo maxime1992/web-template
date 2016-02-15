@@ -10,9 +10,10 @@ var del = require('del'),
     pngquant = require('imagemin-pngquant'),
     replace = require('gulp-replace'),
     documentation = require('gulp-documentation'),
-    embedTemplates = require('gulp-angular-embed-templates');
-    strip = require('gulp-strip-comments');
-    flatten = require('gulp-flatten');
+    embedTemplates = require('gulp-angular-embed-templates'),
+    strip = require('gulp-strip-comments'),
+    flatten = require('gulp-flatten'),
+    merge2 = require('merge2');
 
 
 process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
@@ -67,7 +68,7 @@ function clean() {
 }
 
 function sassToCss() {
-	return gulp.src('src/css/defaultCss.scss')
+	return gulp.src('src/scss/defaultCss.scss')
 		.pipe(plugins.sassLint({ config: '.sass-lint.yml' }))
     	.pipe(plugins.sassLint.format())
     	.pipe(plugins.sassLint.failOnError())
@@ -85,17 +86,30 @@ function sassToCss() {
 }
 
 function libs() {
-	return gulp.src(env.paths.libs.js, { base: '.' })
+
+		var allLibsJsApp = env.paths.app.js.map((path) => { return `build/${path}` });
+
+		return merge2(
+			gulp.src(allLibsJsApp, { base: '.' })
+				.pipe(plugins.ngAnnotate())
+				.pipe(plugins.babel())
+				.pipe(plugins.size({ title: 'App Libs JS' }))
+				.pipe(plugins.if(env.isProd, replace('\'ngMockE2E\',','')))
+				.pipe(plugins.if(env.isProd, plugins.uglify()))
+				.pipe(plugins.if(env.isDev, gulp.dest('.')))
+			,
+
+			gulp.src(env.paths.libs.js, { base: '.' })
+				.pipe(plugins.ngAnnotate())
+				.pipe(plugins.size({ title: 'nodeModules Libs JS' }))
+				.pipe(plugins.if(env.isDev, gulp.dest('build/libs')))
+		)
 		.pipe(plugins.if(env.isProd, plugins.concat('prod.js')))
-		.pipe(plugins.if(env.isProd, replace('\'ngMockE2E\',','')))
-		.pipe(plugins.ngAnnotate())
 		.pipe(plugins.if(env.isProd, plugins.uglify()))
-		.pipe(plugins.size({ title: 'libsjsDev' }))
-		.pipe(gulp.dest('build/libs'));
+		.pipe(plugins.if(env.isProd, gulp.dest('build/libs')));
 }
 
 function assets() {
-
 	var views = gulp.src('src/app/views/**/*.html')
 		.pipe(plugins.if(env.isProd, plugins.htmlmin({collapseWhitespace: true})))
 	 	.pipe(gulp.dest('build/html/views/'))
@@ -148,7 +162,6 @@ function assets() {
 }
 
 function index() {
-
 	if (env.isDev) {
 		libsjsModules = env.paths.libs.js.map(libsjsModules => path.join('build/libs/', libsjsModules))
 		libsjsApp = env.paths.app.js.map(libsjsApp => path.join('build/', libsjsApp))
@@ -175,7 +188,7 @@ function xo(){
 
 function watch() {
 	gulp.watch('src/**/*.{js,png,jpg,html}', assets);
-	gulp.watch('src/css/**/*.{scss}', sassToCss);
+	gulp.watch('src/scss/**/*.{scss}', sassToCss);
 	gulp.watch('src/index.html', index);
 }
 

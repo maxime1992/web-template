@@ -1,5 +1,5 @@
-var app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ngAnimate', 'ui.router', 'anim-in-out', 'ui.bootstrap', 'ngSanitize', 'pascalprecht.translate', 'angular-loading-bar']);
-var languages = ['en', 'fr'];
+let app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ngAnimate', 'ui.router', 'anim-in-out', 'ui.bootstrap', 'ngSanitize', 'pascalprecht.translate', 'angular-loading-bar']);
+let languages = ['en', 'fr'];
 
 (function () {
 	/**
@@ -11,7 +11,7 @@ var languages = ['en', 'fr'];
 	* @param {String} $provide
 	* @param {String} $urlRouterProvider
 	* @param {String} $translateProvider
-	* @example 
+	* @example
 	* Enable / Disable debug for dev
 	* $compileProvider.debugInfoEnabled(true);
 	* $compileProvider.debugInfoEnabled(false);
@@ -58,7 +58,6 @@ var languages = ['en', 'fr'];
 				rightMenuView: {templateUrl: '/html/views/rightMenu.html'}
 			}
 		});
-
 
 		// default redirection to /home
 		$urlRouterProvider.otherwise('/home');

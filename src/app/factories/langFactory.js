@@ -20,7 +20,6 @@
 			setLang: function (lang) {
 				this.lang = lang;
 			}
-
-		}
+		};
 	});
 })();

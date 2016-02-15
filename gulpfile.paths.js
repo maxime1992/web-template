@@ -20,8 +20,6 @@ let baseLibsJsNodeModules = baseLibsJs.filter((path) => { return path.startsWith
 
 let baseLibsJsNotNodeModules = baseLibsJs.filter((path) => { return !path.startsWith('node_modules'); });
 
-let baseLibsJsApp = baseLibsJsNotNodeModules.map((path) => { return `build/${path}` });
-
 module.exports = {
 	dev: {
 		libs: {
@@ -42,7 +40,13 @@ module.exports = {
 		libs: {
 			js: [
 				...baseLibsJsNodeModules,
-				...baseLibsJsApp
+				
+			]
+		},
+		app:{
+			js: [
+				...baseLibsJsNotNodeModules,
+				
 			]
 		}
 	}

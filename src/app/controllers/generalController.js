@@ -36,7 +36,6 @@
 		* @returns {undefinded} nothing
 		*/
 		$scope.changeLanguageTo = function (lang) {
-
 			$translate.use(lang);
 
 			langFactory.setLang(lang);

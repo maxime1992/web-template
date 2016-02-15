@@ -1,4 +1,4 @@
-(function () {
+(() => {
 	/**
 	* @name generalController
 	* @param {String} $scope
@@ -8,7 +8,7 @@
 	* @param {String} langFactory
 	* @returns {undefinded} nothing
 	*/
-	app.controller('generalController', function ($scope, $location, $state, $translate, langFactory) {
+	app.controller('generalController', ($scope, $location, $state, $translate, langFactory) => {
 		/**
 		* change language when url parameter 'lang' changes
 		* @name stateChangeStart
@@ -17,7 +17,7 @@
 		* @param {String} toParams
 		* @returns {undefinded} nothing
 		*/
-		$scope.$on('$stateChangeStart', function (event, toState, toParams) {
+		$scope.$on('$stateChangeStart', (event, toState, toParams) => {
 			$translate.use(toParams.lang);
 
 			langFactory.setLang(toParams.lang);
@@ -27,7 +27,7 @@
 		* @param {String} viewLocation path of the image
 		* @returns {Number} TODO
 		*/
-		$scope.isActive = function (viewLocation) {
+		$scope.isActive = (viewLocation) => {
 			return $location.path().indexOf(viewLocation) > -1;
 		};
 
@@ -35,7 +35,7 @@
 		* @param {String} lang to use
 		* @returns {undefinded} nothing
 		*/
-		$scope.changeLanguageTo = function (lang) {
+		$scope.changeLanguageTo = (lang) => {
 			$translate.use(lang);
 
 			langFactory.setLang(lang);
@@ -48,7 +48,7 @@
 		/**
 		* @returns {String} lang used
 		*/
-		$scope.getLanguage = function () {
+		$scope.getLanguage = () => {
 			return $translate.use();
 		};
 	});

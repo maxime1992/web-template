@@ -1,4 +1,4 @@
-(function () {
+(() => {
 	/**
 	* Create a 'complete-block'
 	* 5 differents types :
@@ -32,7 +32,7 @@
 	* @returns {undefined} nothing
 	*/
 
-	app.directive('completeBlock', function () {
+	app.directive('completeBlock', () => {
 		return {
 			restrict: 'EA',
 			replace: true,

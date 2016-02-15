@@ -86,10 +86,15 @@ function sassToCss() {
 }
 
 function libs() {
-
 		var allLibsJsApp = env.paths.app.js.map((path) => { return `build/${path}` });
 
 		return merge2(
+			gulp.src(env.paths.libs.js, { base: '.' })
+				.pipe(plugins.ngAnnotate())
+				.pipe(plugins.size({ title: 'nodeModules Libs JS' }))
+				.pipe(plugins.if(env.isDev, gulp.dest('build/libs')))
+			,
+
 			gulp.src(allLibsJsApp, { base: '.' })
 				.pipe(plugins.ngAnnotate())
 				.pipe(plugins.babel())
@@ -97,12 +102,6 @@ function libs() {
 				.pipe(plugins.if(env.isProd, replace('\'ngMockE2E\',','')))
 				.pipe(plugins.if(env.isProd, plugins.uglify()))
 				.pipe(plugins.if(env.isDev, gulp.dest('.')))
-			,
-
-			gulp.src(env.paths.libs.js, { base: '.' })
-				.pipe(plugins.ngAnnotate())
-				.pipe(plugins.size({ title: 'nodeModules Libs JS' }))
-				.pipe(plugins.if(env.isDev, gulp.dest('build/libs')))
 		)
 		.pipe(plugins.if(env.isProd, plugins.concat('prod.js')))
 		.pipe(plugins.if(env.isProd, plugins.uglify()))
@@ -115,25 +114,31 @@ function assets() {
 	 	.pipe(gulp.dest('build/html/views/'))
 
 	var controllers = gulp.src('src/app/controllers/**/*.js')
+		.pipe(plugins.babel())
 	 	.pipe(gulp.dest('build/js/controllers/'))
 
 	var directives = gulp.src('src/app/directives/**/*.js')
 		.pipe(strip())
 		.pipe(embedTemplates())
 		.pipe(flatten())
+		.pipe(plugins.babel())
 	 	.pipe(gulp.dest('build/js/directives/'))
 
 	var factories = gulp.src('src/app/factories/**/*.js')
+		.pipe(plugins.babel())
 	 	.pipe(gulp.dest('build/js/factories'))
 
 	var mocks = gulp.src('src/app/mock/**/*.js')
+		.pipe(plugins.babel())
 	 	.pipe(gulp.dest('build/js/mocks'))
 
  	var tests = gulp.src('src/app/tests/**/*.js')
-	 	 .pipe(gulp.dest('build/js/tests/'))
+ 		.pipe(plugins.babel())
+	 	.pipe(gulp.dest('build/js/tests/'))
 
 	var app = gulp.src('src/app/app.js')
-	 	 .pipe(gulp.dest('build/js/'))
+		.pipe(plugins.babel())
+	 	.pipe(gulp.dest('build/js/'))
 
 	var images = gulp.src('src/img/**/*')
 		.pipe(plugins.if(env.isProd,plugins.imagemin({
@@ -170,8 +175,7 @@ function index() {
 	}else{
 		var source = gulp.src(['build/libs/prod.js','build/css/defaultCss.css'], { read: false });
 	}
-	
-	
+
 	return gulp.src('src/index.html')
 		.pipe(plugins.inject(source, { ignorePath: 'build' }))
 		.pipe(plugins.preprocess({ context: env }))

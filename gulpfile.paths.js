@@ -40,13 +40,11 @@ module.exports = {
 		libs: {
 			js: [
 				...baseLibsJsNodeModules,
-				
 			]
 		},
 		app:{
 			js: [
 				...baseLibsJsNotNodeModules,
-				
 			]
 		}
 	}

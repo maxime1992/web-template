@@ -1,7 +1,7 @@
 let app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ngAnimate', 'ui.router', 'anim-in-out', 'ui.bootstrap', 'ngSanitize', 'pascalprecht.translate', 'angular-loading-bar']);
 let languages = ['en', 'fr'];
 
-(function () {
+(() => {
 	/**
 	* @name appConfig
 	* @param {String} $compileProvider
@@ -21,7 +21,7 @@ let languages = ['en', 'fr'];
 	* $httpProvider.defaults.cache = true;
 	* @returns {undefinded} nothing
 	*/
-	app.config(function ($compileProvider, $httpProvider, $locationProvider, $stateProvider, $provide, $urlRouterProvider, $translateProvider) {
+	app.config(($compileProvider, $httpProvider, $locationProvider, $stateProvider, $provide, $urlRouterProvider, $translateProvider) => {
 		$compileProvider.debugInfoEnabled(true);
 
 		$httpProvider.defaults.cache = true;

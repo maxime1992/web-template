@@ -56,9 +56,9 @@
   },
   "scripts": {
     "start": "npm run dev",
-    "dev": "NODE_ENV='development' node server.js",
-    "prod": "NODE_ENV='production' node server.js",
-    "test": "karma start"
+    "dev": "NODE_ENV='development' gulp build && gulp serve",
+    "prod": "NODE_ENV='production' gulp build",
+    "test": "gulp tests"
   },
   "devDependencies": {
     "angular-jsdoc": "1.3.3",

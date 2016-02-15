@@ -1,8 +1,7 @@
 # folders
 node_modules/*
-dist/*
-.tmp/*
-site_dev/assets/bower_components/*
+build/*
+html-documentation
 
 # files
 npm-debug.log

@@ -10,9 +10,8 @@ I propose a configuration but of course, you can customize it.
 
 :punch: To manage the project :
 - Npm
-- Grunt (& Karma to test Angular web app)
-- Bower
-- Less
+- Gulp (Karma & LiveReload)
+- Sass
 
 :thumbsup: Librairies into the project :
 - Bootstrap
@@ -22,44 +21,24 @@ I propose a configuration but of course, you can customize it.
 	- angular-translate
 	- angular-sanitize
 	- angular-ui-bootstrap
+  - angular-animate
 
 # How to start ?
 :video_game: When you start a new project from this archetype :  
 
-- Run "**npm start**" (*at the root of the project*)  
-  This will install all the required dependencies (npm + bower) to manage the project.
+- Run `npm install` 
 
-- Run "**npm run dev**" or "**npm run prod**" (*at the root of the project*)  
-  To run the server, as simple as that.
-
-  If you don't have bower installed, run "**npm install -g bower**"
-
-:heavy_plus_sign: Optionnaly, you can :  
-
-- *[optional]* Run "**npm update -g**" (*at the root of the project*)  
-  This allows you to update all the npm global packages.
-
-- [optional] Run "**npm install -g npm-check-updates**" and "**npm-check-updates**" (*at the root of the project*)  
-  This allows you see available update (for npm packages) of this project.
-
-- [optional] Run "**npm-check-updates -u**" (*at the root of the project*)  
-  This will update the package.json dependencies to the latests available versions.
-
-# Dev is done and you're moving to prod env ? Sure !
-A Grunt file has been prepared for you !  
-No need to worry about concating css, compiling js, optimizing your pics, ...  
-Just run "**grunt**" with your favourite terminal from the root of the project.  
-A "dist" folder will be created. You're ready to deploy !
+- Run `npm run dev` or `npm run prod`
 
 # Quick custom
 Before you really start your own projet, I recommend you to search for "CUSTOM" occurrences in the project.  
-Everything with CUSTOM is something you may want to change (except into "bower_components" folder).
+Everything with CUSTOM is something you may want to change.
 
 # Contribution
 I think the project has a nice & clean structure.  
 If you have better ideas I would be glad to hear from you and why not propose a pull request ... :wink:  
 (Tho, it's only my second public repo on github I have no idea how pull request works, be kind and comprehensive if I make some mistakes).  
 
-In order to contribute, please run "**npm test**" and check you don't have any JSHint error :tada:.  
+In order to contribute, please run `npm test` and check you don't have any JSHint error by running `xo` :tada:.  
 
 Cheers !

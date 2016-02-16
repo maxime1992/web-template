@@ -1,15 +1,15 @@
 var gulp = require('gulp'),
-    plugins = require('gulp-load-plugins')();
+	plugins = require('gulp-load-plugins')();
 
 var del = require('del'),
-    path = require('path'),
-    merge = require('merge-stream'),
-    paths = require('./gulpfile.paths.js'),
-    recess = require('recess'),
-    Server = require('karma').Server,
-    pngquant = require('imagemin-pngquant'),
-    merge2 = require('merge2'),
-    argv = require('yargs').argv;
+	path = require('path'),
+	merge = require('merge-stream'),
+	paths = require('./gulpfile.paths.js'),
+	recess = require('recess'),
+	Server = require('karma').Server,
+	pngquant = require('imagemin-pngquant'),
+	merge2 = require('merge2'),
+	argv = require('yargs').argv;
 
 
 process.env.NODE_ENV = argv.production ? 'production' : 'development';
@@ -26,9 +26,9 @@ var env = {
 
 
 gulp.task('documentation', function () {
-  return gulp.src('src/app/**/*.js')
-    .pipe(plugins.documentation({ format: 'html' }))
-    .pipe(gulp.dest('html-documentation'));
+	return gulp.src('src/app/**/*.js')
+		.pipe(plugins.documentation({ format: 'html' }))
+		.pipe(gulp.dest('html-documentation'));
 });
 
 
@@ -41,10 +41,10 @@ gulp.task('build', gulp.series(
 ));
 
 gulp.task('tests', function(done) {
-  return new Server({
-      configFile: __dirname + '/karma.conf.js',
-      singleRun: true
-    }, done).start();
+	return new Server({
+		configFile: __dirname + '/karma.conf.js',
+		singleRun: true
+	}, done).start();
 });
 
 gulp.task('serve', gulp.series(
@@ -63,8 +63,8 @@ function clean() {
 function sassToCss() {
 	return gulp.src('src/scss/defaultCss.scss')
 		.pipe(plugins.sassLint({ config: '.sass-lint.yml' }))
-    	.pipe(plugins.sassLint.format())
-    	.pipe(plugins.sassLint.failOnError())
+		.pipe(plugins.sassLint.format())
+		.pipe(plugins.sassLint.failOnError())
 		.pipe(plugins.rename({ dirname: '' }))
 		.pipe(plugins.size({ title: 'Lint SASS' }))
 		.pipe(plugins.if(env.isDev, plugins.sourcemaps.init()))
@@ -104,34 +104,34 @@ function libs() {
 function assets() {
 	var views = gulp.src('src/app/views/**/*.html')
 		.pipe(plugins.if(env.isProd, plugins.htmlmin({collapseWhitespace: true})))
-	 	.pipe(gulp.dest('build/html/views/'))
+		.pipe(gulp.dest('build/html/views/'))
 
 	var controllers = gulp.src('src/app/controllers/**/*.js')
 		.pipe(plugins.babel())
-	 	.pipe(gulp.dest('build/js/controllers/'))
+		.pipe(gulp.dest('build/js/controllers/'))
 
 	var directives = gulp.src('src/app/directives/**/*.js')
 		.pipe(plugins.stripComments())
 		.pipe(plugins.angularEmbedTemplates())
 		.pipe(plugins.flatten())
 		.pipe(plugins.babel())
-	 	.pipe(gulp.dest('build/js/directives/'))
+		.pipe(gulp.dest('build/js/directives/'))
 
 	var factories = gulp.src('src/app/factories/**/*.js')
 		.pipe(plugins.babel())
-	 	.pipe(gulp.dest('build/js/factories'))
+		.pipe(gulp.dest('build/js/factories'))
 
 	var mocks = gulp.src('src/app/mock/**/*.js')
 		.pipe(plugins.babel())
-	 	.pipe(gulp.dest('build/js/mocks'))
+		.pipe(gulp.dest('build/js/mocks'))
 
- 	var tests = gulp.src('src/app/tests/**/*.js')
- 		.pipe(plugins.babel())
-	 	.pipe(gulp.dest('build/js/tests/'))
+	var tests = gulp.src('src/app/tests/**/*.js')
+		.pipe(plugins.babel())
+		.pipe(gulp.dest('build/js/tests/'))
 
 	var app = gulp.src('src/app/app.js')
 		.pipe(plugins.babel())
-	 	.pipe(gulp.dest('build/js/'))
+		.pipe(gulp.dest('build/js/'))
 
 	var images = gulp.src('src/img/**/*')
 		.pipe(plugins.if(env.isProd,plugins.imagemin({
@@ -139,7 +139,7 @@ function assets() {
 			svgoPlugins: [{removeViewBox: false}],
 			use: [pngquant()]
 		})))
-	 	.pipe(gulp.dest('build/img'))
+		.pipe(gulp.dest('build/img'))
 
 	var languages = gulp.src('src/app/languages/*')
 		.pipe(gulp.dest('build/languages/'))

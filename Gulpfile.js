@@ -8,16 +8,12 @@ var del = require('del'),
     recess = require('recess'),
     Server = require('karma').Server,
     pngquant = require('imagemin-pngquant'),
-    replace = require('gulp-replace'),
-    documentation = require('gulp-documentation'),
-    embedTemplates = require('gulp-angular-embed-templates'),
-    strip = require('gulp-strip-comments'),
-    flatten = require('gulp-flatten'),
-    merge2 = require('merge2');
+    merge2 = require('merge2'),
+    argv = require('yargs').argv;
 
 
-process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
-process.env.PORT = process.env.PORT ? process.env.PORT : '8080';
+process.env.NODE_ENV = argv.production ? 'production' : 'development';
+process.env.PORT = argv.PORT ? argv.PORT : '8080';
 
 var env = {
 	NODE_ENV: process.env.NODE_ENV,
@@ -31,7 +27,7 @@ var env = {
 
 gulp.task('documentation', function () {
   return gulp.src('src/app/**/*.js')
-    .pipe(documentation({ format: 'html' }))
+    .pipe(plugins.documentation({ format: 'html' }))
     .pipe(gulp.dest('html-documentation'));
 });
 
@@ -59,9 +55,6 @@ gulp.task('xo', function () {
 	return gulp.src('src/**/*.js')
 		.pipe(plugins.xo({quiet:true}));
 });
-
-process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
-process.env.PORT = process.env.PORT ? process.env.PORT : '8080';
 
 function clean() {
 	return del(['build']);
@@ -99,7 +92,7 @@ function libs() {
 				.pipe(plugins.ngAnnotate())
 				.pipe(plugins.babel())
 				.pipe(plugins.size({ title: 'App Libs JS' }))
-				.pipe(plugins.if(env.isProd, replace('\'ngMockE2E\',','')))
+				.pipe(plugins.if(env.isProd, plugins.replace('\'ngMockE2E\',','')))
 				.pipe(plugins.if(env.isProd, plugins.uglify()))
 				.pipe(plugins.if(env.isDev, gulp.dest('.')))
 		)
@@ -118,9 +111,9 @@ function assets() {
 	 	.pipe(gulp.dest('build/js/controllers/'))
 
 	var directives = gulp.src('src/app/directives/**/*.js')
-		.pipe(strip())
-		.pipe(embedTemplates())
-		.pipe(flatten())
+		.pipe(plugins.stripComments())
+		.pipe(plugins.angularEmbedTemplates())
+		.pipe(plugins.flatten())
 		.pipe(plugins.babel())
 	 	.pipe(gulp.dest('build/js/directives/'))
 
@@ -152,12 +145,10 @@ function assets() {
 		.pipe(gulp.dest('build/languages/'))
 
 	var fontAwesome = gulp.src('node_modules/font-awesome/fonts/**/*')
-		.pipe(plugins.if(env.isProd, gulp.dest('build/fonts')))
-		.pipe(plugins.if(env.isDev, gulp.dest('build/fonts')))
+		.pipe(gulp.dest('build/fonts'));
 
 	var fontBootstrap = gulp.src('node_modules/bootstrap/dist/fonts/**/*')
-		.pipe(plugins.if(env.isProd, gulp.dest('build/fonts')))
-		.pipe(plugins.if(env.isDev, gulp.dest('build/fonts')));
+		.pipe(gulp.dest('build/fonts'))
 
 	var imgBoostrap = gulp.src('node_modules/bootstrap/dist/img/**/*')
 		.pipe(gulp.dest('build/libs/node_modules/bootstrap/dist/img'))

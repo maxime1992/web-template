@@ -25,14 +25,13 @@ var env = {
 };
 
 
-gulp.task('build_doc', function () {
-  var gulpDocs = require('gulp-ngdocs');
+gulp.task('build-doc', function () {
   return gulp.src('src/app/**/*.js')
-    .pipe(gulpDocs.process())
+    .pipe(plugins.ngdocs.process())
     .pipe(gulp.dest('./docs'));
 });
 
-gulp.task('start_doc', function () {
+gulp.task('serve-doc', function () {
   return plugins.connect.server({
 		root: 'docs',
 		livereload: true,
@@ -66,7 +65,7 @@ gulp.task('xo', function () {
 });
 
 function clean() {
-	return del(['build']);
+	return del(['build', 'docs']);
 }
 
 function sassToCss() {

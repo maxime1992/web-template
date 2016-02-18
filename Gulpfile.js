@@ -25,10 +25,19 @@ var env = {
 };
 
 
-gulp.task('documentation', function () {
-	return gulp.src('src/app/**/*.js')
-		.pipe(plugins.documentation({ format: 'html' }))
-		.pipe(gulp.dest('html-documentation'));
+gulp.task('build_doc', function () {
+  var gulpDocs = require('gulp-ngdocs');
+  return gulp.src('src/app/**/*.js')
+    .pipe(gulpDocs.process())
+    .pipe(gulp.dest('./docs'));
+});
+
+gulp.task('start_doc', function () {
+  return plugins.connect.server({
+		root: 'docs',
+		livereload: true,
+		port: 8181
+	});
 });
 
 

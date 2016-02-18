@@ -1,7 +1,7 @@
 # folders
 node_modules/*
 build/*
-html-documentation
+docs
 
 # files
 npm-debug.log

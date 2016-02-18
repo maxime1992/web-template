@@ -2,25 +2,6 @@ let app = angular.module('CUSTOM_NAME_OF_THE_APP', ['ngMockE2E', 'ngAnimate', 'u
 let languages = ['en', 'fr'];
 
 (() => {
-	/**
-	* @name appConfig
-	* @param {String} $compileProvider
-	* @param {String} $httpProvider
-	* @param {String} $locationProvider
-	* @param {String} $stateProvider
-	* @param {String} $provide
-	* @param {String} $urlRouterProvider
-	* @param {String} $translateProvider
-	* @example
-	* Enable / Disable debug for dev
-	* $compileProvider.debugInfoEnabled(true);
-	* $compileProvider.debugInfoEnabled(false);
-	*
-	* Enable/ Disable http caching
-	* $httpProvider.defaults.cache = true;
-	* $httpProvider.defaults.cache = true;
-	* @returns {undefinded} nothing
-	*/
 	app.config(($compileProvider, $httpProvider, $locationProvider, $stateProvider, $provide, $urlRouterProvider, $translateProvider) => {
 		$compileProvider.debugInfoEnabled(true);
 

@@ -1,22 +1,13 @@
 (() => {
 	/**
-	* @name generalController
-	* @param {String} $scope
-	* @param {String} $location
-	* @param {String} $state
-	* @param {String} $translate
-	* @param {String} langFactory
-	* @returns {undefinded} nothing
-	*/
+	 * @ngdoc controller
+	 * @name app.controller:generalController
+	 * @description
+	 * A It contains by default the active tab view and the language selected 
+	 */
 	app.controller('generalController', ($scope, $location, $state, $translate, langFactory) => {
-		/**
-		* change language when url parameter 'lang' changes
-		* @name stateChangeStart
-		* @param {String} event
-		* @param {String} toState
-		* @param {String} toParams
-		* @returns {undefinded} nothing
-		*/
+		
+
 		$scope.$on('$stateChangeStart', (event, toState, toParams) => {
 			$translate.use(toParams.lang);
 
@@ -24,16 +15,24 @@
 		});
 
 		/**
-		* @param {String} viewLocation path of the image
-		* @returns {Number} TODO
+		* @ngdoc method
+		* @name isActive
+		* @methodOf app.controller:generalController
+		* @description
+		* return the location url of the open tab .
+		* @returns {Object} return the location path of the active tab
 		*/
 		$scope.isActive = (viewLocation) => {
 			return $location.path().indexOf(viewLocation) > -1;
 		};
 
 		/**
-		* @param {String} lang to use
-		* @returns {undefinded} nothing
+		* @ngdoc method
+		* @name changeLanguageTo
+		* @methodOf app.controller:generalController
+		* @description
+		* Set the language in function of the lang
+		* @param {string} lang language
 		*/
 		$scope.changeLanguageTo = (lang) => {
 			$translate.use(lang);
@@ -44,9 +43,14 @@
 
 			$scope.navCollapsed = !$scope.navCollapsed;
 		};
-
+		 
 		/**
-		* @returns {String} lang used
+		* @ngdoc method
+		* @name getLanguage
+		* @methodOf app.controller:generalController
+		* @description
+		* get the language 
+		* @returns {string} lang
 		*/
 		$scope.getLanguage = () => {
 			return $translate.use();

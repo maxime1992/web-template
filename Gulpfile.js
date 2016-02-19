@@ -39,7 +39,6 @@ gulp.task('serve-doc', function () {
 	});
 });
 
-
 gulp.task('build', gulp.series(
 	clean,
 	sassToCss,

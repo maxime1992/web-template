@@ -3,11 +3,9 @@
 	 * @ngdoc controller
 	 * @name app.controller:generalController
 	 * @description
-	 * A It contains by default the active tab view and the language selected 
+	 * A It contains by default the active tab view and the language selected
 	 */
 	app.controller('generalController', ($scope, $location, $state, $translate, langFactory) => {
-		
-
 		$scope.$on('$stateChangeStart', (event, toState, toParams) => {
 			$translate.use(toParams.lang);
 
@@ -43,13 +41,13 @@
 
 			$scope.navCollapsed = !$scope.navCollapsed;
 		};
-		 
+
 		/**
 		* @ngdoc method
 		* @name getLanguage
 		* @methodOf app.controller:generalController
 		* @description
-		* get the language 
+		* get the language
 		* @returns {string} lang
 		*/
 		$scope.getLanguage = () => {

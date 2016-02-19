@@ -1,21 +1,33 @@
 (() => {
+	/**
+	* @ngdoc service
+	* @name app.langFactory
+	**/
 	app.factory('langFactory', () => {
 		return {
 
+			/**
+			* @ngdoc property
+			* @name .#lang //the name after the hash is important
+			*/
 			lang: null,
 
 			/**
-			* Get the lang
-			* @returns {String} lang
+			* @ngdoc method
+			* @name getLang
+			* @methodOf app.langFactory
+			* @returns {string} the lang selected
 			*/
 			getLang: () => {
-				return lang;
+				return this.lang;
 			},
 
 			/**
-			* Set the lang
-			* @param {String} lang
-			* @returns {undefined} nothing
+			* @ngdoc method
+			* @name setLang
+			* @methodOf app.langFactory
+			* @param {string} the lang that we want to set
+			* @returns {string} the lang selected
 			*/
 			setLang: (lang) => {
 				lang = lang;

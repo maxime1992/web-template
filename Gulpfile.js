@@ -25,12 +25,19 @@ var env = {
 };
 
 
-gulp.task('documentation', function () {
-	return gulp.src('src/app/**/*.js')
-		.pipe(plugins.documentation({ format: 'html' }))
-		.pipe(gulp.dest('html-documentation'));
+gulp.task('build-doc', function () {
+  return gulp.src('src/app/**/*.js')
+    .pipe(plugins.ngdocs.process())
+    .pipe(gulp.dest('./docs'));
 });
 
+gulp.task('serve-doc', function () {
+  return plugins.connect.server({
+		root: 'docs',
+		livereload: true,
+		port: 8181
+	});
+});
 
 gulp.task('build', gulp.series(
 	clean,
@@ -57,7 +64,7 @@ gulp.task('xo', function () {
 });
 
 function clean() {
-	return del(['build']);
+	return del(['build', 'docs']);
 }
 
 function sassToCss() {

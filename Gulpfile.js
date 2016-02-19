@@ -9,8 +9,8 @@ var del = require('del'),
 	Server = require('karma').Server,
 	pngquant = require('imagemin-pngquant'),
 	merge2 = require('merge2'),
-	argv = require('yargs').argv;
-
+	argv = require('yargs').argv,
+	opn = require('opn');
 
 process.env.NODE_ENV = argv.production ? 'production' : 'development';
 process.env.PORT = argv.PORT ? argv.PORT : '8080';
@@ -23,7 +23,6 @@ var env = {
 	get isProd() { return this.NODE_ENV === 'production'; },
 	get paths() { return this.isDev ? paths.dev : paths.prod; }
 };
-
 
 gulp.task('build-doc', function () {
   return gulp.src('src/app/**/*.js')
@@ -55,7 +54,7 @@ gulp.task('tests', function(done) {
 });
 
 gulp.task('serve', gulp.series(
-	gulp.parallel(watch, livereload)
+	gulp.parallel(watch, livereload, openBrowser)
 ));
 
 gulp.task('xo', function () {
@@ -182,11 +181,14 @@ function index() {
 		.pipe(plugins.connect.reload());
 }
 
-function xo(){
+function xo() {
 	return gulp.src('src/assets/app_components/**/*.js')
 		.pipe(xo())
 }
 
+function openBrowser() {
+	opn('http://localhost:' + env.PORT);
+}
 
 function watch() {
 	gulp.watch('src/**/*.{js,png,jpg,html}', assets);

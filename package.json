@@ -16,6 +16,7 @@
     "bootstrap": "3.3.6",
     "connect": "3.4.0",
     "font-awesome": "4.5.0",
+    "opn": "^4.0.0",
     "serve-static": "1.10.1",
     "xo": "0.12.1"
   },

@@ -3,14 +3,13 @@ var gulp = require('gulp'),
 
 var del = require('del'),
 	path = require('path'),
-	merge = require('merge-stream'),
 	paths = require('./gulpfile.paths.js'),
 	recess = require('recess'),
 	Server = require('karma').Server,
 	pngquant = require('imagemin-pngquant'),
 	merge2 = require('merge2'),
-	argv = require('yargs').argv;
-
+	argv = require('yargs').argv,
+	opn = require('opn');
 
 process.env.NODE_ENV = argv.production ? 'production' : 'development';
 process.env.PORT = argv.PORT ? argv.PORT : '8080';
@@ -23,7 +22,6 @@ var env = {
 	get isProd() { return this.NODE_ENV === 'production'; },
 	get paths() { return this.isDev ? paths.dev : paths.prod; }
 };
-
 
 gulp.task('build-doc', function () {
   return gulp.src('src/app/**/*.js')
@@ -55,7 +53,7 @@ gulp.task('tests', function(done) {
 });
 
 gulp.task('serve', gulp.series(
-	gulp.parallel(watch, livereload)
+	gulp.parallel(watch, livereload, openBrowser)
 ));
 
 gulp.task('xo', function () {
@@ -133,63 +131,63 @@ function libs() {
 }
 
 function assets() {
-	var views = gulp.src('src/app/views/**/*.html')
-		.pipe(plugins.if(env.isProd, plugins.htmlmin({collapseWhitespace: true})))
-		.pipe(gulp.dest('build/html/views/'))
+	return merge2(
+		gulp.src('src/app/views/**/*.html')
+			.pipe(plugins.if(env.isProd, plugins.htmlmin({collapseWhitespace: true})))
+			.pipe(gulp.dest('build/html/views/')),
 
-	var controllers = gulp.src('src/app/controllers/**/*.js')
-		.pipe(plugins.babel())
-		.pipe(gulp.dest('build/js/controllers/'))
+		gulp.src('src/app/controllers/**/*.js')
+			.pipe(plugins.babel())
+			.pipe(gulp.dest('build/js/controllers/')),
 
-	var directives = gulp.src('src/app/directives/**/*.js')
-		.pipe(plugins.stripComments())
-		.pipe(plugins.angularEmbedTemplates())
-		.pipe(plugins.flatten())
-		.pipe(plugins.babel())
-		.pipe(gulp.dest('build/js/directives/'))
+		gulp.src('src/app/directives/**/*.js')
+			.pipe(plugins.stripComments())
+			.pipe(plugins.angularEmbedTemplates())
+			.pipe(plugins.flatten())
+			.pipe(plugins.babel())
+			.pipe(gulp.dest('build/js/directives/')),
 
-	var factories = gulp.src('src/app/factories/**/*.js')
-		.pipe(plugins.babel())
-		.pipe(gulp.dest('build/js/factories'))
+		gulp.src('src/app/factories/**/*.js')
+			.pipe(plugins.babel())
+			.pipe(gulp.dest('build/js/factories')),
 
-	var filters = gulp.src('src/app/filters/**/*.js')
-		.pipe(plugins.babel())
-		.pipe(gulp.dest('build/js/filters'))
+		gulp.src('src/app/filters/**/*.js')
+			.pipe(plugins.babel())
+			.pipe(gulp.dest('build/js/filters')),
 
-	var mocks = gulp.src('src/app/mock/**/*.js')
-		.pipe(plugins.babel())
-		.pipe(gulp.dest('build/js/mocks'))
+		gulp.src('src/app/mock/**/*.js')
+			.pipe(plugins.babel())
+			.pipe(gulp.dest('build/js/mocks')),
 
-	var tests = gulp.src('src/app/tests/**/*.js')
-		.pipe(plugins.babel())
-		.pipe(gulp.dest('build/js/tests/'))
+		gulp.src('src/app/tests/**/*.js')
+			.pipe(plugins.babel())
+			.pipe(gulp.dest('build/js/tests/')),
 
-	var app = gulp.src('src/app/app.js')
-		.pipe(plugins.babel())
-		.pipe(gulp.dest('build/js/'))
+		gulp.src('src/app/app.js')
+			.pipe(plugins.babel())
+			.pipe(gulp.dest('build/js/')),
 
-	var images = gulp.src('src/img/**/*')
-		.pipe(plugins.if(env.isProd,plugins.imagemin({
-			progressive: true,
-			svgoPlugins: [{removeViewBox: false}],
-			use: [pngquant()]
-		})))
-		.pipe(gulp.dest('build/img'))
+		gulp.src('src/img/**/*')
+			.pipe(plugins.if(env.isProd,plugins.imagemin({
+				progressive: true,
+				svgoPlugins: [{removeViewBox: false}],
+				use: [pngquant()]
+			})))
+			.pipe(gulp.dest('build/img')),
 
-	var languages = gulp.src('src/app/languages/*')
-		.pipe(gulp.dest('build/languages/'))
+		gulp.src('src/app/languages/*')
+			.pipe(gulp.dest('build/languages/')),
 
-	var fontAwesome = gulp.src('node_modules/font-awesome/fonts/**/*')
-		.pipe(gulp.dest('build/fonts'));
+		gulp.src('node_modules/font-awesome/fonts/**/*')
+			.pipe(gulp.dest('build/fonts')),
 
-	var fontBootstrap = gulp.src('node_modules/bootstrap/dist/fonts/**/*')
-		.pipe(gulp.dest('build/fonts'))
+		gulp.src('node_modules/bootstrap/dist/fonts/**/*')
+			.pipe(gulp.dest('build/fonts')),
 
-	var imgBoostrap = gulp.src('node_modules/bootstrap/dist/img/**/*')
-		.pipe(gulp.dest('build/libs/node_modules/bootstrap/dist/img'))
-		.pipe(plugins.connect.reload());
-
-	return merge(views, controllers, directives, factories, filters, mocks, tests, app, images, languages, fontAwesome, fontBootstrap, imgBoostrap);
+		gulp.src('node_modules/bootstrap/dist/img/**/*')
+			.pipe(gulp.dest('build/libs/node_modules/bootstrap/dist/img'))
+	)
+	.pipe(plugins.connect.reload());
 }
 
 function index() {
@@ -210,11 +208,14 @@ function index() {
 		.pipe(plugins.connect.reload());
 }
 
-function xo(){
+function xo() {
 	return gulp.src('src/assets/app_components/**/*.js')
 		.pipe(xo())
 }
 
+function openBrowser() {
+	opn('http://localhost:' + env.PORT);
+}
 
 function watch() {
 	gulp.watch('src/**/*.{js,png,jpg,html,json}', assets);

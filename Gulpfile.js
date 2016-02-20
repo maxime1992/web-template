@@ -68,19 +68,39 @@ function clean() {
 }
 
 function sassToCss() {
-	return gulp.src('src/scss/defaultCss.scss')
-		.pipe(plugins.sassLint({ config: '.sass-lint.yml' }))
-		.pipe(plugins.sassLint.format())
-		.pipe(plugins.sassLint.failOnError())
-		.pipe(plugins.rename({ dirname: '' }))
-		.pipe(plugins.size({ title: 'Lint SASS' }))
-		.pipe(plugins.if(env.isDev, plugins.sourcemaps.init()))
-		.pipe(plugins.sass())
-		.pipe(plugins.size({ title: 'Compile SASS' }))
-		.pipe(plugins.if(env.isProd, plugins.minifyCss()))
-		.pipe(gulp.dest('build/css/'))
-		.pipe(plugins.if(env.isDev, plugins.sourcemaps.write()))
-		.pipe(plugins.size({ title: 'Mimify CSS' }))
+	return merge2(
+			gulp.src('src/scss/libs.scss')
+				.pipe(plugins.sassLint({ config: '.sass-lint.yml' }))
+				.pipe(plugins.sassLint.format())
+				.pipe(plugins.sassLint.failOnError())
+				.pipe(plugins.rename({ dirname: '' }))
+				.pipe(plugins.size({ title: 'Lint libs SASS' }))
+				.pipe(plugins.if(env.isDev, plugins.sourcemaps.init()))
+				.pipe(plugins.sass())
+				.pipe(plugins.size({ title: 'Compile Libs SASS' }))
+				.pipe(plugins.uncss({
+					html: ['src/index.html', 'src/app/**/*.html'],
+					uncssrc : '.uncssrc'
+				}))
+				.pipe(plugins.size({ title: 'Uncss Libs css' }))
+				.pipe(plugins.if(env.isProd, plugins.minifyCss()))
+				.pipe(plugins.if(env.isDev, plugins.sourcemaps.write()))
+				.pipe(plugins.size({ title: 'Mimify Libs CSS' })),
+
+				gulp.src('src/scss/apps.scss')
+				.pipe(plugins.sassLint({ config: '.sass-lint.yml' }))
+				.pipe(plugins.sassLint.format())
+				.pipe(plugins.sassLint.failOnError())
+				.pipe(plugins.rename({ dirname: '' }))
+				.pipe(plugins.size({ title: 'Lint Apps SASS' }))
+				.pipe(plugins.if(env.isDev, plugins.sourcemaps.init()))
+				.pipe(plugins.sass())
+				.pipe(plugins.size({ title: 'Compile Apps SASS' }))
+				.pipe(plugins.if(env.isProd, plugins.minifyCss()))
+				.pipe(plugins.if(env.isDev, plugins.sourcemaps.write()))
+				.pipe(plugins.size({ title: 'Mimify Apps CSS' }))
+		)
+		.pipe(plugins.concat('defaultCss.css'))
 		.pipe(gulp.dest('build/css/'))
 		.pipe(plugins.connect.reload());
 }

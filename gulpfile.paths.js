@@ -10,10 +10,16 @@ let baseLibsJs = [
 	'node_modules/angular-loading-bar/build/loading-bar.min.js',
 	'node_modules/angular-animate/angular-animate.min.js',
 	'node_modules/angular-ui-router-anim-in-out/anim-in-out.js',
+	'node_modules/rx/dist/rx.all.min.js',
+	'node_modules/rx-angular/dist/rx.angular.min.js',
 	'js/app.js',
 	'js/factories/langFactory.js',
+	'js/factories/rxjsFactory.js',
 	'js/directives/completeBlockDirective.js',
-	'js/controllers/generalController.js'
+	'js/controllers/generalController.js',
+	'js/controllers/rxjs1Controller.js',
+	'js/controllers/rxjs2Controller.js',
+	'js/filters/rxjsFilter.js'
 ];
 
 let baseLibsJsNodeModules = baseLibsJs.filter((path) => { return path.startsWith('node_modules'); });

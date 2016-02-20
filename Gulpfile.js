@@ -82,12 +82,12 @@ function sassToCss() {
 					html: ['src/index.html', 'src/app/**/*.html'],
 					uncssrc : '.uncssrc'
 				}))
-				.pipe(plugins.size({ title: 'Uncss Libs css' }))
+				.pipe(plugins.size({ title: 'Uncss Libs CSS' }))
 				.pipe(plugins.if(env.isProd, plugins.minifyCss()))
 				.pipe(plugins.if(env.isDev, plugins.sourcemaps.write()))
-				.pipe(plugins.size({ title: 'Mimify Libs CSS' })),
+				.pipe(plugins.size({ title: 'Minify Libs CSS' })),
 
-				gulp.src('src/scss/apps.scss')
+			gulp.src('src/scss/apps.scss')
 				.pipe(plugins.sassLint({ config: '.sass-lint.yml' }))
 				.pipe(plugins.sassLint.format())
 				.pipe(plugins.sassLint.failOnError())
@@ -98,7 +98,7 @@ function sassToCss() {
 				.pipe(plugins.size({ title: 'Compile Apps SASS' }))
 				.pipe(plugins.if(env.isProd, plugins.minifyCss()))
 				.pipe(plugins.if(env.isDev, plugins.sourcemaps.write()))
-				.pipe(plugins.size({ title: 'Mimify Apps CSS' }))
+				.pipe(plugins.size({ title: 'Minify Apps CSS' }))
 		)
 		.pipe(plugins.concat('defaultCss.css'))
 		.pipe(gulp.dest('build/css/'))
@@ -111,20 +111,24 @@ function libs() {
 		return merge2(
 			gulp.src(env.paths.libs.js, { base: '.' })
 				.pipe(plugins.ngAnnotate())
-				.pipe(plugins.size({ title: 'nodeModules Libs JS' }))
+				.pipe(plugins.if(env.isProd, plugins.stripDebug()))
+				.pipe(plugins.size({ title: 'Annotate and StripDebug NodeModules Libs JS' }))
 				.pipe(plugins.if(env.isDev, gulp.dest('build/libs')))
 			,
 
 			gulp.src(allLibsJsApp, { base: '.' })
 				.pipe(plugins.ngAnnotate())
 				.pipe(plugins.babel())
-				.pipe(plugins.size({ title: 'App Libs JS' }))
+				.pipe(plugins.if(env.isProd, plugins.stripDebug()))
+				.pipe(plugins.size({ title: 'Annotate , Babel and StripDebug App Libs JS' }))
 				.pipe(plugins.if(env.isProd, plugins.replace('\'ngMockE2E\',','')))
 				.pipe(plugins.if(env.isProd, plugins.uglify()))
 				.pipe(plugins.if(env.isDev, gulp.dest('.')))
+				.pipe(plugins.size({ title: 'Uglify App libs JS' }))
 		)
 		.pipe(plugins.if(env.isProd, plugins.concat('prod.js')))
 		.pipe(plugins.if(env.isProd, plugins.uglify()))
+		.pipe(plugins.size({ title: 'Uglify All Libs JS' }))
 		.pipe(plugins.if(env.isProd, gulp.dest('build/libs')));
 }
 
@@ -147,6 +151,10 @@ function assets() {
 	var factories = gulp.src('src/app/factories/**/*.js')
 		.pipe(plugins.babel())
 		.pipe(gulp.dest('build/js/factories'))
+
+	var filters = gulp.src('src/app/filters/**/*.js')
+		.pipe(plugins.babel())
+		.pipe(gulp.dest('build/js/filters'))
 
 	var mocks = gulp.src('src/app/mock/**/*.js')
 		.pipe(plugins.babel())
@@ -181,7 +189,7 @@ function assets() {
 		.pipe(gulp.dest('build/libs/node_modules/bootstrap/dist/img'))
 		.pipe(plugins.connect.reload());
 
-	return merge(views, controllers, directives, factories, mocks, tests, app, images, languages, fontAwesome, fontBootstrap, imgBoostrap);
+	return merge(views, controllers, directives, factories, filters, mocks, tests, app, images, languages, fontAwesome, fontBootstrap, imgBoostrap);
 }
 
 function index() {
@@ -209,7 +217,7 @@ function xo(){
 
 
 function watch() {
-	gulp.watch('src/**/*.{js,png,jpg,html}', assets);
+	gulp.watch('src/**/*.{js,png,jpg,html,json}', assets);
 	gulp.watch('src/scss/**/*.{scss}', sassToCss);
 	gulp.watch('src/index.html', index);
 }

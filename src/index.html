@@ -37,10 +37,10 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
 					<ul class="nav navbar-nav">
-						<li ng-class="{ active: isActive('/home')}" ng-click="navCollapsed=true"><a ui-sref="home"><i class="fa fa-home"></i></a></li>
-						<li ng-class="{ active: isActive('/page1')}" ng-click="navCollapsed=true"><a ui-sref="page1">Page 1</a></li>
-						<li ng-class="{ active: isActive('/page2')}" ng-click="navCollapsed=true"><a ui-sref="page2">Page 2</a></li>
-						<li ng-class="{ active: isActive('/page3')}" ng-click="navCollapsed=true"><a ui-sref="page3">Page 3</a></li>
+						<li ng-click="navCollapsed=true"><a ng-class="{ active: isActive('/home')}"  ui-sref="home"><i class="fa fa-home"></i></a></li>
+						<li  ng-click="navCollapsed=true"><a ng-class="{ active: isActive('/page1')}" ui-sref="page1">Page 1</a></li>
+						<li  ng-click="navCollapsed=true"><a ng-class="{ active: isActive('/page2')}" ui-sref="page2">Page 2</a></li>
+						<li ng-click="navCollapsed=true"><a ng-class="{ active: isActive('/page3')}" ui-sref="page3">Page 3</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right lang">
 						<li class="lang"><a href="" ng-click="changeLanguageTo('fr')" ng-class="{ selected: getLanguage()=='fr'}">FR</a></li>

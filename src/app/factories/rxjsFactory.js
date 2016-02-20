@@ -1,18 +1,34 @@
-(function () {
-	// factory to try rxjs
-	app.factory('rxjsFactory', ['rx', function (rx) {
-		// save the observer of the factory
-		console.log('here');
-		var rxjsFactoryObserver;
+(() => {
+	/**
+	* @ngdoc service
+	* @name app.rxjsFactory
+	**/
+	app.factory('rxjsFactory', ['rx', (rx) => {
+		/**
+		* @ngdoc property
+		* @name .#rxjsFactoryObserver
+		* @private
+		*/
+		let rxjsFactoryObserver;
 
-		// create the observable
-		var rxjsFactory$ = new rx.Observable.create(function (observer) {
+		/**
+		* @ngdoc method
+		* @name rx.Observable.create
+		* @methodOf app.rxjsFactory
+		* @param {object} observer To will watch and share with the controllers which subscribe it
+		* @private
+		*/
+		let rxjsFactory$ = new rx.Observable.create((observer) => {
 			rxjsFactoryObserver = observer;
 		})
 		.share();
 
-		// define the data like a private variable (outside object returned)
-		var data = {
+		/**
+		* @ngdoc property
+		* @name .#data
+		* @private
+		*/
+		let data = {
 			users: [
 				{name: 'John Rambo', isVisible: true, age: 32},
 				{name: 'Pablo Picasso', isVisible: true, age: 64}
@@ -20,19 +36,31 @@
 		};
 
 		return {
-			// share the observable so eeryone can subscribe to it
+			/**
+			* @ngdoc property
+			* @name .#rxjsFactory
+			*/
 			rxjsFactory$: rxjsFactory$,
 
-			getUsers: function () {
+			/**
+			* @ngdoc method
+			* @name rx.Observable.getUsers
+			* @methodOf app.rxjsFactory
+			* @description Emit the signal to update data array and the subscribe controller will be update and get the users
+			*/
+			getUsers: () => {
 				// tell everyone to update users
 				rxjsFactoryObserver.next(data.users);
 			},
 
-			addUser: function () {
-				// push a new user
+			/**
+			* @ngdoc method
+			* @name rx.Observable.addUser
+			* @methodOf app.rxjsFactory
+			* @description Add a user and emit the signal at the controllers to be update
+			*/
+			addUser: () => {
 				data.users.push({name: 'John Kennedy', isVisible: true, age: 87});
-
-				// tell everyone to update users
 				rxjsFactoryObserver.next(data.users);
 			}
 		};

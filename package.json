@@ -38,7 +38,7 @@
       "linebreak-style": [
         0
       ],
-      "new-cap" : 1,
+      "new-cap": 1,
       "no-invalid-this": 0,
       "strict": [
         2,
@@ -117,7 +117,14 @@
     "path": "0.12.7",
     "phantomjs": "1.9.19",
     "recess": "1.1.9",
+    "ghooks": "^1.0.3",
+    "validate-commit-msg": "^2.0.0",
     "yargs": "4.1.0"
+  },
+  "config": {
+    "ghooks": {
+      "commit-msg": "validate-commit-msg"
+    }
   },
   "repository": {
     "type": "git",

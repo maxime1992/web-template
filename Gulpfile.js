@@ -80,6 +80,7 @@ function sassToCss() {
 		.pipe(gulp.dest('build/css/'))
 		.pipe(plugins.if(env.isDev, plugins.sourcemaps.write()))
 		.pipe(plugins.size({ title: 'Mimify CSS' }))
+		.pipe(plugins.if(env.isProd, plugins.rev()))
 		.pipe(gulp.dest('build/css/'))
 		.pipe(plugins.connect.reload());
 }
@@ -104,6 +105,7 @@ function libs() {
 		)
 		.pipe(plugins.if(env.isProd, plugins.concat('prod.js')))
 		.pipe(plugins.if(env.isProd, plugins.uglify()))
+		.pipe(plugins.if(env.isProd, plugins.rev()))
 		.pipe(plugins.if(env.isProd, gulp.dest('build/libs')));
 }
 
@@ -170,11 +172,11 @@ function index() {
 
 		var source = gulp.src([...libsjsModules, ...libsjsApp,'build/css/defaultCss.css'], { read: false });
 	}else{
-		var source = gulp.src(['build/libs/prod.js','build/css/defaultCss.css'], { read: false });
+		var source = gulp.src(['build/libs/prod-*.js','build/css/defaultCss-*.css'], { read: false });
 	}
 
 	return gulp.src('src/index.html')
-		.pipe(plugins.inject(source, { ignorePath: 'build' }))
+		.pipe(plugins.inject(source, { addRootSlash: false, ignorePath: 'build' }))
 		.pipe(plugins.preprocess({ context: env }))
 		.pipe(plugins.if(env.isProd,plugins.htmlmin({collapseWhitespace: true})))
 		.pipe(gulp.dest('build'))

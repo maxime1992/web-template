@@ -51,10 +51,12 @@ gulp.task('build-zip', zip);
 gulp.task('clean-zip', cleanZip)
 
 gulp.task('tests', function(done) {
-	return new Server({
-		configFile: __dirname + '/karma.conf.js',
-		singleRun: true
-	}, done).start();
+    Server.start({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, function() {
+        done();
+    });
 });
 
 gulp.task('serve', gulp.series(

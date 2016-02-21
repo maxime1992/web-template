@@ -99,6 +99,7 @@ function sassToCss() {
 				.pipe(plugins.if(env.isProd, plugins.size({ title: 'Minify Apps CSS' })))
 		)
 		.pipe(plugins.concat('all.css'))
+		.pipe(plugins.if(env.isProd, plugins.rev()))
 		.pipe(gulp.dest('build/css/'))
 		.pipe(plugins.connect.reload());
 }
@@ -119,8 +120,8 @@ function libs() {
 				.pipe(plugins.ngAnnotate())
 				.pipe(plugins.babel())
 				.pipe(plugins.if(env.isProd, plugins.stripDebug()))
-				.pipe(plugins.if(env.isProd, plugins.size({ title: 'Annotate , Babel and StripDebug App Libs JS' })))
-				.pipe(plugins.if(env.idDev, plugins.size({ title: 'Annotate , Babel App Libs JS' })))
+				.pipe(plugins.if(env.isProd, plugins.size({ title: 'Annotate, Babel and StripDebug App Libs JS' })))
+				.pipe(plugins.if(env.idDev, plugins.size({ title: 'Annotate, Babel App Libs JS' })))
 				.pipe(plugins.if(env.isProd, plugins.replace('\'ngMockE2E\',','')))
 				.pipe(plugins.if(env.isProd, plugins.uglify()))
 				.pipe(plugins.if(env.isProd, plugins.size({ title: 'Uglify App libs JS' })))
@@ -129,6 +130,7 @@ function libs() {
 		.pipe(plugins.if(env.isProd, plugins.concat('prod.js')))
 		.pipe(plugins.if(env.isProd, plugins.uglify()))
 		.pipe(plugins.if(env.isProd, plugins.size({ title: 'Uglify All Libs JS' })))
+		.pipe(plugins.if(env.isProd, plugins.rev()))
 		.pipe(plugins.if(env.isProd, gulp.dest('build/libs')));
 }
 
@@ -200,11 +202,11 @@ function index() {
 
 		var source = gulp.src([...libsjsModules, ...libsjsApp,'build/css/all.css'], { read: false });
 	}else{
-		var source = gulp.src(['build/libs/prod.js','build/css/all.css'], { read: false });
+		var source = gulp.src(['build/libs/prod-*.js','build/css/all-*.css'], { read: false });
 	}
 
 	return gulp.src('src/index.html')
-		.pipe(plugins.inject(source, { ignorePath: 'build' }))
+		.pipe(plugins.inject(source, { addRootSlash: false, ignorePath: 'build' }))
 		.pipe(plugins.preprocess({ context: env }))
 		.pipe(plugins.if(env.isProd,plugins.htmlmin({collapseWhitespace: true})))
 		.pipe(gulp.dest('build'))

@@ -1,5 +1,6 @@
 {
 	"PAGE_1"    : "This is the first page",
+	"OBSERVABLE": "Example with an Observable, one scope for two different controllers",
 	"PAGE_2"    : "This is the second page",
 	"PAGE_3"    : "This is the third page",
 	"BODY_TITLE": "Hello",

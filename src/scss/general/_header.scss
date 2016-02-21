@@ -27,5 +27,9 @@ header {
 		.lang .selected {
 			color: #333;
 		}
+
+		li.active a {
+			color:white !important;
+		}
 	}
 }

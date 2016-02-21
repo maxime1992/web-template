@@ -1,0 +1,14 @@
+{
+	"ignore": [
+		".fa",
+		".fa-github",
+		".anim-in-out.anim-in-setup.anim-slide-below-fade",
+		".anim-in-out.anim-in-setup .anim-slide-below-fade",
+		".anim-in-out.anim-in.anim-slide-below-fade",
+		".anim-in-out.anim-in .anim-slide-below-fade",
+		".anim-in-out.anim-out-setup.anim-slide-below-fade",
+		".anim-in-out.anim-out-setup .anim-slide-below-fade",
+		".anim-in-out.anim-out.anim-slide-below-fade",
+		".anim-in-out.anim-out .anim-slide-below-fade"
+	]
+}

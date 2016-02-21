@@ -76,7 +76,7 @@ function sassToCss() {
 		.pipe(plugins.if(env.isDev, plugins.sourcemaps.init()))
 		.pipe(plugins.sass())
 		.pipe(plugins.size({ title: 'Compile SASS' }))
-		.pipe(plugins.if(env.isProd, plugins.minifyCss()))
+		.pipe(plugins.if(env.isProd, plugins.cssnano()))
 		.pipe(gulp.dest('build/css/'))
 		.pipe(plugins.if(env.isDev, plugins.sourcemaps.write()))
 		.pipe(plugins.size({ title: 'Mimify CSS' }))

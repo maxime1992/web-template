@@ -28,8 +28,8 @@ header {
 			color: #333;
 		}
 
-		a.active {
-		   color:white;
-		 }
+		li.active a {
+			color:white !important;
+		}
 	}
 }

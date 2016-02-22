@@ -170,10 +170,6 @@ function assets() {
 			.pipe(plugins.babel())
 			.pipe(gulp.dest('build/js/mocks')),
 
-		gulp.src('src/app/tests/**/*.js')
-			.pipe(plugins.babel())
-			.pipe(gulp.dest('build/js/tests/')),
-
 		gulp.src('src/app/app.js')
 			.pipe(plugins.babel())
 			.pipe(gulp.dest('build/js/')),

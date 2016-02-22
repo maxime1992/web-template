@@ -3,7 +3,7 @@ module.exports = function(config) {
     browsers: ['PhantomJS'],
     frameworks: ['jasmine'],
     files: [
-      'src/app/tests/**/*.js'
+      'src/app/**/*.spec.js'
     ]
   });
 };

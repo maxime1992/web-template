@@ -69,6 +69,7 @@
   "devDependencies": {
     "babel-core": "6.4.5",
     "babel-preset-es2015": "6.3.13",
+    "ghooks": "1.0.3",
     "gulp": "git+https://git@github.com/gulpjs/gulp.git#4.0",
     "gulp-angular-embed-templates": "2.1.2",
     "gulp-babel": "6.1.1",
@@ -116,7 +117,6 @@
     "path": "0.12.7",
     "phantomjs": "1.9.19",
     "recess": "1.1.9",
-    "ghooks": "1.0.3",
     "validate-commit-msg": "2.0.0",
     "yargs": "4.1.0"
   },

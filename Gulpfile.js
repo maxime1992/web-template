@@ -51,10 +51,12 @@ gulp.task('build-zip', zip);
 gulp.task('clean-zip', cleanZip)
 
 gulp.task('tests', function(done) {
-	return new Server({
-		configFile: __dirname + '/karma.conf.js',
-		singleRun: true
-	}, done).start();
+    Server.start({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, function() {
+        done();
+    });
 });
 
 gulp.task('serve', gulp.series(
@@ -167,10 +169,6 @@ function assets() {
 		gulp.src('src/app/mock/**/*.js')
 			.pipe(plugins.babel())
 			.pipe(gulp.dest('build/js/mocks')),
-
-		gulp.src('src/app/tests/**/*.js')
-			.pipe(plugins.babel())
-			.pipe(gulp.dest('build/js/tests/')),
 
 		gulp.src('src/app/app.js')
 			.pipe(plugins.babel())

@@ -2,13 +2,13 @@
 	/**
 	* @ngdoc directive
 	* @name app.directive:completeBlock
-	* @param {String} headerImg url of the picture
-	* @param {String} headerTitle name of the title of the block
-	* @param {String} headerPicto type of the awesome picto
-	* @param {String} headerColor color of the clock
-	* @param {String} headerBackgroundColor color of the background
-	* @param {String} bodyTitle title of the block
-	* @param {String} bodyText content of the block
+	* @param {String} headerImg URL of the picture
+	* @param {String} headerTitle Name of the title of the block
+	* @param {String} headerPicto Type of the awesome picto
+	* @param {String} headerColor Color of the clock
+	* @param {String} headerBackgroundColor Color of the background
+	* @param {String} bodyTitle Title of the block
+	* @param {String} bodyText Content of the block
 	* @restrict 'EA' //the elements the directive is restricted to.
 	* @element ANY
 	* @scope  //add this attribute if you create a scope in your directive.

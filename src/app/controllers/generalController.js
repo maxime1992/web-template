@@ -17,7 +17,7 @@
 		* @name isActive
 		* @methodOf app.controller:generalController
 		* @description
-		* return the location url of the open tab .
+		* Return the location url of the open tab .
 		* @returns {Object} return the location path of the active tab
 		*/
 		$scope.isActive = (viewLocation) => {
@@ -47,7 +47,7 @@
 		* @name getLanguage
 		* @methodOf app.controller:generalController
 		* @description
-		* get the language
+		* Get the language
 		* @returns {string} lang
 		*/
 		$scope.getLanguage = () => {

@@ -68,6 +68,16 @@ gulp.task('xo', function () {
 		.pipe(plugins.xo({quiet:true}));
 });
 
+gulp.task('changelog', function () {
+  return gulp.src('CHANGELOG.md', {
+    buffer: false
+  })
+    .pipe(plugins.conventionalChangelog({
+      preset: 'angular'
+    }))
+    .pipe(gulp.dest('./'));
+});
+
 function clean() {
 	return del(['build', 'docs']);
 }

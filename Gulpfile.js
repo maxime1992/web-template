@@ -107,6 +107,9 @@ function sassToCss() {
 		)
 		.pipe(plugins.concat('all.css'))
 		.pipe(plugins.if(env.isProd, plugins.rev()))
+		.pipe(plugins.autoprefixer({
+		    browsers: ['last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4']
+		}))
 		.pipe(gulp.dest('build/css/'))
 		.pipe(plugins.connect.reload());
 }

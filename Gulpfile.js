@@ -98,7 +98,7 @@ function sassToCss() {
 					uncssrc : '.uncssrc'
 				}))
 				.pipe(plugins.size({ title: 'Uncss Libs CSS' }))
-				.pipe(plugins.if(env.isProd, plugins.minifyCss()))
+				.pipe(plugins.if(env.isProd, plugins.cssnano()))
 				.pipe(plugins.if(env.isDev, plugins.sourcemaps.write()))
 				.pipe(plugins.if(env.isProd, plugins.size({ title: 'Minify Libs CSS' }))),
 
@@ -111,7 +111,7 @@ function sassToCss() {
 				.pipe(plugins.if(env.isDev, plugins.sourcemaps.init()))
 				.pipe(plugins.sass())
 				.pipe(plugins.size({ title: 'Compile Apps SASS' }))
-				.pipe(plugins.if(env.isProd, plugins.minifyCss()))
+				.pipe(plugins.if(env.isProd, plugins.cssnano()))
 				.pipe(plugins.if(env.isDev, plugins.sourcemaps.write()))
 				.pipe(plugins.if(env.isProd, plugins.size({ title: 'Minify Apps CSS' })))
 		)

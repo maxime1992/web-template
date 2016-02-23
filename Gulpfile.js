@@ -68,6 +68,16 @@ gulp.task('xo', function () {
 		.pipe(plugins.xo({quiet:true}));
 });
 
+gulp.task('changelog', function () {
+  return gulp.src('CHANGELOG.md', {
+    buffer: false
+  })
+    .pipe(plugins.conventionalChangelog({
+      preset: 'angular'
+    }))
+    .pipe(gulp.dest('./'));
+});
+
 function clean() {
 	return del(['build', 'docs']);
 }
@@ -107,6 +117,9 @@ function sassToCss() {
 		)
 		.pipe(plugins.concat('all.css'))
 		.pipe(plugins.if(env.isProd, plugins.rev()))
+		.pipe(plugins.autoprefixer({
+		    browsers: ['last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4']
+		}))
 		.pipe(gulp.dest('build/css/'))
 		.pipe(plugins.connect.reload());
 }

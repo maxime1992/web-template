@@ -52,7 +52,7 @@ gulp.task('build-doc', require('./gulp-tasks/build-doc')(gulp, plugins));
 
 gulp.task('serve-doc', require('./gulp-tasks/serve-doc')(gulp, plugins));
 
-gulp.task('build', gulp.series('clean','sass','assets','scripts','index'));
+gulp.task('build', gulp.series('clean','assets',gulp.parallel('sass','scripts'),'index'));
 
 gulp.task('serve', gulp.series(gulp.parallel(watch,'livereload','open-browser')));
 

@@ -25,8 +25,8 @@ module.exports = function (gulp, merge2, env, pngquant, plugins) {
 				.pipe(gulp.dest('build/js/filters')),
 
 			gulp.src('src/app/mock/**/*.js')
-				.pipe(plugins.babel())
-				.pipe(gulp.dest('build/js/mocks')),
+				.pipe(plugins.if(env.isDev, plugins.babel()))
+				.pipe(plugins.if(env.isDev, gulp.dest('build/js/mocks'))),
 
 			gulp.src('src/app/app.js')
 				.pipe(plugins.babel())

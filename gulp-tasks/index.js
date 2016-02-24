@@ -1,8 +1,8 @@
-module.exports = function (gulp, path, env, plugins) {
+module.exports = function (gulp, plugins) {
     return function () {
-    	if (env.isDev) {
-			libsjsModules = env.paths.libs.js.map(libsjsModules => path.join('build/libs/', libsjsModules))
-			libsjsApp = env.paths.app.js.map(libsjsApp => path.join('build/', libsjsApp))
+    	if (plugins.env.isDev) {
+			libsjsModules = plugins.env.paths.libs.js.map(libsjsModules => plugins.path.join('build/libs/', libsjsModules))
+			libsjsApp = plugins.env.paths.app.js.map(libsjsApp => plugins.path.join('build/', libsjsApp))
 
 			var source = gulp.src([...libsjsModules, ...libsjsApp,'build/css/all.css'], { read: false });
 		}else{
@@ -11,8 +11,9 @@ module.exports = function (gulp, path, env, plugins) {
 
 		return gulp.src('src/index.html')
 			.pipe(plugins.inject(source, { addRootSlash: false, ignorePath: 'build' }))
-			.pipe(plugins.preprocess({ context: env }))
-			.pipe(plugins.if(env.isProd,plugins.htmlmin({collapseWhitespace: true})))
+			.pipe(plugins.preprocess({ context: plugins.env }))
+			.pipe(plugins.if(plugins.env.isProd,plugins.htmlmin({collapseWhitespace: true})))
+			.pipe(plugins.if(plugins.env.isProd,plugins.notify('Production Build Done')))
 			.pipe(gulp.dest('build'))
 			.pipe(plugins.connect.reload());
 	}

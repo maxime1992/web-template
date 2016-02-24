@@ -1,6 +1,6 @@
-module.exports = function (gulp, Server, plugins) {
+module.exports = function (gulp, plugins) {
     return function (done) {
-		Server.start({
+		plugins.Server.start({
 			configFile: __dirname + '/../karma.conf.js',
 			singleRun: true
 		}, function() {

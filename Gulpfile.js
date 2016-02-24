@@ -1,60 +1,65 @@
 var gulp = require('gulp'),
 	plugins = require('gulp-load-plugins')();
+	plugins.del = require('del');
+	plugins.path = require('path');
+	plugins.paths = require('./gulpfile.paths.js');
+	plugins.recess = require('recess');
+	plugins.Server = require('karma').Server;
+	plugins.pngquant = require('imagemin-pngquant');
+	plugins.argv = require('yargs').argv;
+	plugins.opn = require('opn');
+	plugins.fs = require('fs');
+	plugins.merge2 = require('merge2');
+    plugins.notifier = require('node-notifier');
 
-var del = require('del'),
-	path = require('path'),
-	paths = require('./gulpfile.paths.js'),
-	recess = require('recess'),
-	Server = require('karma').Server,
-	pngquant = require('imagemin-pngquant'),
-	merge2 = require('merge2'),
-	argv = require('yargs').argv,
-	opn = require('opn'),
-	fs = require('fs');
+process.env.NODE_ENV = plugins.argv.production ? 'production' : 'development';
+process.env.PORT = plugins.argv.PORT ? plugins.argv.PORT : '8080';
 
-process.env.NODE_ENV = argv.production ? 'production' : 'development';
-process.env.PORT = argv.PORT ? argv.PORT : '8080';
-
-var env = {
+plugins.env = {
 	NODE_ENV: process.env.NODE_ENV,
 	PORT: process.env.PORT,
 
 	get isDev() { return this.NODE_ENV === 'development'; },
 	get isProd() { return this.NODE_ENV === 'production'; },
-	get paths() { return this.isDev ? paths.dev : paths.prod; }
+	get paths() { return this.isDev ? plugins.paths.dev : plugins.paths.prod; }
 };
 
-gulp.task('sass', require('./gulp-tasks/sass')(gulp, merge2, env, plugins));
+gulp.task('sass', getTask('sass'));
 
-gulp.task('build-zip', require('./gulp-tasks/build-zip')(gulp, fs, plugins));
+gulp.task('build-zip', getTask('build-zip'));
 
-gulp.task('clean-zip', require('./gulp-tasks/clean-zip')(gulp, del, plugins));
+gulp.task('clean-zip', getTask('clean-zip'));
 
-gulp.task('assets', require('./gulp-tasks/assets')(gulp, merge2, env, pngquant, plugins));
+gulp.task('assets', getTask('assets'));
 
-gulp.task('tests', require('./gulp-tasks/tests')(gulp, Server, plugins));
+gulp.task('tests', getTask('tests'));
 
-gulp.task('xo', require('./gulp-tasks/xo')(gulp, plugins));
+gulp.task('xo', getTask('xo'));
 
-gulp.task('clean', require('./gulp-tasks/clean-build-docs')(gulp, del, plugins));
+gulp.task('clean', getTask('clean-build-docs'));
 
-gulp.task('scripts', require('./gulp-tasks/scripts')(gulp, env, path, merge2, plugins));
+gulp.task('scripts', getTask('scripts'));
 
-gulp.task('changelog', require('./gulp-tasks/changelog')(gulp, plugins));
+gulp.task('changelog', getTask('changelog'));
 
-gulp.task('index', require('./gulp-tasks/index')(gulp, path, env, plugins));
+gulp.task('index', getTask('index'));
 
-gulp.task('open-browser', require('./gulp-tasks/open-browser')(gulp, opn, env, plugins));
+gulp.task('open-browser', getTask('open-browser'));
 
-gulp.task('livereload', require('./gulp-tasks/livereload')(gulp, env, plugins));
+gulp.task('livereload', getTask('livereload'));
 
-gulp.task('build-doc', require('./gulp-tasks/build-doc')(gulp, plugins));
+gulp.task('build-doc', getTask('build-doc'));
 
-gulp.task('serve-doc', require('./gulp-tasks/serve-doc')(gulp, plugins));
+gulp.task('serve-doc', getTask('serve-doc'));
 
 gulp.task('build', gulp.series('clean','assets',gulp.parallel('sass','scripts'),'index'));
 
 gulp.task('serve', gulp.series(gulp.parallel(watch,'livereload','open-browser')));
+
+
+function getTask(task) {
+    return require('./gulp-tasks/' + task)(gulp, plugins);
+}
 
 function watch() {
 	gulp.watch('src/**/*.{js,png,jpg,html,json}', gulp.series('assets'));

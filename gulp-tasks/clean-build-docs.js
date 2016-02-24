@@ -1,5 +1,5 @@
-module.exports = function (gulp, del, plugins) {
+module.exports = function (gulp, plugins) {
     return function () {
-		return del(['build', 'docs']);
+		return plugins.del(['build', 'docs']);
     }
 }

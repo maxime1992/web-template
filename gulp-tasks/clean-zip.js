@@ -1,6 +1,6 @@
-module.exports = function (gulp, del, plugins) {
+module.exports = function (gulp, plugins) {
     return function () {
     	var name = require(__dirname + '/../package.json').name;
-		return del([name + '-*' + '.zip']);
+		return plugins.del([name + '-*' + '.zip']);
 	}
 }

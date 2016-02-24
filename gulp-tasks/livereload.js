@@ -1,9 +1,9 @@
-module.exports = function (gulp, env, plugins) {
+module.exports = function (gulp, plugins) {
     return function () {
 		return plugins.connect.server({
 			root: 'build',
-			livereload: env.isDev,
-			port: env.PORT
+			livereload: plugins.env.isDev,
+			port: plugins.env.PORT
 		});
 	}
 }

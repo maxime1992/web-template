@@ -38,6 +38,3 @@
 * Use gulp instead of grunt ([15b9cb1](https://github.com/maxime1992/web-template/commit/15b9cb1))
 * Use import sass to import all css ([7c66960](https://github.com/maxime1992/web-template/commit/7c66960))
 * Use SASS instead of LESS ([98d1b1f](https://github.com/maxime1992/web-template/commit/98d1b1f))
-
-
-

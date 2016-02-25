@@ -12,6 +12,7 @@ var gulp = require('gulp'),
 	plugins.merge2 = require('merge2');
 	plugins.notifier = require('node-notifier');
 	plugins.conventionalGithubReleaser = require('conventional-github-releaser');
+	plugins.critical = require('critical').stream;
 
 process.env.NODE_ENV = plugins.argv.production ? 'production' : 'development';
 process.env.PORT = plugins.argv.PORT ? plugins.argv.PORT : '8080';
@@ -66,6 +67,10 @@ gulp.task('build-doc', getTask('build-doc'));
 gulp.task('serve-doc', getTask('serve-doc'));
 
 gulp.task('build', gulp.series('clean','assets',gulp.parallel('sass','scripts'),'index','cleanjs'));
+
+gulp.task('gzip', getTask('gzip'));
+
+gulp.task('build', gulp.series('clean', 'assets', gulp.parallel('sass', 'scripts'), 'index', 'gzip'));
 
 gulp.task('serve', gulp.series(gulp.parallel(watch,'livereload','open-browser')));
 

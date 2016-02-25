@@ -52,7 +52,9 @@ gulp.task('build-doc', getTask('build-doc'));
 
 gulp.task('serve-doc', getTask('serve-doc'));
 
-gulp.task('build', gulp.series('clean','assets',gulp.parallel('sass','scripts'),'index'));
+gulp.task('gzip', getTask('gzip'));
+
+gulp.task('build', gulp.series('clean', 'assets', gulp.parallel('sass', 'scripts'), 'index', 'gzip'));
 
 gulp.task('serve', gulp.series(gulp.parallel(watch,'livereload','open-browser')));
 
@@ -66,4 +68,3 @@ function watch() {
 	gulp.watch('src/scss/**/*.{scss}', gulp.series('sass'));
 	gulp.watch('src/index.html', gulp.series('index'));
 };
-

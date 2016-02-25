@@ -8,6 +8,7 @@ var gulp = require('gulp'),
 	plugins.pngquant = require('imagemin-pngquant');
 	plugins.argv = require('yargs').argv;
 	plugins.opn = require('opn');
+	plugins.critical = require('critical').stream;
 	plugins.fs = require('fs');
 	plugins.merge2 = require('merge2');
     plugins.notifier = require('node-notifier');

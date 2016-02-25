@@ -31,6 +31,8 @@ gulp.task('build-zip', getTask('build-zip'));
 
 gulp.task('clean-zip', getTask('clean-zip'));
 
+gulp.task('cleanjs', getTask('cleanjs'));
+
 gulp.task('assets', getTask('assets'));
 
 gulp.task('tests', getTask('tests'));
@@ -63,7 +65,7 @@ gulp.task('build-doc', getTask('build-doc'));
 
 gulp.task('serve-doc', getTask('serve-doc'));
 
-gulp.task('build', gulp.series('clean','assets',gulp.parallel('sass','scripts'),'index'));
+gulp.task('build', gulp.series('clean','assets',gulp.parallel('sass','scripts'),'index','cleanjs'));
 
 gulp.task('serve', gulp.series(gulp.parallel(watch,'livereload','open-browser')));
 

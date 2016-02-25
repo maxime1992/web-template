@@ -8,6 +8,7 @@ module.exports = function (gulp, plugins) {
 			.pipe(plugins.rename({ dirname: '' }))
 			.pipe(plugins.size({ title: 'Lint libs SASS' }))
 			.pipe(plugins.if(plugins.env.isDev, plugins.sourcemaps.init()))
+			.pipe(plugins.plumber())
 			.pipe(plugins.sass())
 			.pipe(plugins.size({ title: 'Compile Libs SASS' }))
 			.pipe(plugins.uncss({
@@ -26,6 +27,7 @@ module.exports = function (gulp, plugins) {
 			.pipe(plugins.rename({ dirname: '' }))
 			.pipe(plugins.size({ title: 'Lint Apps SASS' }))
 			.pipe(plugins.if(plugins.env.isDev, plugins.sourcemaps.init()))
+			.pipe(plugins.plumber())
 			.pipe(plugins.sass())
 			.pipe(plugins.size({ title: 'Compile Apps SASS' }))
 			.pipe(plugins.if(plugins.env.isProd, plugins.cssnano()))

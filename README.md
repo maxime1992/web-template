@@ -19,8 +19,10 @@ I propose a configuration but of course, you can customize it.
 - **Gulp** fully automated workflow.
 - **Development** and **production** environment targets.
 - **Unit** test samples.
+- **Coverage** watch if your code is tested
 - **Sass** linting, sourcemaps minify and concat.
 - **ngDocs** documentation generator for AngularJS.
+- **Git Hook Angular** Commit message must follow the Angular conventions
 
 ## Librairies into the project :
 - Bootstrap
@@ -58,18 +60,19 @@ Note: To view the app please open a new tab and go to `http://localhost:8080/`.
 - `$ gulp build`: Create distribution package for the development and production environment
 - `$ gulp serve`: Start web-server and live-reload.
 - `$ gulp tests`: execute unit tests with Karma
-- `$ gulp xo`: linter to scan src js files
+- `$ gulp xo`: Linter to scan src js files
+- `$ gulp release`: Automate release workflow
 
 ### Environments
 
 #### Development:
 - `$ npm run dev` is equivalent to
-`$ gulp build && gulp serve`.    
+`$ gulp build && gulp serve`.
 See the browser on : `http://localhost:8080`
 
 #### Production:
 - `$ npm run prod` is equivalent to
-`$ gulp build --production`.    
+`$ gulp build --production`.
 See the browser on : `http://localhost:8080`
 
 #### Test:
@@ -78,8 +81,12 @@ See the browser on : `http://localhost:8080`
 
 #### Documentation:
 - `$ npm run doc` is equivalent to
-`$ gulp build-doc&&gulp serve-doc`.    
+`$ gulp build-doc&&gulp serve-doc`.
 See the browser on : `http://localhost:8181`
+
+Change Log
+
+This project generates the CHANGELOG.md from Git metadata using the conventional-changelog library. The commit message must follow the Angular conventions for this feature to work.
 
 # Quick custom
 Before you really start your own projet, I recommend you to search for "CUSTOM" occurrences in the project.

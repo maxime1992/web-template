@@ -3,7 +3,7 @@
 let baseLibsJs = [
 	'node_modules/angular/angular.js',
 	'node_modules/angular-ui-router/release/angular-ui-router.min.js',
-	'node_modules/angular-bootstrap/ui-bootstrap-tpls.min.js',
+	'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
 	'node_modules/angular-sanitize/angular-sanitize.min.js',
 	'node_modules/angular-translate/dist/angular-translate.min.js',
 	'node_modules/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',

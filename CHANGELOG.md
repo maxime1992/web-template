@@ -1,5 +1,5 @@
-<a name="1.0.0"></a>
-# 1.0.0 (2016-02-24)
+<a name="1.0.1"></a>
+## 1.0.1 (2016-02-25)
 
 
 ### Bug Fixes
@@ -38,4 +38,3 @@
 * Use gulp instead of grunt ([15b9cb1](https://github.com/maxime1992/web-template/commit/15b9cb1))
 * Use import sass to import all css ([7c66960](https://github.com/maxime1992/web-template/commit/7c66960))
 * Use SASS instead of LESS ([98d1b1f](https://github.com/maxime1992/web-template/commit/98d1b1f))
-

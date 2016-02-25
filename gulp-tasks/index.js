@@ -1,6 +1,6 @@
 module.exports = function (gulp, plugins) {
-    return function () {
-    	if (plugins.env.isDev) {
+	return function () {
+		if (plugins.env.isDev) {
 			libsjsModules = plugins.env.paths.libs.js.map(libsjsModules => plugins.path.join('build/libs/', libsjsModules))
 			libsjsApp = plugins.env.paths.app.js.map(libsjsApp => plugins.path.join('build/', libsjsApp))
 

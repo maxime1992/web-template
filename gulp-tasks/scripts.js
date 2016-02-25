@@ -1,9 +1,10 @@
 module.exports = function (gulp, plugins) {
-    return function () {
+	return function () {
 		var allLibsJsApp = plugins.env.paths.app.js.map((path) => { return `build/${path}` });
 
 		return plugins.merge2(
 			gulp.src(plugins.env.paths.libs.js, { base: '.' })
+				.pipe(plugins.plumber())
 				.pipe(plugins.ngAnnotate())
 				.pipe(plugins.if(plugins.env.isProd, plugins.stripDebug()))
 				.pipe(plugins.if(plugins.env.isProd, plugins.size({ title: 'Annotate and StripDebug NodeModules Libs JS' })))
@@ -12,6 +13,7 @@ module.exports = function (gulp, plugins) {
 			,
 
 			gulp.src(allLibsJsApp, { base: '.' })
+				.pipe(plugins.plumber())
 				.pipe(plugins.ngAnnotate())
 				.pipe(plugins.babel())
 				.pipe(plugins.if(plugins.env.isProd, plugins.stripDebug()))
@@ -22,11 +24,12 @@ module.exports = function (gulp, plugins) {
 				.pipe(plugins.if(plugins.env.isProd, plugins.uglify()))
 				.pipe(plugins.if(plugins.env.isProd, plugins.size({ title: 'Uglify App libs JS' })))
 				.pipe(plugins.if(plugins.env.isDev, gulp.dest('.')))
-		)
-		.pipe(plugins.if(plugins.env.isProd, plugins.concat('prod.js')))
-		.pipe(plugins.if(plugins.env.isProd, plugins.uglify()))
-		.pipe(plugins.if(plugins.env.isProd, plugins.size({ title: 'Uglify All Libs JS' })))
-		.pipe(plugins.if(plugins.env.isProd, plugins.rev()))
-		.pipe(plugins.if(plugins.env.isProd, gulp.dest('build/libs')));
+			)
+			.pipe(plugins.plumber())
+			.pipe(plugins.if(plugins.env.isProd, plugins.concat('prod.js')))
+			.pipe(plugins.if(plugins.env.isProd, plugins.uglify()))
+			.pipe(plugins.if(plugins.env.isProd, plugins.size({ title: 'Uglify All Libs JS' })))
+			.pipe(plugins.if(plugins.env.isProd, plugins.rev()))
+			.pipe(plugins.if(plugins.env.isProd, gulp.dest('build/libs')));
 	}
 }

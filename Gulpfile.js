@@ -8,10 +8,11 @@ var gulp = require('gulp'),
 	plugins.pngquant = require('imagemin-pngquant');
 	plugins.argv = require('yargs').argv;
 	plugins.opn = require('opn');
-	plugins.critical = require('critical').stream;
 	plugins.fs = require('fs');
 	plugins.merge2 = require('merge2');
-    plugins.notifier = require('node-notifier');
+	plugins.notifier = require('node-notifier');
+	plugins.conventionalGithubReleaser = require('conventional-github-releaser');
+	plugins.critical = require('critical').stream;
 
 process.env.NODE_ENV = plugins.argv.production ? 'production' : 'development';
 process.env.PORT = plugins.argv.PORT ? plugins.argv.PORT : '8080';
@@ -31,11 +32,23 @@ gulp.task('build-zip', getTask('build-zip'));
 
 gulp.task('clean-zip', getTask('clean-zip'));
 
+gulp.task('cleanjs', getTask('cleanjs'));
+
 gulp.task('assets', getTask('assets'));
 
 gulp.task('tests', getTask('tests'));
 
 gulp.task('xo', getTask('xo'));
+
+gulp.task('github-release', getTask('github-release'));
+
+gulp.task('github-bump-version', getTask('github-bump-version'));
+
+gulp.task('github-commit-changes', getTask('github-commit-changes'));
+
+gulp.task('github-create-new-tag', getTask('github-create-new-tag'));
+
+gulp.task('github-push-changes', getTask('github-push-changes'));
 
 gulp.task('clean', getTask('clean-build-docs'));
 
@@ -53,6 +66,8 @@ gulp.task('build-doc', getTask('build-doc'));
 
 gulp.task('serve-doc', getTask('serve-doc'));
 
+gulp.task('build', gulp.series('clean','assets',gulp.parallel('sass','scripts'),'index','cleanjs'));
+
 gulp.task('gzip', getTask('gzip'));
 
 gulp.task('build', gulp.series('clean', 'assets', gulp.parallel('sass', 'scripts'), 'index', 'gzip'));
@@ -61,7 +76,7 @@ gulp.task('serve', gulp.series(gulp.parallel(watch,'livereload','open-browser'))
 
 
 function getTask(task) {
-    return require('./gulp-tasks/' + task)(gulp, plugins);
+	return require('./gulp-tasks/' + task)(gulp, plugins);
 }
 
 function watch() {
@@ -69,3 +84,13 @@ function watch() {
 	gulp.watch('src/scss/**/*.{scss}', gulp.series('sass'));
 	gulp.watch('src/index.html', gulp.series('index'));
 };
+
+gulp.task('release', gulp.series('github-bump-version', 'changelog', 'github-commit-changes', 'github-push-changes', 'github-create-new-tag', 'github-release'),
+function (error) {
+	if (error) {
+		console.log(error.message);
+	} else {
+		console.log('RELEASE FINISHED SUCCESSFULLY');
+	}
+	callback(error);
+});

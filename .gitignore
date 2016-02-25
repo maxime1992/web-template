@@ -1,7 +1,8 @@
 # folders
 node_modules/*
 build/*
-docs
+docs/*
+coverage/*
 
 # files
 *.zip

@@ -1,5 +1,5 @@
 module.exports = function (gulp, plugins) {
-    return function () {
+	return function () {
 		return plugins.connect.server({
 			root: 'build',
 			livereload: plugins.env.isDev,

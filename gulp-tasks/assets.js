@@ -1,6 +1,6 @@
 module.exports = function (gulp, plugins) {
-    return function () {
-    	return plugins.merge2(
+	return function () {
+		return plugins.merge2(
 			gulp.src('src/app/views/**/*.html')
 				.pipe(plugins.if(plugins.env.isProd, plugins.htmlmin({collapseWhitespace: true})))
 				.pipe(gulp.dest('build/html/views/')),
@@ -54,5 +54,5 @@ module.exports = function (gulp, plugins) {
 		)
 		.pipe(plugins.size({ title: 'copy all assets' }))
 		.pipe(plugins.connect.reload());
-    }
+	}
 }

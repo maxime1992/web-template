@@ -1,6 +1,6 @@
 module.exports = function (gulp, plugins) {
-    return function () {
+	return function () {
 		return gulp.src('src/**/*.js')
-			.pipe(plugins.xo({quiet:true}));
-    }
+		.pipe(plugins.xo({quiet:true}));
+	}
 }

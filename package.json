@@ -135,7 +135,11 @@
     "type": "git",
     "url": "https://github.com/maxime1992/web-template.git"
   },
-  "author": "",
+  "author": "Maxime Robert <maxime.robert1992@gmail.com>",
+  "contributors": [
+    "Kevin CARADANT <kevin.caradant@gmail.com>",
+    "Kazhord <perso@kazhord.fr>"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/maxime1992/web-template/issues"

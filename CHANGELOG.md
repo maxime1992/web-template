@@ -1,5 +1,5 @@
-<a name="2.0.0"></a>
-# 2.0.0 (2016-02-23)
+<a name="1.0.1"></a>
+## 1.0.1 (2016-02-25)
 
 
 ### Bug Fixes
@@ -26,6 +26,7 @@
 * Add autoprefix css ([28a72d4](https://github.com/maxime1992/web-template/commit/28a72d4))
 * Add babel 6 ([eb12b04](https://github.com/maxime1992/web-template/commit/eb12b04))
 * Add build-zip and clean-zip commands to gulp ([b4e8f7c](https://github.com/maxime1992/web-template/commit/b4e8f7c)), closes [maximme1992/web-template#18](https://github.com/maximme1992/web-template/issues/18)
+* Add coverage karma + increase gulp perf ([3402a4e](https://github.com/maxime1992/web-template/commit/3402a4e))
 * Add generator of docs ([8296751](https://github.com/maxime1992/web-template/commit/8296751))
 * Add gulp-min-image in the GULP ([4b67e54](https://github.com/maxime1992/web-template/commit/4b67e54))
 * add StripDebug + RxJS Observable ([99dc1f5](https://github.com/maxime1992/web-template/commit/99dc1f5))
@@ -37,3 +38,6 @@
 * Use gulp instead of grunt ([15b9cb1](https://github.com/maxime1992/web-template/commit/15b9cb1))
 * Use import sass to import all css ([7c66960](https://github.com/maxime1992/web-template/commit/7c66960))
 * Use SASS instead of LESS ([98d1b1f](https://github.com/maxime1992/web-template/commit/98d1b1f))
+
+
+

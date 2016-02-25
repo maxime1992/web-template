@@ -1,6 +1,6 @@
-module.exports = function (gulp, fs, plugins) {
-    return function () {
-		if(fs.existsSync(__dirname + '/../build')) {
+module.exports = function (gulp, plugins) {
+	return function () {
+		if(plugins.fs.existsSync(__dirname + '/../build')) {
 			var name = require(__dirname + '/../package.json').name;
 			var version = require(__dirname + '/../package.json').version;
 

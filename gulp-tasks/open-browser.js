@@ -1,5 +1,5 @@
-module.exports = function (gulp, opn, env, plugins) {
-    return function () {
-    	return opn('http://localhost:' + env.PORT);
-    }
+module.exports = function (gulp, plugins) {
+	return function () {
+		return plugins.opn('http://localhost:' + plugins.env.PORT);
+	}
 }

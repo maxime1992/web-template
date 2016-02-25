@@ -1,8 +1,8 @@
-module.exports = function (gulp, merge2, env, pngquant, plugins) {
-    return function () {
-    	return merge2(
+module.exports = function (gulp, plugins) {
+	return function () {
+		return plugins.merge2(
 			gulp.src('src/app/views/**/*.html')
-				.pipe(plugins.if(env.isProd, plugins.htmlmin({collapseWhitespace: true})))
+				.pipe(plugins.if(plugins.env.isProd, plugins.htmlmin({collapseWhitespace: true})))
 				.pipe(gulp.dest('build/html/views/')),
 
 			gulp.src('src/app/controllers/**/*.js')
@@ -25,18 +25,18 @@ module.exports = function (gulp, merge2, env, pngquant, plugins) {
 				.pipe(gulp.dest('build/js/filters')),
 
 			gulp.src('src/app/mock/**/*.js')
-				.pipe(plugins.if(env.isDev, plugins.babel()))
-				.pipe(plugins.if(env.isDev, gulp.dest('build/js/mocks'))),
+				.pipe(plugins.if(plugins.env.isDev, plugins.babel()))
+				.pipe(plugins.if(plugins.env.isDev, gulp.dest('build/js/mocks'))),
 
 			gulp.src('src/app/app.js')
 				.pipe(plugins.babel())
 				.pipe(gulp.dest('build/js/')),
 
 			gulp.src('src/img/**/*')
-				.pipe(plugins.if(env.isProd,plugins.imagemin({
+				.pipe(plugins.if(plugins.env.isProd,plugins.imagemin({
 					progressive: true,
 					svgoPlugins: [{removeViewBox: false}],
-					use: [pngquant()]
+					use: [plugins.pngquant()]
 				})))
 				.pipe(gulp.dest('build/img')),
 
@@ -54,5 +54,5 @@ module.exports = function (gulp, merge2, env, pngquant, plugins) {
 		)
 		.pipe(plugins.size({ title: 'copy all assets' }))
 		.pipe(plugins.connect.reload());
-    }
+	}
 }

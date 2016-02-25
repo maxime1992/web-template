@@ -1,5 +1,5 @@
 module.exports = function (gulp, plugins) {
-    return function () {
+	return function () {
 		return gulp.src('CHANGELOG.md', {
 			buffer: false
 		})

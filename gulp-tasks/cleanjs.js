@@ -1,9 +1,11 @@
-module.exports = function (gulp, plugins) {
-	return function () {
-		if(plugins.env.isProd){
-			return plugins.del(['build/js']);
+'use strict';
+
+module.exports = (gulp, $) => {
+	return () => {
+		if($.env.isProd){
+			return $.del(['build/js']);
 		}else{
-			return plugins.del(['nothing']);
+			return $.del(['nothing']);
 		}
 	}
 }

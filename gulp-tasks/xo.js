@@ -1,6 +1,8 @@
-module.exports = function (gulp, plugins) {
-	return function () {
+'use strict';
+
+module.exports = (gulp, $) => {
+	return () => {
 		return gulp.src('src/**/*.js')
-		.pipe(plugins.xo({quiet:true}));
+		.pipe($.xo({quiet:true}));
 	}
 }

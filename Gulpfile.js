@@ -1,96 +1,94 @@
-var gulp = require('gulp'),
-	plugins = require('gulp-load-plugins')();
-	plugins.del = require('del');
-	plugins.path = require('path');
-	plugins.paths = require('./gulpfile.paths.js');
-	plugins.recess = require('recess');
-	plugins.Server = require('karma').Server;
-	plugins.pngquant = require('imagemin-pngquant');
-	plugins.argv = require('yargs').argv;
-	plugins.opn = require('opn');
-	plugins.fs = require('fs');
-	plugins.merge2 = require('merge2');
-	plugins.notifier = require('node-notifier');
-	plugins.conventionalGithubReleaser = require('conventional-github-releaser');
-	plugins.critical = require('critical').stream;
+'use strict';
 
-process.env.NODE_ENV = plugins.argv.production ? 'production' : 'development';
-process.env.PORT = plugins.argv.PORT ? plugins.argv.PORT : '8080';
+let gulp = require('gulp'),
+	$ = require('gulp-load-plugins')();
+	$.del = require('del');
+	$.path = require('path');
+	$.paths = require('./gulpfile.paths.js');
+	$.recess = require('recess');
+	$.Server = require('karma').Server;
+	$.pngquant = require('imagemin-pngquant');
+	$.argv = require('yargs').argv;
+	$.opn = require('opn');
+	$.fs = require('fs');
+	$.merge2 = require('merge2');
+	$.notifier = require('node-notifier');
+	$.conventionalGithubReleaser = require('conventional-github-releaser');
+	$.critical = require('critical').stream;
 
-plugins.env = {
+process.env.NODE_ENV = $.argv.production ? 'production' : 'development';
+process.env.PORT = $.argv.PORT ? $.argv.PORT : '8080';
+
+$.env = {
 	NODE_ENV: process.env.NODE_ENV,
 	PORT: process.env.PORT,
 
 	get isDev() { return this.NODE_ENV === 'development'; },
 	get isProd() { return this.NODE_ENV === 'production'; },
-	get paths() { return this.isDev ? plugins.paths.dev : plugins.paths.prod; }
+	get paths() { return this.isDev ? $.paths.dev : $.paths.prod; }
 };
 
-gulp.task('sass', getTask('sass'));
+function getTask(task) {
+	return require(`./gulp-tasks/${task}`)(gulp, $);
+}
 
-gulp.task('build-zip', getTask('build-zip'));
+function runTask(task) {
+	return gulp.task(task, getTask(task));
+}
 
-gulp.task('clean-zip', getTask('clean-zip'));
+let tasks = [
+	'sass',
+	'build-zip',
+	'clean-zip',
+	'cleanjs',
+	'assets',
+	'tests',
+	'xo',
+	'gh-release',
+	'gh-bump-version',
+	'gh-commit-changes',
+	'gh-create-new-tag',
+	'gh-push-changes',
+	'clean-build-docs',
+	'scripts',
+	'gh-changelog',
+	'index',
+	'open-browser',
+	'livereload',
+	'build-doc',
+	'serve-doc',
+	'gzip'
+];
 
-gulp.task('cleanjs', getTask('cleanjs'));
+tasks.map(runTask);
 
-gulp.task('assets', getTask('assets'));
-
-gulp.task('tests', getTask('tests'));
-
-gulp.task('xo', getTask('xo'));
-
-gulp.task('github-release', getTask('github-release'));
-
-gulp.task('github-bump-version', getTask('github-bump-version'));
-
-gulp.task('github-commit-changes', getTask('github-commit-changes'));
-
-gulp.task('github-create-new-tag', getTask('github-create-new-tag'));
-
-gulp.task('github-push-changes', getTask('github-push-changes'));
-
-gulp.task('clean', getTask('clean-build-docs'));
-
-gulp.task('scripts', getTask('scripts'));
-
-gulp.task('changelog', getTask('changelog'));
-
-gulp.task('index', getTask('index'));
-
-gulp.task('open-browser', getTask('open-browser'));
-
-gulp.task('livereload', getTask('livereload'));
-
-gulp.task('build-doc', getTask('build-doc'));
-
-gulp.task('serve-doc', getTask('serve-doc'));
-
-gulp.task('build', gulp.series('clean','assets',gulp.parallel('sass','scripts'),'index','cleanjs'));
-
-gulp.task('gzip', getTask('gzip'));
-
-gulp.task('build', gulp.series('clean', 'assets', gulp.parallel('sass', 'scripts'), 'index', 'gzip'));
+gulp.task('build', gulp.series('clean-build-docs', 'assets', gulp.parallel('sass', 'scripts'), 'index', 'cleanjs', 'gzip'));
 
 gulp.task('serve', gulp.series(gulp.parallel(watch,'livereload','open-browser')));
 
+gulp.task('release', gulp.series(
+		'gh-bump-version',
+		'gh-changelog',
+		'gh-commit-changes',
+		'gh-push-changes',
+		'gh-create-new-tag',
+		'gh-release'
+	),
+	function (error) {
+		if (error) {
+			console.log(error.message);
+		}
 
-function getTask(task) {
-	return require('./gulp-tasks/' + task)(gulp, plugins);
-}
+		else {
+			console.log('RELEASE FINISHED SUCCESSFULLY');
+		}
+		
+		callback(error);
+	}
+);
 
 function watch() {
 	gulp.watch('src/**/*.{js,png,jpg,html,json}', gulp.series('assets'));
 	gulp.watch('src/scss/**/*.{scss}', gulp.series('sass'));
 	gulp.watch('src/index.html', gulp.series('index'));
 };
-
-gulp.task('release', gulp.series('github-bump-version', 'changelog', 'github-commit-changes', 'github-push-changes', 'github-create-new-tag', 'github-release'),
-function (error) {
-	if (error) {
-		console.log(error.message);
-	} else {
-		console.log('RELEASE FINISHED SUCCESSFULLY');
-	}
-	callback(error);
-});

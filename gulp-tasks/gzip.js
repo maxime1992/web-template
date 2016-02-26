@@ -1,8 +1,10 @@
-module.exports = function (gulp, plugins) {
+'use strict';
+
+module.exports = function (gulp, $) {
 	return function () {
 		return gulp.src('build/**/*.{js,css,html,json}')
-			.pipe(plugins.if(plugins.env.isProd, plugins.gzip()))
+			.pipe($.if($.env.isProd, $.gzip()))
 			.pipe(gulp.dest('build'))
-			.pipe(plugins.size({ title: 'GZIP' }));
+			.pipe($.size({ title: 'Gzip' }));
 	}
 }

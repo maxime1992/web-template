@@ -1,7 +1,9 @@
-module.exports = function (gulp, plugins) {
-	return function () {
+'use strict';
+
+module.exports = (gulp, $) => {
+	return () => {
 		return gulp.src('src/app/**/*.js')
-			.pipe(plugins.ngdocs.process())
+			.pipe($.ngdocs.process())
 			.pipe(gulp.dest('./docs'));
 	}
 }

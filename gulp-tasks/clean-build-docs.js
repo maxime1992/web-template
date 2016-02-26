@@ -1,5 +1,7 @@
-module.exports = function (gulp, plugins) {
-	return function () {
-		return plugins.del(['build', 'docs']);
+'use strict';
+
+module.exports = (gulp, $) => {
+	return () => {
+		return $.del(['build', 'docs']);
 	}
 }

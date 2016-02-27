@@ -42,14 +42,6 @@ $ npm install
 $ npm run dev
 ```
 
-Basic install can take around +10mn with npm@3.  
-You should give a try to [npminstall](https://github.com/cnpm/npminstall) which uses cache and can be very fast (<1mn).
-```
-$ npm install -g npminstall
-$ npminstall
-$ npm run dev
-```
-
 ## Global Dependencies
 
 | Dependency | Version | Install                               |

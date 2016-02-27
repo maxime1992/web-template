@@ -18,13 +18,22 @@ let gulp = require('gulp'),
 
 process.env.NODE_ENV = $.argv.production ? 'production' : 'development';
 process.env.PORT = $.argv.PORT ? $.argv.PORT : '8080';
+process.env.RELEASE_MINOR = $.argv.minor ? 'minor' : false;
+process.env.RELEASE_MAJOR = $.argv.major ? 'major' : false;
+process.env.RELEASE_PATCH = $.argv.patch ? 'patch' : false;
 
 $.env = {
 	NODE_ENV: process.env.NODE_ENV,
 	PORT: process.env.PORT,
+	RELEASE_MINOR: process.env.RELEASE_MINOR,
+	RELEASE_MAJOR: process.env.RELEASE_MAJOR,
+	RELEASE_PATCH: process.env.RELEASE_PATCH,
 
 	get isDev() { return this.NODE_ENV === 'development'; },
 	get isProd() { return this.NODE_ENV === 'production'; },
+	get isMinor() { return this.RELEASE_MINOR === 'minor'; },
+	get isMajor() { return this.RELEASE_MAJOR === 'major'; },
+	get isPatch() { return this.RELEASE_PATCH === 'patch'; },
 	get paths() { return this.isDev ? $.paths.dev : $.paths.prod; }
 };
 
@@ -82,7 +91,7 @@ gulp.task('release', gulp.series(
 		else {
 			console.log('RELEASE FINISHED SUCCESSFULLY');
 		}
-		
+
 		callback(error);
 	}
 );

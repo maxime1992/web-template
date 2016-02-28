@@ -5,7 +5,7 @@ module.exports = (gulp, $) => {
 		return $.conventionalGithubReleaser({
 			type: 'oauth',
 			// change this to your own GitHub token or use an environment variable
-			token: '187b47c824f227d3d6549f6eb69ad489894db439'
+			token: 'bf446c0f7ba0b23057cdc547b88500282179f3b0'
 		}, {
 			// convention you use.
 			preset: 'angular'

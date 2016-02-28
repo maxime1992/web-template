@@ -11,32 +11,32 @@ let languages = ['en', 'fr'];
 		.state('home', {
 			url: '/home',
 			views: {
-				mainView: {templateUrl: '/html/views/home.html'},
-				rightMenuView: {templateUrl: '/html/views/rightMenu.html'}
+				mainView: {templateUrl: './html/views/home.html'},
+				rightMenuView: {templateUrl: './html/views/rightMenu.html'}
 			}
 		})
 
 		.state('page1', {
 			url: '/page1',
 			views: {
-				mainView: {templateUrl: '/html/views/page1.html'},
-				rightMenuView: {templateUrl: '/html/views/rightMenu.html'}
+				mainView: {templateUrl: './html/views/page1.html'},
+				rightMenuView: {templateUrl: './html/views/rightMenu.html'}
 			}
 		})
 
 		.state('page2', {
 			url: '/page2',
 			views: {
-				mainView: {templateUrl: '/html/views/page2.html'},
-				rightMenuView: {templateUrl: '/html/views/rightMenu.html'}
+				mainView: {templateUrl: './html/views/page2.html'},
+				rightMenuView: {templateUrl: './html/views/rightMenu.html'}
 			}
 		})
 
 		.state('page3', {
 			url: '/page3',
 			views: {
-				mainView: {templateUrl: '/html/views/page3.html'},
-				rightMenuView: {templateUrl: '/html/views/rightMenu.html'}
+				mainView: {templateUrl: './html/views/page3.html'},
+				rightMenuView: {templateUrl: './html/views/rightMenu.html'}
 			}
 		});
 
@@ -45,7 +45,7 @@ let languages = ['en', 'fr'];
 
 		// load languages from json files (when needed)
 		$translateProvider.useStaticFilesLoader({
-			prefix: 'languages/',
+			prefix: './languages/',
 			suffix: '.json'
 		});
 

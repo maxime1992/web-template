@@ -49,6 +49,7 @@ let tasks = [
 	'gh-commit-changes',
 	'gh-create-new-tag',
 	'gh-push-changes',
+	'gh-pages',
 	'clean-build-docs',
 	'scripts',
 	'gh-changelog',
@@ -82,7 +83,7 @@ gulp.task('release', gulp.series(
 		else {
 			console.log('RELEASE FINISHED SUCCESSFULLY');
 		}
-		
+
 		callback(error);
 	}
 );

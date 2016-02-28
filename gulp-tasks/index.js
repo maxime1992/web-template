@@ -23,7 +23,8 @@ module.exports = (gulp, $) => {
 					inline: true,
 					width: 1300,
 					height: 900,
-					base: 'build/',
+					base: 'build',
+					pathPrefix: './',
 					css: $.fs.readdirSync('build/css').map(file => `build/css/${file}`)
 				})
 			))

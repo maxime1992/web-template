@@ -40,7 +40,7 @@ let tasks = [
 	'sass',
 	'build-zip',
 	'clean-zip',
-	'cleanjs',
+	'clean-js',
 	'assets',
 	'tests',
 	'xo',
@@ -50,7 +50,7 @@ let tasks = [
 	'gh-create-new-tag',
 	'gh-push-changes',
 	'gh-pages',
-	'clean-build-docs',
+	'clean',
 	'scripts',
 	'gh-changelog',
 	'index',
@@ -63,7 +63,7 @@ let tasks = [
 
 tasks.map(runTask);
 
-gulp.task('build', gulp.series('clean-build-docs', 'assets', gulp.parallel('sass', 'scripts'), 'index', 'cleanjs', 'gzip'));
+gulp.task('build', gulp.series('clean', 'assets', gulp.parallel('sass', 'scripts'), 'index', 'clean-js', 'gzip'));
 
 gulp.task('serve', gulp.series(gulp.parallel(watch,'livereload','open-browser')));
 

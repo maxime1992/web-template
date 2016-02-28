@@ -3,6 +3,7 @@ node_modules/*
 build/*
 docs/*
 coverage/*
+.publish/*
 
 # files
 *.zip

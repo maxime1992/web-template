@@ -62,6 +62,9 @@ Note: To view the app please open a new tab and go to `http://localhost:8080/`.
 - `$ gulp tests`: execute unit tests with Karma
 - `$ gulp xo`: Linter to scan src js files
 - `$ gulp release`: Automate release workflow
+- `$ gulp release --patch`: Automate release workflow for a patch release (ex: v.0.0.1)
+- `$ gulp release --minor`: Automate release workflow for a minor release (ex: v.0.1.0)
+- `$ gulp release --major`: Automate release workflow for a major release (ex: v.1.0.0)
 
 ### Environments
 

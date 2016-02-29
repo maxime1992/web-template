@@ -11,8 +11,7 @@ module.exports = (gulp, $) => {
 				.pipe($.if($.env.isProd, $.stripDebug()))
 				.pipe($.if($.env.isProd, $.size({title: 'Annotate and StripDebug NodeModules Libs JS'})))
 				.pipe($.if($.env.isDev, $.size({title: 'Annotate NodeModules Libs JS'})))
-				.pipe($.if($.env.isDev, gulp.dest('build/libs')))
-				,
+				.pipe($.if($.env.isDev, gulp.dest('build/libs'))),
 
 			gulp.src(allLibsJsApp, {base: '.'})
 				.pipe($.plumber())

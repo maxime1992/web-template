@@ -3,7 +3,7 @@
 	* @ngdoc service
 	* @name app.rxjsFactory
 	**/
-	app.factory('rxjsFactory', ['rx', (rx) => {
+	app.factory('rxjsFactory', (rx) => {
 		/**
 		* @ngdoc property
 		* @name .#rxjsFactoryObserver
@@ -64,5 +64,5 @@
 				rxjsFactoryObserver.next(data.users);
 			}
 		};
-	}]);
+	});
 })();

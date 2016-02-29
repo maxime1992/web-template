@@ -36,16 +36,15 @@ $.env = {
 	get isMajor() { return this.RELEASE_MAJOR === 'major'; },
 	get isPatch() { return this.RELEASE_PATCH === 'patch'; },
 	get paths() { return this.isDev ? $.paths.dev : $.paths.prod; }
-
 };
 
 function getTask(task) {
 	return require(`./gulp-tasks/${task}`)(gulp, $);
-}
+};
 
 function runTask(task) {
 	return gulp.task(task, getTask(task));
-}
+};
 
 let tasks = [
 	'plato',
@@ -86,19 +85,7 @@ gulp.task('release', gulp.series(
 		'gh-push-changes',
 		'gh-create-new-tag',
 		'gh-release'
-	),
-	function (error) {
-		if (error) {
-			console.log(error.message);
-		}
-
-		else {
-			console.log('RELEASE FINISHED SUCCESSFULLY');
-		}
-
-		callback(error);
-	}
-);
+));
 
 function watch() {
 	gulp.watch('src/**/*.{js,png,jpg,html,json}', gulp.series('assets'));

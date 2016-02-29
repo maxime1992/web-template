@@ -8,7 +8,8 @@ module.exports = (gulp, $) => {
 
 			let buildDate = new Date();
 			let yyyy = buildDate.getFullYear();
-			let mm = buildDate.getMonth() < 9 ? `0${buildDate.getMonth() + 1}` : (buildDate.getMonth() + 1); // getMonth() is zero-based
+			// getMonth() is zero-based
+			let mm = buildDate.getMonth() < 9 ? `0${buildDate.getMonth() + 1}` : (buildDate.getMonth() + 1);
 			let dd  = buildDate.getDate() < 10 ? `0${buildDate.getDate()}` : buildDate.getDate();
 			let hh = buildDate.getHours() < 10 ? `0${buildDate.getHours()}` : buildDate.getHours();
 			let min = buildDate.getMinutes() < 10 ? `0${buildDate.getMinutes()}` : buildDate.getMinutes();
@@ -16,14 +17,13 @@ module.exports = (gulp, $) => {
 
 			return gulp.src('build/**/*')
 				.pipe($.zip(`${name}-${version}-${yyyy}${mm}${dd}-${hh}${min}${ss}.zip`))
-				.pipe(gulp.dest('.'))
-
+				.pipe(gulp.dest('.'));
 		}
 
 		else {
 			throw new $.util.PluginError({
 				plugin: 'archive',
-				message: 'build directory is empty, you should start gulp build'
+				message: 'Build directory is empty, you should start gulp build'
 			});
 		}
 	}

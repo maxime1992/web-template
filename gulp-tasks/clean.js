@@ -2,6 +2,6 @@
 
 module.exports = (gulp, $) => {
 	return () => {
-		return $.del(['build', 'docs', 'coverage', '.publish']);
+		return $.del(['build', 'docs', 'coverage', '.publish', 'complexity_report']);
 	}
 }

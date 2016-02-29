@@ -5,7 +5,6 @@
 	**/
 	app.factory('langFactory', () => {
 		return {
-
 			/**
 			* @ngdoc property
 			* @name .#lang

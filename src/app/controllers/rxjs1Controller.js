@@ -5,7 +5,7 @@
 	 * @description
 	 * Controller 1 for the observable demo
 	 */
-	app.controller('rxjs1Controller', ['$scope', 'rxjsFactory', ($scope, rxjsFactory) => {
+	app.controller('rxjs1Controller', ($scope, rxjsFactory) => {
 		/**
 		* @ngdoc method
 		* @name subscribe
@@ -37,5 +37,5 @@
 		$scope.addUser = () => {
 			rxjsFactory.addUser();
 		};
-	}]);
+	});
 })();

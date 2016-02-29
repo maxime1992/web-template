@@ -5,8 +5,8 @@ module.exports = (gulp, $) => {
 		let source;
 
 		if ($.env.isDev) {
-			let libsjsModules = $.env.paths.libs.js.map(libsjsModules => $.path.join('build/libs/', libsjsModules))
-			let libsjsApp = $.env.paths.app.js.map(libsjsApp => $.path.join('build/', libsjsApp))
+			let libsjsModules = $.env.paths.libs.js.map(libsjsModules => $.path.join('build/libs/', libsjsModules));
+			let libsjsApp = $.env.paths.app.js.map(libsjsApp => $.path.join('build/', libsjsApp));
 
 			source = gulp.src([...libsjsModules, ...libsjsApp, 'build/css/all.css'], {read: false});
 		}

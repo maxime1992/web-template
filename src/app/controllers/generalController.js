@@ -3,7 +3,7 @@
 	 * @ngdoc controller
 	 * @name app.controller:generalController
 	 * @description
-	 * A It contains by default the active tab view and the language selected
+	 * It contains by default the active tab view and the language selected
 	 */
 	app.controller('generalController', ($scope, $location, $state, $translate, langFactory) => {
 		$scope.$on('$stateChangeStart', (event, toState, toParams) => {

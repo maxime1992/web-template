@@ -57,8 +57,6 @@ let languages = ['en', 'fr'];
 
 		// define sanitize strategy and prefered language
 		$translateProvider.useSanitizeValueStrategy('escape');
-
-		// $translateProvider.preferredLanguage(defaultLang);
 		$translateProvider.determinePreferredLanguage();
 	});
 })();

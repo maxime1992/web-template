@@ -2,6 +2,6 @@
 
 module.exports = (gulp, $) => {
 	return () => {
-		return $.opn(`http://localhost:${$.env.PORT}`);
+		return $.opn(`http://localhost:${$.env.PORT}/index.html`);
 	}
 }

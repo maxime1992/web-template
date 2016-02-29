@@ -12,12 +12,20 @@ module.exports = (gulp, $) => {
 				.pipe($.if($.env.isProd, $.size({title: 'Annotate and StripDebug NodeModules Libs JS'})))
 				.pipe($.if($.env.isDev, $.size({title: 'Annotate NodeModules Libs JS'})))
 				.pipe($.if($.env.isDev, gulp.dest('build/libs')))
-			,
+				,
 
 			gulp.src(allLibsJsApp, {base: '.'})
 				.pipe($.plumber())
 				.pipe($.ngAnnotate())
 				.pipe($.babel())
+				.pipe($.if($.env.isProd,$.complexity({
+					breakOnErrors: false,
+					errorsOnly: false,
+					cyclomatic: [5],
+					halstead: [15],
+					maintainability: 100,
+					hideComplexFunctions: true,
+				})))
 				.pipe($.if($.env.isProd, $.stripDebug()))
 				.pipe($.if($.env.isProd, $.size({title: 'Annotate, Babel and StripDebug App Libs JS'})))
 				.pipe($.if($.env.idDev, $.size({title: 'Annotate, Babel App Libs JS'})))

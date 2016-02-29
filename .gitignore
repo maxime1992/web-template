@@ -4,6 +4,7 @@ build/*
 docs/*
 coverage/*
 .publish/*
+complexity_report/*
 
 # files
 *.zip

@@ -15,6 +15,7 @@ let gulp = require('gulp'),
 	$.notifier = require('node-notifier');
 	$.conventionalGithubReleaser = require('conventional-github-releaser');
 	$.critical = require('critical').stream;
+	$.plato = require('plato');
 
 process.env.NODE_ENV = $.argv.production ? 'production' : 'development';
 process.env.PORT = $.argv.PORT ? $.argv.PORT : '8080';
@@ -47,6 +48,7 @@ function runTask(task) {
 }
 
 let tasks = [
+	'plato',
 	'sass',
 	'build-zip',
 	'clean-zip',

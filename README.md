@@ -61,6 +61,7 @@ Note: To view the app please open a new tab and go to `http://localhost:8080/`.
 - `$ gulp build`: Create distribution package for the development and production environment
 - `$ gulp serve`: Start web-server and live-reload.
 - `$ gulp tests`: execute unit tests with Karma
+- `$ gulp plato`: build a static analysis and complexity report
 - `$ gulp xo`: Linter to scan src js files
 - `$ gulp release`: Automate release workflow
 - `$ gulp release --patch`: Automate release workflow for a patch release (ex: v.0.0.1)

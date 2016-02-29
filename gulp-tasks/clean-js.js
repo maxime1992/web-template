@@ -1,11 +1,12 @@
 'use strict';
 
 module.exports = (gulp, $) => {
-	return () => {
+	return (cb) => {
 		if($.env.isProd){
 			return $.del(['build/js']);
 		}else{
-			return $.del(['nothing']);
+			cb();
 		}
 	}
 }
+

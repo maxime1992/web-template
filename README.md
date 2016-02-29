@@ -49,6 +49,7 @@ $ npm run dev
 | NodeJS     | 5.x.x   | [http://node.org](http://nodejs.org/) |
 | npm        | 3.x.x   | [http://node.org](http://nodejs.org/) |
 | Gulp CLI   | 0.4.x   | `npm install gulpjs/gulp-cli#4.0 -g`  |
+| PhantomJS  | 2.x.x   | `npm install phantomjs -g`            |
 
 Note: To view the app please open a new tab and go to `http://localhost:8080/`.
 

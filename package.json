@@ -61,7 +61,7 @@
     "prod": "gulp build --production",
     "test": "gulp tests",
     "serve": "gulp serve",
-    "doc": "gulp build-doc&&gulp serve-doc"
+    "doc": "gulp build-doc&&gulp serve-doc --PORT=8181"
   },
   "devDependencies": {
     "archive-type": "3.2.0",

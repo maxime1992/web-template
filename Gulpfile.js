@@ -52,7 +52,10 @@ let tasks = [
 	'build-zip',
 	'clean-zip',
 	'clean-js',
-	'assets',
+	'assets-html',
+	'assets-js',
+	'assets-img',
+	'assets-json',
 	'tests',
 	'xo',
 	'gh-release',
@@ -74,7 +77,7 @@ let tasks = [
 
 tasks.map(runTask);
 
-gulp.task('build', gulp.series('clean', 'assets', gulp.parallel('sass', 'scripts'), 'index', 'clean-js', 'gzip'));
+gulp.task('build', gulp.series('clean', gulp.parallel('assets-html','assets-js','assets-json','assets-img'), gulp.parallel('sass', 'scripts'), 'index', 'clean-js', 'gzip'));
 
 gulp.task('serve', gulp.series(gulp.parallel(watch,'livereload','open-browser')));
 
@@ -88,7 +91,10 @@ gulp.task('release', gulp.series(
 ));
 
 function watch() {
-	gulp.watch('src/**/*.{js,png,jpg,html,json}', gulp.series('assets'));
-	gulp.watch('src/scss/**/*.{scss}', gulp.series('sass'));
-	gulp.watch('src/index.html', gulp.series('index'));
+	gulp.watch('src/**/*.{js}', gulp.series('assets-js','index'));
+	gulp.watch('src/**/*.{png,jpg}', gulp.series('assets-img'));
+	gulp.watch('src/app/**/*.{html}', gulp.series('assets-html','sass'));
+	gulp.watch('src/**/*.{json}', gulp.series('assets-json'));
+	gulp.watch('src/scss/**/*.{scss}', gulp.series('sass','index'));
+	gulp.watch('src/index.html', gulp.series('index','sass'));
 };

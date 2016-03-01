@@ -3,10 +3,6 @@
 module.exports = (gulp, $) => {
 	return () => {
 		return $.merge2(
-			gulp.src('src/app/views/**/*.html')
-				.pipe($.if($.env.isProd, $.htmlmin({collapseWhitespace: true})))
-				.pipe(gulp.dest('build/html/views/')),
-
 			gulp.src('src/app/controllers/**/*.js')
 				.pipe($.if($.env.isProd, $.stripComments()))
 				.pipe($.babel())
@@ -37,29 +33,9 @@ module.exports = (gulp, $) => {
 			gulp.src('src/app/app.js')
 				.pipe($.if($.env.isProd, $.stripComments()))
 				.pipe($.babel())
-				.pipe(gulp.dest('build/js/')),
-
-			gulp.src('src/img/**/*')
-				.pipe($.if($.env.isProd,$.imagemin({
-					progressive: true,
-					svgo$: [{removeViewBox: false}],
-					use: [$.pngquant()]
-				})))
-				.pipe(gulp.dest('build/img')),
-
-			gulp.src('src/app/languages/*')
-				.pipe(gulp.dest('build/languages/')),
-
-			gulp.src('node_modules/font-awesome/fonts/**/*')
-				.pipe(gulp.dest('build/fonts')),
-
-			gulp.src('node_modules/bootstrap/dist/fonts/**/*')
-				.pipe(gulp.dest('build/fonts')),
-
-			gulp.src('node_modules/bootstrap/dist/img/**/*')
-				.pipe(gulp.dest('build/libs/node_modules/bootstrap/dist/img'))
+				.pipe(gulp.dest('build/js/'))
 		)
-		.pipe($.size({title: 'copy all assets'}))
+		.pipe($.size({title: 'copy js assets'}))
 		.pipe($.connect.reload());
 	}
 }

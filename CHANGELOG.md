@@ -1,3 +1,26 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/maxime1992/web-template/compare/2.0.0...v2.1.0) (2016-03-01)
+
+
+### Bug Fixes
+
+* Gulp open browser should go on http://localhost:8080/index.html ([22000ec](https://github.com/maxime1992/web-template/commit/22000ec)), closes [#45](https://github.com/maxime1992/web-template/issues/45)
+* Web-workers are broken by uglify ([db1328c](https://github.com/maxime1992/web-template/commit/db1328c)), closes [#51](https://github.com/maxime1992/web-template/issues/51)
+* split assets tasks and repair livereload ([acea639](https://github.com/maxime1992/web-template/commit/acea639))
+
+### Features
+
+* Add issues and PR templates for github ([f23c60b](https://github.com/maxime1992/web-template/commit/f23c60b))
+* Add plato to analyse the code complexity ([4177b26](https://github.com/maxime1992/web-template/commit/4177b26))
+* Add sourcemaps for the js files ([2d5086e](https://github.com/maxime1992/web-template/commit/2d5086e))
+* Add web-workers demo ([6fe3ab4](https://github.com/maxime1992/web-template/commit/6fe3ab4))
+* Add workflow releases with parameters ([3fa1fff](https://github.com/maxime1992/web-template/commit/3fa1fff))
+* Delete the PR template ([44e9b53](https://github.com/maxime1992/web-template/commit/44e9b53))
+* Gulp task to deploy gh-pages ([ae21dc2](https://github.com/maxime1992/web-template/commit/ae21dc2)), closes [#39](https://github.com/maxime1992/web-template/issues/39)
+* Set PORT ENV for the doc server + install the openbrowser" ([812b8b7](https://github.com/maxime1992/web-template/commit/812b8b7)), closes [maxime1992/web-template#44](https://github.com/maxime1992/web-template/issues/44)
+
+
+
 <a name="2.0.0"></a>
 # 2.0.0 (2016-02-27)
 

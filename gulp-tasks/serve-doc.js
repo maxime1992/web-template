@@ -2,10 +2,11 @@
 
 module.exports = (gulp, $) => {
 	return () => {
+		$.opn(`http://localhost:${$.env.PORT}/index.html`);
 		return $.connect.server({
 			root: 'docs',
-			livereload: true,
-			port: 8181
+			livereload: false,
+			port: $.env.PORT
 		});
 	}
 }

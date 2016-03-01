@@ -16,6 +16,7 @@
     "angular-ui-router-anim-in-out": "1.0.2",
     "bootstrap": "3.3.6",
     "font-awesome": "4.5.0",
+    "ng-webworker": "github:mattslocum/ng-webworker",
     "rx": "4.0.8",
     "rx-angular": "1.1.3"
   },

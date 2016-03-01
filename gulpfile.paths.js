@@ -15,6 +15,7 @@ let baseLibsJs = [
 	'node_modules/angular-animate/angular-animate.min.js',
 	'node_modules/angular-ui-router-anim-in-out/anim-in-out.js',
 	'node_modules/rx-angular/dist/rx.angular.min.js',
+	'node_modules/ng-webworker/src/ng-webworker.min.js',
 
 	// angular : app
 	'js/app.js',
@@ -30,6 +31,7 @@ let baseLibsJs = [
 	'js/controllers/generalController.js',
 	'js/controllers/rxjs1Controller.js',
 	'js/controllers/rxjs2Controller.js',
+	'js/controllers/webWorkerController.js',
 
 	// angular : filters
 	'js/filters/rxjsFilter.js'

@@ -1,17 +1,15 @@
 'use strict';
 
-module.exports = (gulp, $) => {
-	return (cb) => {
-		let files = [
-		  'build/**/*.js',
-		];
+module.exports = (gulp, $) => (cb) => {
+	let files = [
+		'build/js/**/*.js',
+	];
 
-		let outputDir = 'complexity_report';
+	let outputDir = 'complexity_report';
 
-		let options = {
-		  title: 'Report'
-		};
+	let options = {
+		title: 'Report'
+	};
 
-		return $.plato.inspect(files, outputDir, options, cb());
-	}
+	$.plato.inspect(files, outputDir, options, cb());
 }

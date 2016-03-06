@@ -1,7 +1,5 @@
 'use strict';
 
-module.exports = (gulp, $) => {
-	return () => {
-		return $.del(['build', 'docs', 'coverage', '.publish', 'complexity_report']);
-	}
+module.exports = (gulp, $) => () => {
+	return $.del(['build', 'docs', 'coverage', '.publish', 'complexity_report']);
 }

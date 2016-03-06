@@ -8,7 +8,6 @@
 	app.controller('generalController', ($scope, $location, $state, $translate, langFactory) => {
 		$scope.$on('$stateChangeStart', (event, toState, toParams) => {
 			$translate.use(toParams.lang);
-
 			langFactory.setLang(toParams.lang);
 		});
 
@@ -20,9 +19,7 @@
 		* Return the location url of the open tab .
 		* @returns {Object} return the location path of the active tab
 		*/
-		$scope.isActive = (viewLocation) => {
-			return $location.path().indexOf(viewLocation) > -1;
-		};
+		$scope.isActive = (viewLocation) => $location.path().indexOf(viewLocation) > -1;
 
 		/**
 		* @ngdoc method
@@ -50,8 +47,6 @@
 		* Get the language
 		* @returns {string} lang
 		*/
-		$scope.getLanguage = () => {
-			return $translate.use();
-		};
+		$scope.getLanguage = () => $translate.use();
 	});
 })();

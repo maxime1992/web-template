@@ -35,3 +35,4 @@
 		$scope.addUser = () => rxjsFactory.addUser();
 	});
 })();
+

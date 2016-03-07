@@ -5,4 +5,3 @@ module.exports = (gulp, $) => () =>
 		.pipe(gulp.dest('build/languages/'))
 		.pipe($.size({title: 'copy json assets'}))
 		.pipe($.connect.reload());
-	

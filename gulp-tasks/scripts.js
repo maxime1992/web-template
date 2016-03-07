@@ -39,3 +39,4 @@ module.exports = (gulp, $) => () => {
 		.pipe($.if($.env.isProd, $.rev()))
 		.pipe($.if($.env.isProd, gulp.dest('build/libs')));
 }
+

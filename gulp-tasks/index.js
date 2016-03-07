@@ -31,5 +31,5 @@ module.exports = (gulp, $) => () => {
 		.pipe($.if($.env.isProd,$.notify('Production Build Done')))
 		.pipe(gulp.dest('build'))
 		.pipe($.connect.reload());
-	
 }
+

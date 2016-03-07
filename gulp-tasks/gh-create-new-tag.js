@@ -15,3 +15,4 @@ module.exports = (gulp, $) => (cb) => {
 		return JSON.parse($.fs.readFileSync('./package.json', 'utf8')).version;
 	};
 }
+

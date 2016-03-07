@@ -14,3 +14,4 @@ module.exports = (gulp, $) => () => {
 		message: 'You should use only --minor or --major or --patch parameters'
 	});
 }
+

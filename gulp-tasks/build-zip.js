@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = (gulp, $) => () => {
-	if($.fs.existsSync(`${__dirname}/../build}`)) {
-		let name = require(`${__dirname}/../package.json}`).name;
-		let version = require(`${__dirname}/../package.json}`).version;
+	if($.fs.existsSync($.path.join(__dirname, '..', 'build'))) {
+		let name = require($.path.join(__dirname, '..', 'package.json')).name;
+		let version = require($.path.join(__dirname, '..', 'package.json')).version;
 
 		let buildDate = new Date();
 		let yyyy = buildDate.getFullYear();
@@ -24,3 +24,4 @@ module.exports = (gulp, $) => () => {
 		message: 'Build directory is empty, you should start gulp build'
 	});
 }
+

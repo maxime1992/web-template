@@ -50,3 +50,4 @@
 		$scope.getLanguage = () => $translate.use();
 	});
 })();
+

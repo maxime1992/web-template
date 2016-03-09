@@ -56,7 +56,7 @@ let tasks = [
 	'assets-js',
 	'assets-img',
 	'assets-json',
-	'tests',
+	'unit',
 	'xo',
 	'gh-release',
 	'gh-bump-version',

@@ -14,11 +14,12 @@ I propose a configuration but of course, you can customize it.
 - [Sass](http://sass-lang.com/)
 - [Ngdocs](https://github.com/nikhilmodak/gulp-ngdocs)
 - [Karma](http://karma-runner.github.io/)
+- [Protractor](http://www.protractortest.org/)
 
 ## Workflow Features
 - **Gulp** fully automated workflow
 - **Development** and **production** environment targets
-- **Unit test** samples
+- **Unit** and **E2E** test samples
 - **Coverage** to know if your code is tested enough
 - **Sass** linting, sourcemaps minify and concat
 - **ngDocs** documentation generator for AngularJS
@@ -60,8 +61,9 @@ $ npm run dev
 - `$ gulp serve-doc`: Start web-server and live-reload to read the documentation
 - `$ gulp build`: Create distribution package for the development environment
 - `$ gulp build --production`: Create distribution package for the production environment
-- `$ gulp serve`: Start web-server and live-reload
-- `$ gulp tests`: Execute unit tests with Karma
+- `$ gulp serve`: Start web-server and live-reload. Use the argument `--PORT=XXXX` to set manually the PORT
+- `$ gulp unit`: Execute unit tests with Karma
+- `$ gulp e2e`: Execute e2e tests with Protractor. Use the argument `--PORT=XXXX` to set manually the PORT
 - `$ gulp plato`: Build a static analysis and complexity report
 - `$ gulp xo`: Lint Javascript code
 - `$ gulp release`: Automate release workflow
@@ -77,7 +79,7 @@ $ npm run dev
 - `$ npm run prod` is equivalent to `$ gulp build --production`
 
 #### Test:
-- `$ npm run test` is equivalent to `$ gulp tests`
+- `$ npm run test` is equivalent to `$ gulp unit && gulp e2e`
 
 #### Documentation:
 - `$ npm run doc` is equivalent to `$ gulp build-doc && gulp serve-doc`
@@ -88,7 +90,7 @@ Change Log
 This project generates the CHANGELOG.md from Git metadata using the conventional-changelog library. The commit message must follow the Angular conventions.
 
 # Quick custom
-Before you really start your own projet, I recommend you to search for "CUSTOM" occurrences in the project.
+Before you really start your own project, I recommend you to search for "CUSTOM" occurrences in the project.
 Everything with CUSTOM is something you may want to change.
 
 # Contribution

@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = (gulp, $) => (done) => 
+module.exports = (gulp, $) => (done) =>
 	$.Server.start({
 		configFile: `${__dirname}/../karma.conf.js`,
 		singleRun: true
-	}, () => {
-		done();
+	}, (exitCode) => {
+		done(exitCode);
 	});

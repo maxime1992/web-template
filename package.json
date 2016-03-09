@@ -3,6 +3,10 @@
   "version": "2.1.0",
   "description": "WebTemplate",
   "main": "Gulpfile.js",
+  "engines": {
+    "node": ">= 5.0.0",
+    "npm": ">= 3.0.0"
+  },
   "dependencies": {
     "angular": "1.5.0",
     "angular-animate": "1.5.0",
@@ -102,6 +106,7 @@
     "gulp-notify": "2.2.0",
     "gulp-plumber": "1.1.0",
     "gulp-preprocess": "2.0.0",
+    "gulp-protractor": "2.1.0",
     "gulp-rename": "1.2.2",
     "gulp-replace": "0.5.4",
     "gulp-rev": "7.0.0",

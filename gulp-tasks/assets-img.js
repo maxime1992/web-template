@@ -15,4 +15,3 @@ module.exports = (gulp, $) => () =>
 	)
 	.pipe($.size({title: 'copy img assets'}))
 	.pipe($.connect.reload());
-

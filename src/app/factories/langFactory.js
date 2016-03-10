@@ -17,9 +17,7 @@
 			* @methodOf app.langFactory
 			* @returns {string} The lang selected
 			*/
-			getLang: () => {
-				return this.lang;
-			},
+			getLang: () => this.lang,
 
 			/**
 			* @ngdoc method
@@ -34,3 +32,4 @@
 		};
 	});
 })();
+

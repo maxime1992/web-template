@@ -1,7 +1,10 @@
 (() => {
 	app.filter('rxjsFilter', () => {
-		return (input) => {
-			return input.map(i => { i.name = i.name.toUpperCase(); return i; });
-		};
+		return (input) =>
+			input.map(i => {
+				i.name = i.name.toUpperCase();
+				return i;
+			});
 	});
 })();
+

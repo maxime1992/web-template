@@ -56,7 +56,7 @@ let tasks = [
 	'assets-js',
 	'assets-img',
 	'assets-json',
-	'tests',
+	'unit',
 	'xo',
 	'gh-release',
 	'gh-bump-version',
@@ -72,7 +72,8 @@ let tasks = [
 	'livereload',
 	'build-doc',
 	'serve-doc',
-	'gzip'
+	'gzip',
+	'protractor'
 ];
 
 tasks.map(runTask);
@@ -80,6 +81,8 @@ tasks.map(runTask);
 gulp.task('build', gulp.series('clean', gulp.parallel('assets-html','assets-js','assets-json','assets-img'), gulp.parallel('sass', 'scripts'), 'index', 'clean-js', 'gzip'));
 
 gulp.task('serve', gulp.series(gulp.parallel(watch,'livereload','open-browser')));
+
+gulp.task('e2e', gulp.series('protractor'));
 
 gulp.task('release', gulp.series(
 		'gh-bump-version',

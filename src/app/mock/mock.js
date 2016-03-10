@@ -9,3 +9,4 @@
 		$httpBackend.whenGET(/\/views\//).passThrough();
 	});
 })();
+

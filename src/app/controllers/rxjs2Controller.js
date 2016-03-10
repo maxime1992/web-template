@@ -14,9 +14,7 @@
 		* The controller subscribes at the emit signal from the rxjsFactory.
 		* If users changes, so $scope.users will be update
 		*/
-		rxjsFactory.rxjsFactory$.subscribe((users) => {
-			$scope.users = users;
-		});
+		rxjsFactory.rxjsFactory$.subscribe((users) => $scope.users = users);
 
 		/**
 		* @ngdoc method
@@ -34,8 +32,7 @@
 		* @description
 		* Add a user
 		*/
-		$scope.addUser = () => {
-			rxjsFactory.addUser();
-		};
+		$scope.addUser = () => rxjsFactory.addUser();
 	});
 })();
+

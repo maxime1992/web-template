@@ -3,7 +3,7 @@ module.exports = function(config) {
     browsers: ['PhantomJS'],
     frameworks: ['jasmine'],
     files: [
-      'src/app/**/*.spec.js'
+      'build/js/**/*.spec.js'
     ],
 
     // coverage reporter generates the coverage

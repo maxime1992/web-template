@@ -11,7 +11,7 @@
 		// function that will become a worker
 		function fibonacci(n) {
 			return n < 2 ? 1 : fibonacci(n - 1) + fibonacci(n - 2);
-		};
+		}
 
 		// with web-workers
 		$scope.secFibWithWW = -1;
@@ -61,8 +61,9 @@
 			$timeout(() => {
 				$scope.rsltFibWithoutWW = fibonacci($scope.fibonacciIndex);
 
-				$scope.secFibWithoutWW = Math.ceil((Date.now() - secFibWithoutWW)/1000);
+				$scope.secFibWithoutWW = Math.ceil((Date.now() - secFibWithoutWW) / 1000);
 			}, 100);
 		};
 	});
 })();
+

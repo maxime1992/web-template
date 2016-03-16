@@ -16,7 +16,7 @@ module.exports = (gulp, $) => () => {
 
 	return gulp.src('src/index.html')
 		.pipe($.inject(source, {addRootSlash: false, ignorePath: 'build'}))
-		.pipe($.preprocess({context: $.env}))
+		.pipe($.preprocess({context: $.env.NODE_ENV}))
 		.pipe($.if($.env.isProd,
 			$.critical({
 				inline: true,

@@ -47,4 +47,3 @@ module.exports = (gulp, $) => () =>
 			.pipe(gulp.dest('build/js/'))
 	)
 	.pipe($.size({title: 'copy js assets'}))
-	.pipe($.connect.reload());

@@ -13,4 +13,4 @@ module.exports = (gulp, $) => () =>
 			.pipe(gulp.dest('build/fonts'))
 	)
 	.pipe($.size({title: 'copy html assets'}))
-	.pipe($.connect.reload());
+	

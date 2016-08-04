@@ -47,6 +47,7 @@ function runTask(task) {
 };
 
 let tasks = [
+	'reload-files',
 	'plato',
 	'sass',
 	'build-zip',
@@ -94,10 +95,9 @@ gulp.task('release', gulp.series(
 ));
 
 function watch() {
-	gulp.watch('src/**/*.{js}', gulp.series('assets-js','index'));
-	gulp.watch('src/**/*.{png,jpg}', gulp.series('assets-img'));
-	gulp.watch('src/app/**/*.{html}', gulp.series('assets-js', 'assets-html', 'sass'));
-	gulp.watch('src/**/*.{json}', gulp.series('assets-json'));
-	gulp.watch('src/scss/**/*.{scss}', gulp.series('sass','index'));
-	gulp.watch('src/index.html', gulp.series('index','sass'));
+	gulp.watch('src/**/*.{js}', gulp.series('assets-js', 'index', 'reload-files'));
+	gulp.watch('src/**/*.{png,jpg}', gulp.series('assets-img', 'reload-files'));
+	gulp.watch('src/**/*.{html}', gulp.series('assets-html', 'index', 'reload-files'));
+	gulp.watch('src/**/*.{json}', gulp.series('assets-json', 'reload-files'));
+	gulp.watch('src/scss/**/*.{scss}', gulp.series('sass', 'index'));
 };

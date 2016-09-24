@@ -1,3 +1,6 @@
+**[DEPRECATED] Web-Template is now deprecated and you should rather use [web-template-webpack](https://github.com/kevincaradant/web-template-webpack) which has a better ES6 syntax with support for classes and import statement thanks to webpack.**  
+You can also find 2 branches within this project, one with angular-material setup and another one with angular-material + ng-redux.
+
 Web-Template
 ===================
 
